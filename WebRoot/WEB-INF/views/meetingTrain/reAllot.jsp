@@ -1,7 +1,8 @@
 ﻿<%@page contentType="text/html; charset=UTF-8"%>
 <%@include file="../include.jsp"%>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <title>会议通知管理系统</title>
 <meta Http-equiv="content-type" Content="text/html; Charset=UTF-8">
@@ -109,31 +110,48 @@ using(['dialog','form','validatebox'],function(){
 			<div style="height:auto; text-align: center;margin: 0 auto;">
 				<table class="dtable" align="center" cellpadding="1" cellspacing="1">
 					<tr>
-						<th width="10%" align="center">日期</th>
-						<th width="18%" align="center">会议名称</th>
-						<th width="10%" align="center">公司领导</th>
-						<th width="12%" align="center">参加单位/部门/人员</th>
-						<th width="15%" align="center">有关说明</th>
-						<th width="12" align="center">预定培训教室</th>
-						<th width="12" align="center">分配培训教室</th>
-						<th width="10%" align="center">申请部门<br />日期</th>
-						<th width="4%" align="center">操作</th>
+					<th width="10%" align="center">日期</th>
+					<th width="10%" align="center">课程名称</th>
+					<th width="5%" align="center">教员</th>
+					<th width="15%" align="center">参加单位/人员</th>
+					<th width="10%" align="center">有关说明</th>
+					<th width="10%" align="center">预定教室</th>
+					<th width="10%" align="center">分配教室</th>
+					<th width="10%" align="center">状态</th>
+					<th width="15%" align="center">申请部门<br />日期</th>
+					<th width="5%" align="center">操作</th>
 					</tr>
-					<c:forEach items="${meetings }" var="m">
+					<c:forEach items="${meetings }" var="mp">
 						<tr>
-							<TD  align="center"><fmt:formatDate value="${m.starttime }" pattern="E" /><br/><fmt:formatDate value="${m.starttime }" pattern="yyyy-MM-dd HH:mm" /><br/><fmt:formatDate value="${m.endtime }" pattern="yyyy-MM-dd HH:mm" /></TD>
-							<TD  align="center">${m.content }</TD>
-							<TD  align="center">${m.leader }</TD>
-							<TD  align="center">${m.depart }<br />${m.fdepart}</TD>
-							<TD  align="center">${m.remark }</TD>
-							<td  align="center">${m.reserve_address }</td>
-							<td  align="center">${m.address1 }</td>
-							<TD  align="center">${m.commitdepart }<br />
-								<fmt:formatDate value="${m.committime }" pattern="yyyy-MM-dd HH:mm" />
-							</TD>
+							<td width="10%" align="center">${mp.id }<fmt:formatDate
+								value="${mp.starttime }" pattern="E" /><br /> <fmt:formatDate
+								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" /><br />
+							<fmt:formatDate value="${mp.endtime }"
+								pattern="yyyy-MM-dd HH:mm" /></td>
+						<td width="10%" align="center">${mp.content }</td>
+						<td width="5%" align="center">${mp.presider }</td>
+						<td width="15%" align="center">${mp.depart }</td>
+						<td width="10%" align="center">${mp.remark }</td>
+						<td width="10%" align="center">${mp.reserve_address }</td>
+						<td width="10%" align="center">${mp.address1 }</td>
+						<td width="10%" align="center"><c:if
+								test="${mp.status =='0' }">
+								<font color="">未处理</font>
+							</c:if> <c:if test="${mp.status =='1' }">
+								<font color="green">已审批</font>
+							</c:if> <c:if test="${mp.status =='2' }">
+								<font color="red">拒批</font>
+							</c:if> <c:if test="${mp.status =='3' }">
+								<font color="">已安排会议室</font>
+							</c:if> <c:if test="${mp.status =='4' }">
+								<font color="">退回</font>
+							</c:if></td>
+						<td width="15%" align="center">${mp.commitdepart }<br />
+							<fmt:formatDate value="${mp.committime }"
+								pattern="yyyy-MM-dd HH:mm" /></td>
 							<TD  align="center">
-								<input class="btn" type="button" id="at_${m.id }_${m.roomid}" value="${btn }">
-								<input class="btn" type="button" id="bk_${m.id }" value="退回" >
+								<input class="btn" type="button" id="at_${mp.id }_${mp.roomid}" value="${btn }">
+								<input class="btn" type="button" id="bk_${mp.id }" value="退回" >
 							</TD>
 						</tr>
 					</c:forEach>

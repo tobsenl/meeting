@@ -1,6 +1,8 @@
 ﻿<%@page pageEncoding="utf-8" language="java" contentType="text/html; charset=utf-8"%>
 <%@include file="../include.jsp"%>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <title>会议通知管理系统</title>
 <link Href="<%=basePath%>style/new.css" Rel="stylesheet" Type="text/css">
@@ -12,7 +14,7 @@
 		<jsp:include page="/index/top.jsp" />
 		<div>
 			<form id="form1" action="MeetingRoomServlet" method="post">
-				<label for="building">所在楼:</label> <input id="building" name="_building" type="text"
+				<label for="building">培训地点:</label> <input id="building" name="_building" type="text"
 					value="${building }" size="35"> &nbsp;&nbsp; <label for="room">房间号:</label> <input
 					id="room" name="_room" type="text" value="${room }" size="35"> &nbsp;&nbsp; <input
 					style="COLOR: #44606B; background-color: #FFFFFF" type="submit" value="搜索">

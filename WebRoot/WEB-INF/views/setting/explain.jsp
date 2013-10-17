@@ -1,7 +1,8 @@
 ﻿<%@page contentType="text/html; charset=UTF-8"%>
 <%@include file="../include.jsp" %>
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <title>会议通知管理系统</title>
 <link Href="<%=path %>/style/new.css" Rel="stylesheet" Type="text/css">
@@ -174,15 +175,9 @@ function expan(obj,id){
 </script>
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-	<table width="870" border="0" align=center cellpadding=0 cellspacing=0
-		background="images/topbg.gif" bgcolor=#ffffff>
-		<tr>
-			<td width="31%" rowspan="2"><img src="images/logo.gif"
-				width="210" height="110"></td>
-			<td width="69%" height="80">&nbsp;</td>
-		</tr>
-	</table>
-	<div align="center">
+	<div class="container" style="position: relative;">
+		<jsp:include page="/index/top.jsp" />
+			<div align="center">
 		<center>
 			<table width="870" height="77%" border="0" cellpadding="0" id="data"
 				cellspacing="0" bgcolor="#ffffff" style="table-layout: fixed">
@@ -306,6 +301,8 @@ function expan(obj,id){
 				<input id="parentid" name="parentid" type="hidden"/>
 		</form>
 	</div>
+		</div>
+	<jsp:include page="/index/bottom.jsp" />
 	<div id="dialog-message" title="提示">
 		<p align="center" style="text-align: center; ">
 			<span class="ui-icon ui-icon-circle-check" style="float:left; margin:20px 7px 20px 0;"></span>
@@ -313,5 +310,6 @@ function expan(obj,id){
 		<p id="msg" align="center" style="text-align: center;margin:26px 7px 20px 0;">
 		</p>
 	</div>
+	
 </body>
 </html>

@@ -55,6 +55,22 @@ public class MeetingRoomDao {
         }
         return null;
     }
+    /**
+     * 
+     * 获取培训教室跟会议室的列表
+     */
+    public List<MeetingRoom> getMeetingAllRoom() {
+	QueryRunner qr = DbHelper.getIntrawebQueryRunner();
+	String sql = "select id,building,room,capacity,remark from meetingroom where deleted='0' order by building,capacity";
+	try {
+	    List<MeetingRoom> list = (List<MeetingRoom>) qr.query(sql, new BeanListHandler<MeetingRoom>(
+		    MeetingRoom.class));
+	    return list;
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+	return null;
+    }
 
     /**
      * 获取所有培训教室

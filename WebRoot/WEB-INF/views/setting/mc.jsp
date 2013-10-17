@@ -1,7 +1,8 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@include file="../include.jsp" %>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <title>会议通知管理系统</title>
 <meta Http-equiv="content-type" Content="text/html; Charset=UTF-8">
@@ -91,8 +92,10 @@
 	}
 </script>
 </head>
-<body Leftmargin="0" Topmargin="0" Marginwidth="0" Marginheight="0">
-	<div id="dialog-form" title="固定称谓/外来单位">
+<body Leftmargin="0" Topmargin="0" Marginwidth="0" Marginheight="0" style="width: 100%;position: relative;">
+<div class="container" style="position: relative;">
+		<jsp:include page="/index/top.jsp" />
+	<div id="dialog-form" title="固定称谓/外来单位" >
 		<p class="validateTips"></p>
 		<form id="form1" name="form1" action="MeetingCommonServlet" method="post">
 			<fieldset>
@@ -109,14 +112,6 @@
 			</fieldset>
 		</form>
 	</div>
-	<table Width="870" Border=0 Align=center Cellpadding=0 Cellspacing=0
-		Background="images/topbg.gif" Bgcolor=#ffffff>
-		<tr>
-			<td Width="31%" Rowspan="2"><img Src="images/logo.gif"
-				width="210" height="110"></td>
-			<td Width="69%" Height="80">&nbsp;</td>
-		</tr>
-	</table>
 	<div align="center">
 		<center>
 			<table Width="870" Height="77%" Border="0" Cellpadding="0" id="data"
@@ -173,5 +168,7 @@
 			</table>
 		</center>
 	</div>
+		</div>
+	<jsp:include page="/index/bottom.jsp" />
 </body>
 </html>

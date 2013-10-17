@@ -1,7 +1,7 @@
 ﻿<%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%@include file="../include.jsp"%>
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>会议通知管理系统</title>
 <meta http-equiv="content-type" content="text/html; Charset=UTF-8">
@@ -211,13 +211,16 @@
 								is_commit = true;
 							}
 							else if (data == "1") {
-								is_commit = confirm("此会议室 在该时间段已存在 会议申请! 确认继续提交按是？");
+								is_commit = false;
+									alert("此会议室 在该时间段已存在 会议申请!请重新选择会议室！");
 							}
 							else if (data == "2") {
-								is_commit = confirm("此会议室 在该时间段已存在 会议安排! 确认继续提交按是？");
+								is_commit = false;
+									alert("此会议室 在该时间段已存在 会议安排!请重新选择会议室！ ");
 							}
 							else if (data == "3") {
-								is_commit = confirm("此会议室 在该时间段已存在 会议安排和会议申请! 确认继续提交？");
+								is_commit = false;
+									alert("此会议室 在该时间段已存在 会议安排和会议申请! 请重新选择会议室！");
 								
 							}
 					});
@@ -296,11 +299,11 @@
 	}
 </script>
 </head>
-<body>
-	<div class="container">
+<body style="position: relative;">
+	<div class="container" style="position: relative;">
 		<jsp:include page="/index/top.jsp" />
 		<form id="form1" name="timeForm" method="post">
-			<div style="width: 950px; height: auto; text-align: center; margin: 0 auto;">
+			<div style="width: 950px; height: auto; text-align: center; margin: 0 auto;position: relative;">
 				<dl class="dl-table">
 					<dt>会议类型：</dt>
 					<dd>

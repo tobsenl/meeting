@@ -16,4 +16,5 @@
 		<font size="5"><b>${title }</b></font>
 	</p>
 	<br />
+	<div style="clear: both;"></div>
 </div>

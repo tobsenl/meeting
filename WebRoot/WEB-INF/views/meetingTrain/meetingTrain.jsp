@@ -1,7 +1,8 @@
 ﻿<%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%@include file="../include.jsp"%>
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <title>会议通知管理系统</title>
 <meta http-equiv="content-type" content="text/html; Charset=UTF-8">
@@ -130,7 +131,7 @@ using(['form','validatebox'],function(){
 		          }
 			});
 		});
-		$( document).on("click","#zz",function(){
+		/*$( document).on("click","#zz",function(){
 			$(this).tooltip({
 				 content: $('<div></div>'),
 		            showEvent: 'click',
@@ -149,7 +150,7 @@ using(['form','validatebox'],function(){
 		                });
 		          }
 			});
-		});
+		});*/
 	});
 });
 function setV(va){
@@ -234,7 +235,7 @@ function setV(va){
 										<c:if test="${mr.id == meeting.roomid || mr.id == meeting.reserve_roomid}">selected="selected"</c:if>>${mr.building
 										}${mr.room }</option>
 								</c:forEach>
-							</select> <a href="javascript:void(0);" id="zz">点击显示详细</a>
+							</select> <!-- <a href="javascript:void(0);" id="zz">点击显示详细</a> -->
 						</div>
 						<div id="tr"
 							<c:if test="${meeting.flow == '1' }">style="display: none;"</c:if>>

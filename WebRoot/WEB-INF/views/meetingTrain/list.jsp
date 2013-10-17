@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include.jsp" %>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<%=path%>/style/new.css" rel="stylesheet" type="text/css">
@@ -15,11 +16,11 @@
 <body>
 	<div class="container">
 		<jsp:include page="/index/top.jsp"></jsp:include>
-		<div>
+		<div style="height: auto; text-align: center; margin: 0 auto;">
 			<form id="form1" action="MeetingTrainingServlet" method="post">
-				<label for="roomID">会议室:</label> 
+				<label for="roomID">培训教室:</label> 
 				<select name="_roomID" style="width:260px;">
-					<option value="">请选择会议室</option>
+					<option value="">请选择培训教室</option>
 					<c:forEach items="${mrs }" var="mr">
 						<option value="${mr.id }">${mr.building }${mr.room }</option>
 					</c:forEach>
@@ -62,8 +63,8 @@
 			</form>
 			<br style="clear"/>
 		</div>
-		<div style="text-align: center;margin: 0 auto;">
-			<table class="dtable" align="center" cellspacing="1">
+		<div style="height: auto; text-align: center; margin: 0 auto; padding-left: 5%;width: 95%;">
+			<table class="dtable" cellpadding="1" cellspacing="1">
 				<tr>
 					<th width="15%" align="center">日期</th>
 					<th width="10%" align="center">课程名称</th>
@@ -78,14 +79,14 @@
 				</tr>
 				<c:forEach items="${meetings }" var="mp">
 					<tr>
-						<td width="10%" align="center"><fmt:formatDate
+						<td width="15%" align="center"><fmt:formatDate
 								value="${mp.starttime }" pattern="E" /><br /> <fmt:formatDate
 								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" /><br />
 							<fmt:formatDate value="${mp.endtime }"
 								pattern="yyyy-MM-dd HH:mm" /></td>
 						<td width="10%" align="center">${mp.content }</td>
 						<td width="5%" align="center">${mp.presider }</td>
-						<td width="10%" align="center">${mp.depart }</td>
+						<td width="15%" align="center">${mp.depart }</td>
 						<td width="10%" align="center">${mp.remark }</td>
 						<td width="10%" align="center">${mp.reserve_address }</td>
 						<td width="10%" align="center">${mp.address1 }</td>
@@ -113,13 +114,14 @@
 					</tr>
 				</c:forEach>
 				<tr>
-					<td align="right" colspan="11">${tag }</td>
+					<td align="right" height="20px" colspan="11">${tag }</td>
 				</tr>
 			</table>
 			<br class="clear"/>
 			<br class="clear"/>
 		</div>
 	</div>
+	<br class="clear"/>
 	<jsp:include page="/index/bottom.jsp"/>
 </body>
 </html>

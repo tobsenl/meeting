@@ -44,14 +44,14 @@ $(document).ready(function(){
 		if(temp != "ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-accordion-header-active ui-state-active ui-corner-top"){
 		$(this).attr("class","ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all ui-state-hover");
 		}
-	})
+	});
 	//鼠标移开事件 如果已经点开.则不变.如果为点开修改
 	$("#accordion1 h3,#accordion2 h3,#accordion3 h3").mouseout(function(e){
 		var temp=$(this).attr("class");
 		if(temp != "ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-accordion-header-active ui-state-active ui-corner-top"){
 			$(this).attr("class","ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all");
 		}
-	})
+	});
 	//title点击事件 修改title 下拉框标记 以及显示列表框
 	$("#accordion1 h3,#accordion2 h3,#accordion3 h3").click(function(e){
 		var temp=$(this).attr("class");
@@ -74,12 +74,12 @@ $(document).ready(function(){
 				$(this).next().removeAttr("style");
 			}
 		}
-	})
+	});
 	}
-)
+);
 </script>
 </head>
-<body style="overflow: scroll;overflow-x:hidden;display: ">
+<body style="overflow: scroll;overflow-x:hidden;position: relative;">
 	<div style="width:98%;">
 		<h3>&nbsp;&nbsp;会议信息</h3>
 		<div id="accordion1"
@@ -174,15 +174,15 @@ $(document).ready(function(){
 			</ul>
 			<h3>
 				<a href="<%=basePath%>MeetingTrainingServlet?ctrl=approve"
-					>培训审批</a>
+					>培训通知审批</a>
 			</h3>
 			<h3>
 				<a href="<%=basePath%>MeetingTrainingServlet?ctrl=toReAllot"
 					>培训教室调配</a>
 			</h3>
 			<h3>
-				<a href="<%=basePath%>MeetingTrainingServlet?ctrl=toQuery"
-					>培训通知查询</a>
+			<!--href="<%=basePath%>MeetingTrainingServlet?ctrl=toQuery"-->
+				<a href="<%=basePath%>MeetingTrainingServlet?ctrl=toQuery">培训通知查询</a>
 			</h3>
 			<h3><span ></span>培训教室维护</h3>
 			<ul style="list-style: none;" >
@@ -210,13 +210,13 @@ $(document).ready(function(){
 					>有关说明项浏览</a></li>
 			</ul>
 		</div>
-	</div>
 	<div
-		style="height: 27px;width: 97%;margin-top: 2px;text-align: center;"
+		style="height: 27px;width: 98%;margin-top: 2px;text-align: center;"
 		class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons">
 		<a href="<%=basePath%>Logout" style="vertical-align: middle;"> <!-- <img src="images/quit.gif" alt="" border="0" height="20px;" /> -->
 			<font size="4"><b>退出</b></font>
 		</a>
+	</div>
 	</div>
 </body>
 </html>

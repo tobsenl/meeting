@@ -120,7 +120,7 @@ public class MeetingTrainingServlet extends BaseServlet {
         request.setAttribute("meetings", meetingDao.getMeeting(page, pfList).getResult());
         request.setAttribute("tag", page.getTag());
         request.setAttribute("orgs", jnpc.getAllORG());// 所有部门
-        List<MeetingRoom> mrs = meetingRoomDao.getMeetingRoom();
+        List<MeetingRoom> mrs = meetingRoomDao.getMeetingAllRoom();
         request.setAttribute("mrs", mrs);
         request.setAttribute("title", "培训通知查询");
         return BASE_JSP + "meetingTrain/list.jsp";

@@ -1,7 +1,7 @@
 ﻿<%@page contentType="text/html; charset=UTF-8"%>
 <%@include file="../include.jsp"%>
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>会议通知管理系统</title>
 <meta Name="generator" Content="Microsoft FrontPage 4.0">
