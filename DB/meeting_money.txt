@@ -1,0 +1,6 @@
+id	number			
+org	varchar2(8)	y		部门编码
+orgsort	number	y		部门排序
+orgname	varchar2(64)	y		部门名称
+year	number(4)	y		年
+money	number(10,2)	y		经费预算金额

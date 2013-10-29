@@ -1,0 +1,22 @@
+id	number(10)			
+starttime	date	y		会议开始时间
+endtime	date	y		会议结束时间
+content	varchar2(512)	y		会议内容
+leader	varchar2(300)	y		会议领导
+depart	varchar2(400)	y		参加会议部门
+remark	varchar2(500)	y		会议说明
+creattime	date	y	sysdate	会议申请提交时间
+commiterid	varchar2(8)	y		申请提交人id
+commitdepart	varchar2(30)	y		会议申请部门
+type	varchar2(1)	y		会议类型(1例会;2:内部会议;3外部会议;4:培训)
+presider	varchar2(50)	y		会议主持人
+grade	varchar2(1)	y		会议级别(1:综合会议;2:处内会议)
+category	number	y		1：通用；2：生产1-2号机组；3：扩建3-4号机组；4：扩建5-6号机组
+fdepart	varchar2(400)	y		参会上级/外单位及领导
+budget	number	y	0.00	会议预算费用
+contact	varchar2(64)	y		会议联系人
+address	varchar2(500)	y		
+contactphone	varchar2(16)	y		联系人电话
+reserve_roomid	number	y		预定会议室
+org	varchar2(8)	y		组织处室
+meetingid	number	y		正式会议id

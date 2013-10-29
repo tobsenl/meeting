@@ -1,0 +1,9 @@
+id	number			
+roomid	number			会议室id
+meetingid	number			会议id
+userid	varchar2(16)			员工编号
+org	varchar2(16)			部门
+starttime	date			开始时间
+endtime	date			结束时间
+status	number			状态:1.正常；2.用户取消
+creatdate	date		sysdate	创建时间

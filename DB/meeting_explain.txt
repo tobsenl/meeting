@@ -1,0 +1,6 @@
+id	number			
+name	varchar2(128)	y		
+style	number	y		1:复选框;2:文本框;3:下拉列表
+unit	varchar2(8)	y		
+parentid	number	y		
+display	number	y		0:隐藏;1:显示;
