@@ -360,12 +360,12 @@ public class MeetingDao {
         // 得到申请人所在的部门
         String commitDept = getOrg(userid);
         // 得到系统时间
-        m.setCommittime(DateUtil.stringToDate(DateUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss"), "yyyy-MM-dd HH:mm:ss"));
+        m.setCommittime(DateUtil.getTimestamp(null));
         m.setCommiterid(userid);
         m.setId("seq_meeting_id.nextval");
         m.setCommitdepart(commitDept);
         m.setStatus("0");
-        String startTime = DateUtil.dateToString(m.getStarttime(), "yyyy-MM-dd HH:mm:ss");
+        String startTime = m.getStarttime().toString();
         String endTime = DateUtil.dateToString(m.getEndtime(), "yyyy-MM-dd HH:mm:ss");
         String content = m.getContent();
         String commiterId = m.getCommiterid();

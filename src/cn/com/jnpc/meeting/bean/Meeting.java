@@ -1,19 +1,19 @@
 package cn.com.jnpc.meeting.bean;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Meeting implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
     private String            id;
     private String            roomid;
-    private Date              starttime;
-    private Date              endtime;
+    private Timestamp         starttime;
+    private Timestamp              endtime;
     private String            content;
     private String            leader;
     private String            depart;
     private String            remark;
-    private Date              committime;
+    private Timestamp              committime;
     private String            commiterid;
     private String            commitdepart;
     private String            approverid;
@@ -41,8 +41,8 @@ public class Meeting implements java.io.Serializable {
         super();
     }
 
-    public Meeting(String id, String roomid, Date starttime, Date endtime, String content, String leader,
-            String depart, String remark, Date committime, String commiterid, String commitdepart, String approverid,
+    public Meeting(String id, String roomid, Timestamp starttime, Timestamp endtime, String content, String leader,
+            String depart, String remark, Timestamp committime, String commiterid, String commitdepart, String approverid,
             String alloterid, String status, String type, String presider, String grade, String category,
             String fdepart, String budget, String actual_costs, String address, String contact, String contactphone,
             String reserve_roomid, String reserve_address, String org) {
@@ -76,7 +76,6 @@ public class Meeting implements java.io.Serializable {
         this.reserve_address = reserve_address;
         this.org = org;
     }
-
     public String getAddress1() {
 
         return address1;
@@ -107,22 +106,22 @@ public class Meeting implements java.io.Serializable {
         this.roomid = roomid;
     }
 
-    public Date getStarttime() {
+    public Timestamp getStarttime() {
 
         return starttime;
     }
 
-    public void setStarttime(Date starttime) {
+    public void setStarttime(Timestamp starttime) {
 
         this.starttime = starttime;
     }
 
-    public Date getEndtime() {
+    public Timestamp getEndtime() {
 
         return endtime;
     }
 
-    public void setEndtime(Date endtime) {
+    public void setEndtime(Timestamp endtime) {
 
         this.endtime = endtime;
     }
@@ -167,12 +166,12 @@ public class Meeting implements java.io.Serializable {
         this.remark = remark;
     }
 
-    public Date getCommittime() {
+    public Timestamp getCommittime() {
 
         return committime;
     }
 
-    public void setCommittime(Date committime) {
+    public void setCommittime(Timestamp committime) {
 
         this.committime = committime;
     }

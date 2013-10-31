@@ -1,5 +1,7 @@
 package cn.com.jnpc.utils;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -402,6 +404,16 @@ public final class DateUtil {
         return cal.getTime();
     }
 
+    public static Timestamp getTimestamp(String date){
+	Date timeDate = null;
+	if(date != null && date.equals("")){
+	    timeDate = stringToDate(date,"yyyy-MM-dd HH:mm:ss");
+	}else{
+	    timeDate = stringToDate(getCurrentDate("yyyy-MM-dd HH:mm:ss"), "yyyy-MM-dd HH:mm:ss");
+	}
+	Timestamp dateTime = new Timestamp(timeDate.getTime());// Timestamp类型,timeDate.getTime()返回一个long型  
+	return dateTime;
+    }
     public static void main(String[] args) {
         // System.out.println(getFullDateWeekTime("2013-01-06 09:00:00"));
 //		Date d = new Date();

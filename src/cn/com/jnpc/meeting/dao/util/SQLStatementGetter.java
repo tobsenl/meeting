@@ -3,6 +3,7 @@ package cn.com.jnpc.meeting.dao.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ public class SQLStatementGetter
                 Object colunmValue = smr.getMethodValue(colnumName);
                 if (colunmValue != null && !"".equals(colunmValue + ""))
                 {
-                    if (clazz == Date.class)
+                    if (clazz == Timestamp.class)
                     {
                         colunmValues.add("to_date('" + DateUtil.dateToString((Date)colunmValue, "yyyy-MM-dd HH:mm:ss")
                             + "','yyyy-mm-dd hh24:mi:ss')");
@@ -117,7 +118,7 @@ public class SQLStatementGetter
                     Object colunmValue = smr.getMethodValue(colnumName);
                     if (colunmValue != null)
                     {
-                        if (clazz == Date.class)
+                        if (clazz == Timestamp.class)
                         {
                             colunmValues.add("to_date('" + DateUtil.dateToString((Date)colunmValue, "yyyy-MM-dd HH:mm:ss")
                                 + "','yyyy-mm-dd hh24:mi:ss')");
@@ -179,7 +180,7 @@ public class SQLStatementGetter
         Meeting m = new Meeting();
         m.setId("123");
         m.setAddress("adfasf");
-        m.setStarttime(new Date());
+        m.setStarttime(DateUtil.getTimestamp(null));
         System.out.println(getInsertStatement(m, "meeting"));
         System.out.println(getUpdateStatement(m, "meeting", "id"));
         
