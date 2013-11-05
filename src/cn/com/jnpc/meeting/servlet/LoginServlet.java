@@ -59,11 +59,11 @@ public class LoginServlet extends HttpServlet {
         String passwd = request.getParameter("passwd");
         HttpSession session = request.getSession();
         String error = "";
-        String fromWhere = request.getParameter("return");
-        if (fromWhere != null && fromWhere.equals("1")) {
+//        String fromWhere = request.getParameter("return");
+//        if (fromWhere != null && fromWhere.equals("1")) {
             // 密码加密
             passwd = right.computeDigest(passwd);
-        }
+//        }
         String flagEncrypt = "";
         if (userid == null || passwd == null || userid.equals("") || passwd.equals("")) {
             // response.sendRedirect
@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             // 验证用户
             flagEncrypt = right.VerifyUser(userid, passwd);
-            if (!flagEncrypt.equals("1")) {
+            if (flagEncrypt.equals("1")) {
                 error = "用户名或密码不正确，请重新输入！";
                 request.setAttribute("error", error);
                 request.getRequestDispatcher("error.jsp").forward(request, response);
