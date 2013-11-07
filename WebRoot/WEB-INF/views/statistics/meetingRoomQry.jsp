@@ -13,7 +13,7 @@
 <body>
 	<div class="container">
 		<jsp:include page="/index/top.jsp" />
-		<form name="form" method="post" action="MeetingServlet">
+		<form name="form" method="post" action="StatisticsServlet">
 			<div style="height: auto; text-align: center; margin: 0 auto;">
 				<table width="800" border="0" align="center" cellpadding="0"
 					cellspacing="0" bgcolor="698cc3">

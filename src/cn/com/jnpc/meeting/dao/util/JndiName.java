@@ -10,7 +10,7 @@ package cn.com.jnpc.meeting.dao.util;
  * @Version:1.0
  */
 public enum JndiName {
-    JNPC("jdbc/jnpc"), INTRAWEB("jdbc/intraweb");
+    JNPC("jdbc/jnpc"), INTRAWEB("jdbc/intrawebnew");
 
     private String jndiName;
 

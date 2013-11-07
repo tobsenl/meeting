@@ -1,3 +1,4 @@
+<%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -81,9 +82,15 @@ $(document).ready(function(){
 </head>
 <body style="overflow: scroll;overflow-x:hidden;position: relative;">
 	<div style="width:98%;">
+		<%
+		Vector vector=(Vector)session.getAttribute("vec");
+		if(vector != null){
+			if(vector.size() > 0){
+		%>
 		<h3>&nbsp;&nbsp;会议信息</h3>
 		<div id="accordion1"
 			style="width:98%;">
+			<%if(vector.contains("380101")){ %>
 			<h3><span ></span>部门会议申请
 			</h3>
 			<ul style="list-style: none;">
@@ -96,9 +103,11 @@ $(document).ready(function(){
 				<li><a href="<%=basePath%>MeetingPlanServlet?ctrl=listDepart"
 					>计划会议维护</a></li>
 			</ul>
+			<%}if(vector.contains("380201")){ %>
 			<h3 >
 				<a href="<%=basePath%>MeetingServlet?ctrl=approve" >会议审批</a>
 			</h3>
+			<%}if(vector.contains("380301")){ %>
 			<h3><span ></span>会议室分配</h3>
 			<ul style="list-style: none;" >
 				<li><a href="<%=basePath%>MeetingServlet?ctrl=toAllot"
@@ -106,6 +115,7 @@ $(document).ready(function(){
 				<li><a href="<%=basePath%>MeetingServlet?ctrl=toReAllot"
 					>会议室调配</a></li>
 			</ul>
+			<%}if(vector.contains("380401")){ %>
 			<h3><span ></span>会议浏览修改</h3>
 			<ul style="list-style: none;" >
 				<li><a
@@ -127,6 +137,7 @@ $(document).ready(function(){
 					href="<%=basePath%>MeetingServlet?ctrl=listMeeting&title=6&type=3"
 					>历史外部会议</a></li>
 			</ul>
+			<%}if(vector.contains("380501")){ %>
 			<h3><span ></span>会议室维护</h3>
 			<ul style="list-style: none;" >
 				<li><a href="<%=basePath%>MeetingRoomServlet?ctrl=toAdd"
@@ -134,6 +145,7 @@ $(document).ready(function(){
 				<li><a href="<%=basePath%>MeetingRoomServlet?ctrl=list&from=mr"
 					>会议室维护</a></li>
 			</ul>
+			<%} %>
 			<h3><span ></span>会议查询</h3>
 			<ul style="list-style: none;" >
 				<li><a href="<%=basePath%>MeetingServlet?ctrl=list"
@@ -141,6 +153,7 @@ $(document).ready(function(){
 				<li><a href="<%=basePath%>MeetingServlet?ctrl=toMeetingRoomQry"
 					>会议室查询</a></li>
 			</ul>
+			<%if(vector.contains("38")){ %>
 			<h3><span ></span>会议报表查询</h3>
 			<ul style="list-style: none;" >
 				<li><a href="<%=basePath%>StatisticsServlet?ctrl=statistics"
@@ -161,9 +174,11 @@ $(document).ready(function(){
 				<li><a href="<%=basePath%>MeetingMoneyServlet?ctrl=list"
 					>会议经费预算一览</a></li>
 			</ul>
+			<%} %>
 		</div>
 		<h3>&nbsp;&nbsp;培训信息</h3>
 		<div id="accordion2" style="width:98%;">
+			<%if(vector.contains("380601")){ %>
 			<h3><span ></span>培训通知</h3>
 			<ul style="list-style: none;" >
 				<li><a href="<%=basePath%>MeetingTrainingServlet?ctrl=toAdd"
@@ -172,18 +187,22 @@ $(document).ready(function(){
 					href="<%=basePath%>MeetingTrainingServlet?ctrl=listByDepart"
 					>培训通知维护</a></li>
 			</ul>
+			<%}if(vector.contains("380701")){ %>
 			<h3>
 				<a href="<%=basePath%>MeetingTrainingServlet?ctrl=approve"
 					>培训通知审批</a>
 			</h3>
+			<%}if(vector.contains("380801")){ %>
 			<h3>
 				<a href="<%=basePath%>MeetingTrainingServlet?ctrl=toReAllot"
 					>培训教室调配</a>
 			</h3>
+			<%}if(vector.contains("380601")){ %>
 			<h3>
 			<!--href="<%=basePath%>MeetingTrainingServlet?ctrl=toQuery"-->
 				<a href="<%=basePath%>MeetingTrainingServlet?ctrl=toQuery">培训通知查询</a>
 			</h3>
+			<%}if(vector.contains("380502")){ %>
 			<h3><span ></span>培训教室维护</h3>
 			<ul style="list-style: none;" >
 				<li><a
@@ -193,12 +212,14 @@ $(document).ready(function(){
 					href="<%=basePath%>MeetingRoomServlet?ctrl=listClassRoom&from=cr"
 					>培训教室维护</a></li>
 			</ul>
+			<%} %>
 			<!--<h3><span ></span>培训通知查询</h3>
 			<ul style="list-style: none;" >
 				<li><a href="<%=basePath%>MeetingServlet?ctrl=list&from=mt" >培训通知查询</a></li>
 			</ul>
 			 -->
 		</div>
+		<%if(vector.contains("38")){ %>
 		<h3>&nbsp;&nbsp;基础信息设置</h3>
 		<div id="accordion3" style="width:98%;">
 			<h3><span ></span>基础信息设置</h3>
@@ -210,6 +231,9 @@ $(document).ready(function(){
 					>有关说明项浏览</a></li>
 			</ul>
 		</div>
+		<%} 
+			}
+		}%>
 	<div
 		style="height: 27px;width: 98%;margin-top: 2px;text-align: center;"
 		class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons">

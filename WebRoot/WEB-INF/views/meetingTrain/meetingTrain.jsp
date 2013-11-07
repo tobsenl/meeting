@@ -206,7 +206,7 @@ function setV(va){
 							</c:forEach>
 						</select>
 					</dd>
-					<dt>负责人人：</dt>
+					<dt>负责人：</dt>
 					<dd>
 						<input class="input" id="contact" name="contact" size="35"
 							type="text" value="${empty meeting.contact ? '':meeting.contact}" />
