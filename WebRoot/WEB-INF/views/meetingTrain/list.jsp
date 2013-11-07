@@ -6,11 +6,11 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="<%=path%>/style/new.css" rel="stylesheet" type="text/css">
-<link href="<%=path%>/style/ul.css" rel="stylesheet" type="text/css">
+<link href="<%=basePath%>style/new.css" rel="stylesheet" type="text/css">
+<link href="<%=basePath%>style/ul.css" rel="stylesheet" type="text/css">
 <script src="<%=basePath%>script/My97DatePicker/WdatePicker.js"></script>
-<script src="<%=path%>/script/jquery-1.9.1.min.js"></script>
-<script src="<%=path%>/script/common.js"></script>
+<script src="<%=basePath%>script/jquery-1.9.1.min.js"></script>
+<script src="<%=basePath%>script/common.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -63,28 +63,28 @@
 			</form>
 			<br style="clear"/>
 		</div>
-		<div style="height: auto; text-align: center; margin: 0 auto; padding-left: 5%;width: 95%;">
+		<div style="height: auto; text-align: center; margin: 0 auto; padding-left: 2%;width: 98%;">
 			<table class="dtable" cellpadding="1" cellspacing="1">
 				<tr>
-					<th width="15%" align="center">日期</th>
-					<th width="10%" align="center">课程名称</th>
+					<th width="10%" align="center">日期</th>
+					<th width="15%" align="center">课程名称</th>
 					<th width="5%" align="center">教员</th>
 					<th width="15%" align="center">参加单位/人员</th>
 					<th width="10%" align="center">有关说明</th>
 					<th width="10%" align="center">预定教室</th>
 					<th width="10%" align="center">分配教室</th>
 					<th width="10%" align="center">状态</th>
-					<th width="12%" align="center">申请部门<br />日期</th>
-					<th width="3%" align="center">操作</th>
+					<th width="10%" align="center">申请部门<br />日期</th>
+					<th width="5%" align="center">操作</th>
 				</tr>
 				<c:forEach items="${meetings }" var="mp">
 					<tr>
-						<td width="15%" align="center"><fmt:formatDate
+						<td width="10%" align="center"><fmt:formatDate
 								value="${mp.starttime }" pattern="E" /><br /> <fmt:formatDate
 								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" /><br />
 							<fmt:formatDate value="${mp.endtime }"
 								pattern="yyyy-MM-dd HH:mm" /></td>
-						<td width="10%" align="center">${mp.content }</td>
+						<td width="15%" align="center">${mp.content }</td>
 						<td width="5%" align="center">${mp.presider }</td>
 						<td width="15%" align="center">${mp.depart }</td>
 						<td width="10%" align="center">${mp.remark }</td>
@@ -102,14 +102,14 @@
 							</c:if> <c:if test="${mp.status =='4' }">
 								<font color="">退回</font>
 							</c:if></td>
-						<td width="12%" align="center">${mp.commitdepart }<br />
+						<td width="10%" align="center">${mp.commitdepart }<br />
 							<fmt:formatDate value="${mp.committime }"
 								pattern="yyyy-MM-dd HH:mm" /></td>
-					<td width="3%" align="center">
+					<td width="5%" align="center">
 							<c:if test="${from =='m' }">
 								<a href="MeetingTrainingServlet?ctrl=toUpdate&show=all&id=${mp.id }">修改</a>
 							</c:if> 
-							<a href="javascript:confirmDelete('MeetingServlet?ctrl=del&id=${mp.id }')">删除</a>
+							<a href="javascript:confirmDelete('<%=basePath%>MeetingServlet?ctrl=del&id=${mp.id }')">删除</a>
 						</td> 
 					</tr>
 				</c:forEach>

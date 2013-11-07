@@ -11,11 +11,7 @@ function confirmDelete(url)
 		   type: "POST",
 		   url: url,
 		   success: function(msg){
-		     if(msg=="0"){
 		    	 window.location.href = url2;
-		     }else {
-		    	 alert("删除失败!");
-		     }
 		   }
 		});
 	}
@@ -35,7 +31,7 @@ function update(url){
  * @param obj 要清空的表单对象
  */
 function clearForm(obj){
-	$(obj).find(':input').not(':button, :submit, :reset, :hidden').val('')
+	$(obj).find(':input').not('[type="button"],[type="submit"],[type="reset"],[type="hidden"]').val('')
 	.removeAttr('checked').removeAttr('selected');
 }
 

@@ -130,7 +130,6 @@ public class MeetingRoomServlet extends BaseServlet {
         if (vec.contains("380502")) {
             String building = request.getParameter("_building");
             String room = request.getParameter("_room");
-            getParameter("from");
             building = building == null ? "" : building;
             room = room == null ? "" : room;
             request.setAttribute("building", building);
@@ -153,6 +152,7 @@ public class MeetingRoomServlet extends BaseServlet {
             request.setAttribute("mrs", meetingRoomDao.getMeetingRoom(page, pfList).getResult());
             request.setAttribute("tag", page.getTag());
             request.setAttribute("title", "培训教室管理");
+            request.setAttribute("value", "培训教室");
             return BASE_JSP + "meetingRoom/meetingRoomList.jsp";
         } else {
             error = "对不起，您没有培训教室维护的权限！";
@@ -188,6 +188,7 @@ public class MeetingRoomServlet extends BaseServlet {
             request.setAttribute("mrs", meetingRoomDao.getMeetingRoom(page, pfList).getResult());
             request.setAttribute("tag", page.getTag());
             request.setAttribute("title", "会议室管理");
+            request.setAttribute("value", "会议室地址");
             return BASE_JSP + "meetingRoom/meetingRoomList.jsp";
         } else {
             error = "对不起，您没有会议室维护的权限！";

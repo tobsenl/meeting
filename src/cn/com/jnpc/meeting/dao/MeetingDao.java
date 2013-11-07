@@ -365,7 +365,7 @@ public class MeetingDao {
         m.setId("seq_meeting_id.nextval");
         m.setCommitdepart(commitDept);
         m.setStatus("0");
-        String startTime = m.getStarttime().toString();
+        String startTime = DateUtil.dateToString(m.getStarttime(), "yyyy-MM-dd HH:mm:ss");
         String endTime = DateUtil.dateToString(m.getEndtime(), "yyyy-MM-dd HH:mm:ss");
         String content = m.getContent();
         String commiterId = m.getCommiterid();
@@ -879,7 +879,7 @@ public class MeetingDao {
         String sqla = "update meeting m set m.roomid=(case when m.flow =1 then null else m.reserve_roomid end), status=(case when m.flow =1 then 1 else 3 end),approverid='"
                 + userid + "' where id in(-1";
         String sqld = "update meeting set status=2,approverid='" + userid + "' where id in(-1";
-        Connection conn = DbHelper.getConnection("intraweb");
+        Connection conn = DbHelper.getConnection("intrawebnew");
         try {
             int flag = 0;
             conn.setAutoCommit(false);
