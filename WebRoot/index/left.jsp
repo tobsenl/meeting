@@ -145,7 +145,7 @@ $(document).ready(function(){
 				<li><a href="<%=basePath%>MeetingRoomServlet?ctrl=list&from=mr"
 					>会议室维护</a></li>
 			</ul>
-			<%} %>
+			<%}if(vector.contains("380101")){ %>
 			<h3><span ></span>会议查询</h3>
 			<ul style="list-style: none;" >
 				<li><a href="<%=basePath%>MeetingServlet?ctrl=list"
@@ -153,7 +153,7 @@ $(document).ready(function(){
 				<li><a href="<%=basePath%>MeetingServlet?ctrl=toMeetingRoomQry"
 					>会议室查询</a></li>
 			</ul>
-			<%if(vector.contains("38")){ %>
+			<%}if(vector.contains("380901")){ %>
 			<h3><span ></span>会议报表查询</h3>
 			<ul style="list-style: none;" >
 				<li><a href="<%=basePath%>StatisticsServlet?ctrl=statistics"
@@ -167,6 +167,7 @@ $(document).ready(function(){
 					>会议计划及会议执行情况</a></li>
 				<li><a href="<%=basePath%>export?ctrl=toExport" >会议计划及会议执行情况导出</a></li>
 			</ul>
+			<%}if(vector.contains("380902")){ %>
 			<h3><span ></span>会议经费</h3>
 			<ul style="list-style: none;" >
 				<li><a href="<%=basePath%>MeetingMoneyServlet?ctrl=toAdd"
