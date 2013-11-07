@@ -220,7 +220,7 @@ $(document).ready(function(){
 			</ul>
 			 -->
 		</div>
-		<%if(vector.contains("38")){ %>
+		<%if(vector.contains("381001")){ %>
 		<h3>&nbsp;&nbsp;基础信息设置</h3>
 		<div id="accordion3" style="width:98%;">
 			<h3><span ></span>基础信息设置</h3>

@@ -10,34 +10,39 @@ import cn.com.jnpc.meeting.bean.MeetingCommon;
 import cn.com.jnpc.meeting.dao.MeetingCommonDao;
 
 public class MeetingCommonServlet extends BaseServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private MeetingCommonDao meetingCommonDao = new MeetingCommonDao();
+    private MeetingCommonDao meetingCommonDao = new MeetingCommonDao();
 
-	public String del() throws ServletException, IOException {
-		String id = request.getParameter("id");
-		meetingCommonDao.delete(id);
-		return list();
+    public String del() throws ServletException, IOException {
+	String id = request.getParameter("id");
+	meetingCommonDao.delete(id);
+	return list();
+    }
+
+    public String update() throws ServletException, IOException {
+	String title = request.getParameter("name");
+	String id = request.getParameter("id");
+	meetingCommonDao.update(id, title);
+	return list();
+    }
+
+    public String add() throws ServletException, IOException {
+	String title = request.getParameter("name");
+	String type = request.getParameter("type");
+	meetingCommonDao.add(title, type);
+	return list();
+    }
+
+    public String list() throws ServletException, IOException {
+	if (vec.contains("381001")) {
+	    List<MeetingCommon> list = meetingCommonDao.getALlMeetingCommon();
+	    request.setAttribute("mcs", list);
+	    return BASE_JSP + "setting/mc.jsp";
+	} else {
+	    error = "对不起，您没有此项操作的权限！";
+	    return toErrorPage(error);
 	}
-
-	public String update() throws ServletException, IOException {
-		String title = request.getParameter("name");
-		String id = request.getParameter("id");
-		meetingCommonDao.update(id, title);
-		return list();
-	}
-
-	public String add() throws ServletException, IOException {
-		String title = request.getParameter("name");
-		String type = request.getParameter("type");
-		meetingCommonDao.add(title, type);
-		return list();
-	}
-
-	public String list() throws ServletException, IOException {
-		List<MeetingCommon> list = meetingCommonDao.getALlMeetingCommon();
-		request.setAttribute("mcs", list);
-		return BASE_JSP+"setting/mc.jsp";
-	}
+    }
 
 }
