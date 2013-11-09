@@ -76,7 +76,13 @@ $(document).ready(function(){
 			}
 		}
 	});
-	}
+	$("#loginout").click(function(x){
+		$.get("<%=basePath%>Logout",function(e){
+			e=eval(e);
+			parent.top.location=e[0].url;
+		});
+	});
+}
 );
 </script>
 </head>
@@ -238,7 +244,7 @@ $(document).ready(function(){
 	<div
 		style="height: 27px;width: 98%;margin-top: 2px;text-align: center;"
 		class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons">
-		<a href="<%=basePath%>Logout" style="vertical-align: middle;"> <!-- <img src="images/quit.gif" alt="" border="0" height="20px;" /> -->
+		<a href="javascript:;" style="vertical-align: middle;" id="loginout"> <!-- <img src="images/quit.gif" alt="" border="0" height="20px;" /> -->
 			<font size="4"><b>退出</b></font>
 		</a>
 	</div>

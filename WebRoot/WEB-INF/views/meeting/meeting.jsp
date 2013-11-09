@@ -76,7 +76,7 @@
 			}}).data("ui-autocomplete")._renderItem = function(ul,item) {
 				return $("<li>").append("<a>" + item.name + " <font size='1.5'color='#3C3C3C'>"+ item.org + "</font></a>").appendTo(ul);
 		};
-
+		
 		function split(val) {
 			return val.split(/,\s*/);
 		}
@@ -531,6 +531,16 @@
 		</form>
 		<br style="clear: both;" />
 	</div>
+	<c:if test="${meeting.type =='3'}">
+		<script>
+		$("#lh").hide();
+		$("#addr_t").show();
+		$("#addr").show();
+		/* $("#_radio").hide();
+		$("#tr").hide(); */
+		$("#mr").show();
+		</script>
+	</c:if>
 	<jsp:include page="/index/bottom.jsp" />
 </body>
 </html>

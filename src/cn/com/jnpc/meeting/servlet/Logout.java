@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.JsonElement;
+
 public class Logout extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -22,8 +24,8 @@ public class Logout extends HttpServlet {
         session.removeAttribute("userid");
         session.removeAttribute("passwd");
         session.removeAttribute("vec");
-        response.sendRedirect("http://www0.jnpc.com.cn/login/login.jsp");
-//        PrintWriter out = res.getWriter();
+        PrintWriter out = response.getWriter();
+        out.print("[{'url':'http://www0.jnpc.com.cn/login/login.jsp'}]");
 //        out.println("<html><head></head><body>");
 //        out.println("<FORM METHOD=POST ACTION=\"http://login.jnpc.com.cn/login/all_index.jsp\" name=form1>");
 //        out.println("<INPUT TYPE=\"hidden\" NAME=\"userid\" value=" + userid + ">");
@@ -31,7 +33,7 @@ public class Logout extends HttpServlet {
 //        out.println("<INPUT TYPE=\"hidden\" NAME=\"return\" value=\"1\">");
 //        out.println("</FORM></body></html>");
 //        // out.println("<SCRIPT LANGUAGE=\"JavaScript\">form1.target=\"_top\";form1.submit();</SCRIPT>");
-//        out.flush();
-//        out.close();
+        out.flush();
+        out.close();
     }
 }
