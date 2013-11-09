@@ -72,18 +72,41 @@ public class MeetingDao {
     public List<Meeting> getMeetingByRoomAndTime(String roomID, String startTime, String endTime) {
         QueryRunner qr = DbHelper.getIntrawebQueryRunner();
         StringBuffer sb = new StringBuffer();
+        
+        
         sb.append("select " + FIELD_SQL + FROM_SQL + " where ");
-        sb.append("(m.starttime between to_date('");
-        sb.append(startTime);
-        sb.append("','yyyy-mm-dd hh24:mi:ss') and to_date('");
+        if(!(startTime == null || "".equals(startTime)) && !(endTime == null || "".equals(endTime))){
+            sb.append("(m.starttime between to_date('");
+            sb.append(startTime);
+            sb.append("','yyyy-mm-dd hh24:mi:ss') and to_date('");
+            sb.append(endTime);
+            sb.append("','yyyy-mm-dd hh24:mi:ss')");
+            sb.append(" or");
+            sb.append(" m.endtime between to_date('");
+            sb.append(startTime);
+            sb.append("','yyyy-mm-dd hh24:mi:ss') and to_date('");
+            sb.append(endTime);
+            sb.append("','yyyy-mm-dd hh24:mi:ss'))");
+    }else if((startTime == null || "".equals(startTime)) && !(endTime == null || "".equals(endTime))){
+	if (endTime == null || "".equals(endTime)) {
+	    endTime = DateUtil.getCurrentDate("yyyy-MM-dd");
+	}if (startTime == null || "".equals(startTime)) {
+	    startTime = DateUtil.getCurrentDate("yyyy-MM-dd");
+	}
+	sb.append("(m.endtime < to_date('");
         sb.append(endTime);
-        sb.append("','yyyy-mm-dd hh24:mi:ss')");
-        sb.append(" or");
-        sb.append(" m.endtime between to_date('");
+        sb.append("','yyyy-mm-dd hh24:mi:ss') and ");
+        sb.append("m.endtime > to_date('");
         sb.append(startTime);
-        sb.append("','yyyy-mm-dd hh24:mi:ss') and to_date('");
-        sb.append(endTime);
         sb.append("','yyyy-mm-dd hh24:mi:ss'))");
+    }else{
+	if (startTime == null || "".equals(startTime)) {
+	    startTime = DateUtil.getCurrentDate("yyyy-MM-dd");
+	}
+	 sb.append("m.endtime > to_date('");
+         sb.append(startTime);
+         sb.append("','yyyy-mm-dd hh24:mi:ss')");
+    }
         if (roomID != null && !"".equals(roomID)) {
             sb.append(" and m.roomid=");
             sb.append(roomID);
@@ -925,7 +948,8 @@ public class MeetingDao {
      * @return
      */
     public int allotRoom(String meetingid, String roomid, String userid) {
-        DBTools dbt = new DBTools(JndiName.INTRAWEB);
+	DBTools dbt = new DBTools(JndiName.INTRAWEB);
+	try{
         String sql = "select starttime,endtime from meeting where id=" + meetingid;
         Meeting meeting = dbt.query(sql, Meeting.class);
         String starttime = DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm:ss");
@@ -953,6 +977,13 @@ public class MeetingDao {
             return dbt.update("update meeting set status=3, roomid=" + roomid + ",alloterid=" + userid + " where id="
                     + meetingid);
         }
+	}catch(Exception e){
+	    
+	}finally{
+	    dbt.closeConn();
+	    return 0;
+	}
+	
     }
 
     /**

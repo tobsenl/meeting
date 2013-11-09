@@ -66,9 +66,9 @@ public class LoginServlet extends HttpServlet {
 //        }
         String flagEncrypt = "";
         if (userid == null || passwd == null || userid.equals("") || passwd.equals("")) {
-            // response.sendRedirect
-            // ("http://www0.jnpc.com.cn/login/login.jsp");
-            response.sendRedirect("http://test01.jnpc.com.cn:8080/login/login.jsp");
+             response.sendRedirect
+             ("http://www0.jnpc.com.cn/login/login.jsp");
+            //response.sendRedirect("http://test01.jnpc.com.cn:8080/login/login.jsp");
         } else {
             // 验证用户
             flagEncrypt = right.VerifyUser(userid, passwd);

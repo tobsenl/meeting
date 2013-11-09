@@ -8,6 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<%=path%>/style/new.css" rel="stylesheet" type="text/css">
 <link href="<%=path%>/style/ul.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<%=path%>/script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="<%=path%>/script/common.js""></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -29,7 +31,7 @@
 				</tr>
 				<c:forEach items="${meetings }" var="mp">
 					<tr>
-						<td width="10%" align="center">${mp.id }<fmt:formatDate
+						<td width="10%" align="center"><fmt:formatDate
 								value="${mp.starttime }" pattern="E" /><br /> <fmt:formatDate
 								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" /><br />
 							<fmt:formatDate value="${mp.endtime }"

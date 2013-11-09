@@ -82,7 +82,7 @@ public class MeetingTrainingServlet extends BaseServlet {
         String endtime = request.getParameter("endtime");
         String endtime2 = request.getParameter("endtime2");
         String org = request.getParameter("org");
-        String roomID = request.getParameter("roomID");
+        String roomID = request.getParameter("roomID")==null?request.getParameter("_roomID"):request.getParameter("roomID");
         String content = request.getParameter("content");
         String pageNo = request.getParameter("pageNo");
         request.setAttribute("starttime", starttime);

@@ -126,9 +126,16 @@ public class MeetingRoomDao {
     }
     
     public int add(String building, String room, String capacity, String remark, String type) {
+	DBTools dbt = new DBTools(JndiName.INTRAWEB);
+	try{
         String sql = "insert into meetingroom(id,building,room,capacity,remark,type,deleted)values(seq_meetingroom_id.nextval,?,?,?,?,?,?)";
-        DBTools dbt = new DBTools(JndiName.INTRAWEB);
         return dbt.update(sql, building, room, capacity, remark, type,"0");
+	}catch(Exception e){
+	    
+	}finally{
+	    dbt.closeConn();
+	    return 0;
+	}
     }
     
     public int update(MeetingRoom mr) {

@@ -29,12 +29,6 @@ public class StatisticsServlet extends BaseServlet {
 	String roomID = request.getParameter("roomID");
 	String startTime = request.getParameter("startTime");
 	String endTime = request.getParameter("endTime");
-	if (startTime == null || "".equals(startTime)) {
-	    startTime = DateUtil.getCurrentDate("yyyy-MM-dd");
-	}
-	if (endTime == null || "".equals(endTime)) {
-	    endTime = DateUtil.getCurrentDate("yyyy-MM-dd");
-	}
 	List<Meeting> res = meetingDao.getMeetingByRoomAndTime(roomID,
 		startTime, endTime);
 	request.setAttribute("meetings", res);

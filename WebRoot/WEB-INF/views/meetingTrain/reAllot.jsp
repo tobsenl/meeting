@@ -82,8 +82,8 @@ using(['dialog','form','validatebox'],function(){
 				$("#l_t").show();
 				$('#l_c').show();
 			}
-			$("#starttime").val(val.substring(3,19));
-			$("#endtime").val(val.substring(19));
+			$("#starttime").val(val.substring(4,20));
+			$("#endtime").val(val.substring(20));
 			$('#dlg').dialog('open');
 		});
 		$("#bk").click(function(){
@@ -123,7 +123,7 @@ using(['dialog','form','validatebox'],function(){
 					</tr>
 					<c:forEach items="${meetings }" var="mp">
 						<tr>
-							<td width="10%" align="center">${mp.id }<fmt:formatDate
+							<td width="10%" align="center"><!-- ${mp.id } --><fmt:formatDate
 								value="${mp.starttime }" pattern="E" /><br /> <fmt:formatDate
 								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" /><br />
 							<fmt:formatDate value="${mp.endtime }"

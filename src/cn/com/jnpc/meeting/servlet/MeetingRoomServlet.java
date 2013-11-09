@@ -151,6 +151,7 @@ public class MeetingRoomServlet extends BaseServlet {
                     + "&pageNo=");
             request.setAttribute("mrs", meetingRoomDao.getMeetingRoom(page, pfList).getResult());
             request.setAttribute("tag", page.getTag());
+            request.setAttribute("from", "cr");
             request.setAttribute("title", "培训教室管理");
             request.setAttribute("value", "培训教室");
             return BASE_JSP + "meetingRoom/meetingRoomList.jsp";
@@ -191,8 +192,12 @@ public class MeetingRoomServlet extends BaseServlet {
             request.setAttribute("value", "会议室地址");
             return BASE_JSP + "meetingRoom/meetingRoomList.jsp";
         } else {
-            error = "对不起，您没有会议室维护的权限！";
-            return toErrorPage(error);
+            if(vec.contains("380502")){
+        	return listClassRoom();
+            }else{
+        	error = "对不起，您没有会议室维护的权限！";
+        	return toErrorPage(error);
+            }
         }
     }
 

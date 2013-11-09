@@ -37,7 +37,7 @@
 					</c:forEach>
 				</select>
 				&nbsp;&nbsp;&nbsp;&nbsp; 
-				<label for="content">培训类容:</label> 
+				<label for="content">培训内容:</label> 
 				<input id="content" name="content" type="text" value="${content }" size="35"><br/><br/> 
 				<label for="starttime">开始日期:</label> <input class="Wdate" id="st" type="text" name="starttime"
 					onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'st2\')}'})" value="" /> 
