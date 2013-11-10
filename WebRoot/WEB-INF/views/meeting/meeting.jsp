@@ -466,7 +466,14 @@
 						<select id="reserve_roomid" name="reserve_roomid" class="easyui-combobox" style="width: 260px;">
 							<option value="">请选择会议室</option>
 							<c:forEach items="${mrs }" var="mr">
-								<option value="${mr.id }">${mr.building }${mr.room }</option>
+								<c:choose>
+								<c:when test="${meeting.reserve_roomid == mr.id }">
+									<option value="${mr.id }" selected="selected">${mr.building }${mr.room }</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${mr.id }">${mr.building }${mr.room }</option>
+								</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>
 					</dd>
@@ -523,6 +530,14 @@
 						<input type="hidden" name="show" value="${show }" /> <input type="hidden" name="ctrl"
 							value="${ctrl }"> <input type="hidden" id="id" name="id" value="${meeting.id }">
 						<input type="hidden" name="json" id="json">
+						<c:choose>
+						<c:when test="${meeting.status != '1' && meeting.status != '3' }">
+							<input type="hidden" name="status" id="status" value="0">
+						</c:when>
+						<c:otherwise>
+							<input type="hidden" name="status" id="status" value="${meeting.status}">
+						</c:otherwise>
+						</c:choose>
 					</dd>
 				</dl>
 				<br style="clear: both;" />

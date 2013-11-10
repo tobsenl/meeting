@@ -187,7 +187,7 @@ public class MeetingTrainingServlet extends BaseServlet {
         if (vec.contains("380601")) {
             String id = request.getParameter("id");
             Meeting meeting = meetingDao.getMeetingById(id);
-            getParameter("show");
+            //getParameter("show");
             request.setAttribute("meeting", meeting);
             // 培训教室
             request.setAttribute("mrs2", meetingRoomDao.getMeetingRoom2());

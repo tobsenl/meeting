@@ -289,7 +289,8 @@ function setV(va){
 					</dd>
 					<dt></dt>
 					<dd style="text-indent: 100px;">
-
+					<c:choose>
+						<c:when test="${meeting.status != '1' && meeting.status != '3' }">
 						<input id="sub" type="button" value="提交">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
 							type="reset" value="重置"> <input type="hidden" name="ctrl"
@@ -298,7 +299,13 @@ function setV(va){
 							value="4"> <input type="hidden" name="reserve_roomid"
 							id="reserve_roomid"> <input type="hidden" name="url"
 							value="${url }"> <input type="hidden" name="show"
-							value="${show }">
+							value="${show }"> <input type="hidden" name="status"
+							value="0">
+							</c:when>
+							<c:otherwise>
+							<input id="sub" type="button" value="返回" onclick="javascript :history.back(-1);">
+							</c:otherwise>
+							</c:choose>
 					</dd>
 				</dl>
 				<br style="clear: both;" />

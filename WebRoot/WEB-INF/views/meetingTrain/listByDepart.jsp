@@ -58,8 +58,10 @@
 							<fmt:formatDate value="${mp.committime }"
 								pattern="yyyy-MM-dd HH:mm" /></td>
 						<td width="5%" align="center"><a
-							href="MeetingTrainingServlet?ctrl=toUpdate&show=my&id=${mp.id }">修改</a> <a
-							href="javascript:confirmDelete('MeetingTrainingServlet?ctrl=del&id=${mp.id }')">删除</a>
+							href="MeetingTrainingServlet?ctrl=toUpdate&show=my&id=${mp.id }">修改</a> 
+							<c:if test="${mp.status != '3' && mp.status != '1'}">
+							<a href="javascript:confirmDelete('MeetingTrainingServlet?ctrl=del&id=${mp.id }')">删除</a>
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>

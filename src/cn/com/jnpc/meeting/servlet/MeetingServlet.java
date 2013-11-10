@@ -513,6 +513,7 @@ public class MeetingServlet extends BaseServlet {
 	request.setAttribute("leaderList", leaderList);
 	List<MeetingRoom> mrs = meetingRoomDao.getMeetingRoom();
 	request.setAttribute("mrs", mrs);
+	request.setAttribute("orgs", jnpc.getAllORG());
 	request.setAttribute("mes", meetingExplainDao.getAllShow());
 	return BASE_JSP + "meeting/meeting.jsp";
     }
