@@ -37,6 +37,49 @@
 easyloader.locale = "zh_CN"; 
 using(['form','validatebox'],function(){
 	$(function() {
+		
+		$("#presider").autocomplete({
+			minLength : 1,
+			delay : 300,
+			source : function(request, response) {
+				var url = "ajax?ctrl=ens&presider="+ encodeURI(encodeURI($("#presider").val()));
+				$.ajax({
+					url : url,
+					type : "post",
+					dataType : "json",
+					success : function(data,
+							textStatus, jqXHR) {
+						response($.map(data, function(
+								item, index) {
+							return {
+								name : item.name,
+								org : item.org 
+							};
+						}));
+					}
+				});
+			},
+			focus : function(event, ui) {
+				$("#presider").val(ui.item.name/*  + '(' + ui.item.org + ')' */);
+				return false;
+			},
+			select : function(event, ui) {
+				$("#presider").val(ui.item.name);
+				return false;
+			},
+			close : function(event, ui) {
+				var url = "ajax?ctrl=checkP&presider="+ encodeURI(encodeURI($("#presider").val())) + "&starttime="
+						+ $("#st").val() + "&endtime="+ $("#et").val() + "&id="+ $("#id").val();
+				$.getJSON(url, function(data) {
+					if (data == 1) {
+						alert("主持人在该时间段已有会议!");
+					}
+				});
+			}}).data("ui-autocomplete")._renderItem = function(ul,item) {
+				return $("<li>").append("<a>" + item.name + " <font size='1.5'color='#3C3C3C'>"+ item.org + "</font></a>").appendTo(ul);
+		};
+		
+		
 		function split(val) {
 			return val.split(/,\s*/);
 		}
@@ -92,13 +135,42 @@ using(['form','validatebox'],function(){
 						}
 				});
 				$("#remark").val(remark);
+				var is_commit=true;
+				var roomid =$("#reserve_roomid").val();
+				if (roomid != "" && roomid != null && roomid != undefined){
+					var src_id= $("#id").val() == null ? "" : $("#id").val() ;
+					var src_url="checkroomid&room_id="+roomid+ "&starttime=" + $("#st").val() + "&endtime=" + $("#et").val()+"&id="+src_id ;
+					var url="ajax?ctrl="+src_url;
+					$.ajaxSettings.async = false;//确保同步.此处不需要异步
+					$.get(url, function(data,x,b) {
+						//使方法同步
+						data=eval(data);
+						//alert(data[0].error);
+							if (data == "") {
+								is_commit = true;
+							}
+							else{
+								is_commit = false;
+									alert(data[0].error);
+							}
+						});
+					if(is_commit){
+						$("#form1").attr('action','<%=path%>/MeetingTrainingServlet?json='+form2json("form"));
+						$('#form1').form('submit',{
+							success:function(data){
+								 window.location.href = '<%=path%>/MeetingTrainingServlet?ctrl=listByDepart';
+				       		}  
+						});
+					}
+				}
+				
 				//$("#sub").attr("disabled", true);
-				$("#form1").attr('action','<%=path%>/MeetingTrainingServlet?json='+form2json("form"));
-				$('#form1').form('submit',{ 
-					success:function(data){  
-						 window.location.href = '<%=path%>/MeetingTrainingServlet?ctrl=listByDepart';
-		       		}  
-				});
+				//$("#form1").attr('action','<%=path%>/MeetingTrainingServlet?json='+form2json("form"));
+				//$('#form1').form('submit',{ 
+				//	success:function(data){  
+				//		 window.location.href = '<%=path%>/MeetingTrainingServlet?ctrl=listByDepart';
+		       	//	}  
+				//});
 			});
 		
 		$("input:radio[name='flow']").click(function(){

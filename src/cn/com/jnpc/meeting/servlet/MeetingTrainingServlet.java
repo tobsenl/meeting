@@ -269,4 +269,14 @@ public class MeetingTrainingServlet extends BaseServlet {
         request.setAttribute("result", list);
         return BASE_JSP + "statistics/statistics2Detail.jsp";
     }
+    public void del() {
+	int flag;
+	String id = request.getParameter("id");
+	flag = meetingDao.delete(id);
+	if (flag != -1) {
+	    writeObjToPage(0);
+	} else {
+	    writeObjToPage(1);
+	}
+    }
 }

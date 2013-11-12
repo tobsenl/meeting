@@ -207,22 +207,23 @@
 				$.ajaxSettings.async = false;//确保同步.此处不需要异步
 				$.getJSON(url, function(data) {
 					//使方法同步
-							if (data == "0") {
+						data=eval(data);
+							if (data == "") {
 								is_commit = true;
 							}
-							else if (data == "1") {
+							else{
 								is_commit = false;
-									alert("此会议室 在该时间段已存在 会议申请!请重新选择会议室！");
+									alert(data[0].error);
 							}
-							else if (data == "2") {
-								is_commit = false;
-									alert("此会议室 在该时间段已存在 会议安排!请重新选择会议室！ ");
-							}
-							else if (data == "3") {
-								is_commit = false;
-									alert("此会议室 在该时间段已存在 会议安排和会议申请! 请重新选择会议室！");
-								
-							}
+							//else if (data == "2") {
+							//	is_commit = false;
+							//		alert("此会议室 在该时间段已存在 会议安排!请重新选择会议室！ ");
+							//}
+							//else if (data == "3") {
+							//	is_commit = false;
+							//		alert("此会议室 在该时间段已存在 会议安排和会议申请! 请重新选择会议室！");
+							//	
+							//}
 					});
 			}
 			if(is_commit){

@@ -131,7 +131,7 @@ public class AJAXServlet extends HttpServlet {
 		e.printStackTrace();
 	    }
             PrintWriter out = response.getWriter();
-            out.println(error);
+            out.println("[{error:'"+error+"'}]");
             out.close();
         }
     }

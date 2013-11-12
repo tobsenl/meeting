@@ -802,10 +802,10 @@ public class MeetingDao {
     public String isRoomAvailable(String startTime, String endTime, String room_id,String meetingId) throws Exception {
 	//boolean flag = false;
 	DBTools dbt = new DBTools(JndiName.INTRAWEB);
-	int error=0;
-	int list_value1=0;
-	int list_value2=0;
-	String sql3 = "select m.RESERVE_ROOMID,CONCAT(r.building,r.room) as reserve_room,m.roomid,CONCAT(mr.building,mr.room) as room,m.* from meeting m left join meetingroom r on m.RESERVE_ROOMID=r.id left join meetingroom mr on m.roomid = mr.id where " +
+	String error="";
+	String list_value1="";
+	String list_value2="";
+	String sql3 = "select "+FIELD_SQL+FROM_SQL+" where " +
 			//"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime" + " and  to_date('" + endTime+ "','yyyy-mm-dd hh24:mi:ss') >=m.endTime " +
 			"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime "+ 
 			"and m.endTime >= to_date('"+DateUtil.getCurrentDate("yyyy-MM-dd HH:mm")+"','yyyy-mm-dd hh24:mi:ss') "+
@@ -820,7 +820,8 @@ public class MeetingDao {
         	for (Object o : list) {
         	    if(o != null){
                 	    if(o.toString().equals(room_id)){
-                		list_value1=1;
+                		Meeting meeting = (Meeting)dbt.query(sql3, Meeting.class);
+                		list_value1=DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm:ss")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm:ss")+"  "+meeting.getReserve_address()+" 已经存在 <<"+meeting.getContent()+">>的"+("4".equals(meeting.getType())?"培训":"会议")+"申请" ;
                 	    }
         	    }
         	}
@@ -830,7 +831,8 @@ public class MeetingDao {
         	for (Object o : list2) {
         	    if(o != null){
                 	    if(o.toString().equals(room_id)){
-                		list_value2=2;
+                		Meeting meeting = (Meeting)dbt.query(sql3, Meeting.class);
+                		list_value1=DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm:ss")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm:ss")+"  "+meeting.getAddress1()+" 已经被"+("4".equals(meeting.getType())?"培训":"会议")+":<<"+meeting.getContent()+">> 占用！" ;
                 	    }
         	    }
         	}
