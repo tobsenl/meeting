@@ -47,7 +47,7 @@
 						<th width="5%" align="center">${i.count }</th>
 						<td width="30%" align="center">${r[2] }${r[3] }</td>
 						<td width="10%" align="center"><a title="点击查看详细"
-							href="MeetingServlet?ctrl=sdetail&roomID=${r[1]}&roomname=${r[2] }${r[3] }&startTime=${startTime}&endTime=${endTime}">${r[0] }</a></td>
+							href="MeetingTrainingServlet?ctrl=sdetail&roomID=${r[1]}&roomname=${r[2] }${r[3] }&startTime=${startTime}&endTime=${endTime}">${r[0] }</a></td>
 						<c:if test="${i.count % 2 == 0 && i.count != fn:length(result)}">
 				</tr>
 				<tr>
