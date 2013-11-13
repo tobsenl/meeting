@@ -49,6 +49,7 @@ $(function(){
 </script>
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="overflow: scroll;overflow-x:hidden;">
+<div style="overflow: scroll;overflow-x:hidden;width:100%;height: 100%;">
 	<table width="870" border="0" align=center cellpadding=0 cellspacing=0
 		background="images/topbg.gif" bgcolor=#ffffff>
 		<tr>
@@ -57,7 +58,7 @@ $(function(){
 			<td width="69%" height="80">&nbsp;</td>
 		</tr>
 	</table>
-	<div align="center">
+	<div align="center" >
 		<center>
 			<table width="870" height="77%" border="0" cellpadding="0" id="data"
 				cellspacing="0" bgcolor="#ffffff" style="table-layout: fixed">
@@ -114,7 +115,7 @@ $(function(){
 												<td width="10%" align="center">&nbsp;</td>
 											</c:if>
 										</tr>
-										<tr bordercolor="gray" bordercolordark="white" bgcolor="#ffffff" class="p1">
+										<tr bordercolor="gray" bordercolordark="white" bgcolor="#ffffff" class="p1" style="text-align: center;">
 											<td colspan="6"> 
 												<input id="sub" type="button" value="提交"/>&nbsp;&nbsp;
 												<input id="res" type="reset" value="重置"/>
@@ -142,5 +143,6 @@ $(function(){
 		</form>
 	</div>
 	<br class="clear"/>
+	</div>
 </body>
 </html>

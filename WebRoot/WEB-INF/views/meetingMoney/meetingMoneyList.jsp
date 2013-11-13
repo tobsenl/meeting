@@ -115,6 +115,7 @@ dd{ text-align:left;height:auto;padding:8px 0;}
 </style>
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="overflow: scroll;overflow-x:hidden;">
+<div style="overflow: scroll;overflow-x:hidden; width: 100%;height: 100%">
 <div id="dialog-form" title="修改会议预算经费">
 		<p class="validateTips"></p>
 		<form id="form1" name="form1" action="MeetingMoneyServlet" method="post">
@@ -247,6 +248,7 @@ dd{ text-align:left;height:auto;padding:8px 0;}
 		</p>
 		<p id="msg" align="center" style="text-align: center;margin:26px 7px 20px 0;">
 		</p>
+	</div>
 	</div>
 </body>
 </html>

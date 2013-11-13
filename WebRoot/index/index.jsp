@@ -29,7 +29,7 @@ var browser=navigator.appName
 
 <frameset rows="*" cols="13%,*" framespacing="0" frameborder="yes"
 	border="0">
-	<frame src="index/left.jsp" name="left" id="left" ></frame>
+	<frame src="index/left.jsp" name="left" id="left" scrolling="no"></frame>
 	<frame src="index/main.jsp" name="main" id="main" scrolling="no"></frame>
 </frameset>
 <noframes>

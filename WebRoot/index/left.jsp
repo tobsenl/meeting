@@ -87,7 +87,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body style="overflow: scroll;overflow-x:hidden;position: relative;">
-	<div style="width:98%;">
+	<div style="width:100%;overflow: scroll;overflow-x:hidden;height: 100%;">
 		<%
 		Vector vector=(Vector)session.getAttribute("vec");
 		if(vector != null){
