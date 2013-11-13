@@ -369,7 +369,7 @@ function setV(va){
 							value="${ctrl }"> <input type="hidden" id="id" name="id"
 							value="${meeting.id }"> <input type="hidden" name="type"
 							value="4"> <input type="hidden" name="reserve_roomid"
-							id="reserve_roomid"> <input type="hidden" name="url"
+							id="reserve_roomid" value="${meeting.reserve_roomid}"> <input type="hidden" name="url"
 							value="${url }"> <input type="hidden" name="show"
 							value="${show }"> <input type="hidden" name="status"
 							value="0">
