@@ -97,8 +97,8 @@ using(['dialog','form','validatebox'],function(){
 			$("#endtime").val(val.substring(20));
 			$('#dlg').dialog('open');
 		});
-		$("#bk").click(function(){
-			var url = 'MeetingServlet?ctrl=goBack&id='+$(this).attr('id').substr(3);
+		$("input[id^=bk_]").click(function(){
+			var url = 'MeetingTrainingServlet?ctrl=goBack&id='+$(this).attr('id').substr(3);
 			window.location = url;
 		});
 	});

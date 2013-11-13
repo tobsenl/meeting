@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import cn.com.jnpc.email.EmailSender;
 import cn.com.jnpc.meeting.bean.Meeting;
 import cn.com.jnpc.meeting.bean.MeetingRoom;
 import cn.com.jnpc.meeting.dao.JNPC;
@@ -251,6 +252,19 @@ public class MeetingTrainingServlet extends BaseServlet {
         }
     }
 
+    public String goBack() {
+   	String id = request.getParameter("id");
+   	Meeting m = meetingDao.getMeetingById(id);
+   	boolean flag = meetingDao.goBackMeet(id);
+   	if (flag) {
+   	    String email = jnpc.getEmailByUserID(m.getCommiterid());
+   	    EmailSender es = new EmailSender();
+   	    es.send(email, m);
+   	    return toReAllot();
+   	} else {
+   	    return toErrorPage("");
+   	}
+       }
     public String sdetail() {
         String roomID = getParameter("roomID");
         String startTime = getParameter("startTime");
