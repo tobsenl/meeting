@@ -146,7 +146,7 @@ using(['form','validatebox'],function(){
 						//使方法同步
 						data=eval(data);
 						//alert(data[0].error);
-							if (data == "") {
+							if (data[0].error == "") {
 								is_commit = true;
 							}
 							else{

@@ -82,7 +82,7 @@
 						<TD width="7%" align="center">${m.presider }</TD>
 						<TD width="16%" align="center">${m.depart }<br />${m.fdepart }</TD>
 						<TD width="15%" align="center">${m.remark }</TD>
-						<td width="7%" align="center">${mp.reserve_address }</td>
+						<td width="7%" align="center">${m.reserve_address }</td>
 						<TD width="7%" align="center">${m.commiterid }</TD>
 						<TD width="10%" align="center">${m.commitdepart }<br />
 								<fmt:formatDate value="${m.committime }"

@@ -806,9 +806,9 @@ public class MeetingDao {
 	String list_value1="";
 	String list_value2="";
 	String sql3 = "select "+FIELD_SQL+FROM_SQL+" where " +
-			//"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime" + " and  to_date('" + endTime+ "','yyyy-mm-dd hh24:mi:ss') >=m.endTime " +
-			"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime "+ 
-			"and m.endTime >= to_date('"+DateUtil.getCurrentDate("yyyy-MM-dd HH:mm")+"','yyyy-mm-dd hh24:mi:ss') "+
+			"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime" + " and  to_date('" + endTime+ "','yyyy-mm-dd hh24:mi:ss') >=m.startTime " +
+			//"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime "+ 
+			//"and m.endTime >= to_date('"+DateUtil.getCurrentDate("yyyy-MM-dd HH:mm")+"','yyyy-mm-dd hh24:mi:ss') "+
 		"and ( m.RESERVE_ROOMID='"+room_id+"' or m.roomid='"+room_id+"' )";
 	if (meetingId != null && !"".equals(meetingId)) {
 	    sql3 += " and m.id<>" + meetingId;
@@ -869,11 +869,11 @@ public class MeetingDao {
      */
     public List<Meeting> getMeetingByStatus(String status, String flow) {
         StringBuilder strBuff = new StringBuilder();
-        strBuff.append("select " + FIELD_SQL + FROM_SQL + " where status='");
+        strBuff.append("select " + FIELD_SQL + FROM_SQL + " where m.status='");
         strBuff.append(status);
-        strBuff.append("' and flow='");
+        strBuff.append("' and m.flow='");
         strBuff.append(flow);
-        strBuff.append("' and endtime> sysdate");
+        strBuff.append("' and m.endtime> sysdate");
         strBuff.append(" order by starttime");
         String sql = strBuff.toString();
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
@@ -903,17 +903,33 @@ public class MeetingDao {
         QueryRunner qr = new QueryRunner();
         String sqla = "update meeting m set m.roomid=(case when m.flow =1 then null else m.reserve_roomid end), status=(case when m.flow =1 then 1 else 3 end),approverid='"
                 + userid + "' where id in(-1";
+        String sqlb = "update meeting m set status=1,approverid='"+ userid + "' where id in(-1";
         String sqld = "update meeting set status=2,approverid='" + userid + "' where id in(-1";
         Connection conn = DbHelper.getConnection("intrawebnew");
         try {
             int flag = 0;
             conn.setAutoCommit(false);
             if (approveIDs != null && approveIDs.length > 0) {
+        	String A="";
+        	String B="";
+        	DBTools dbt = new DBTools(JndiName.INTRAWEB);
                 for (String approve : approveIDs) {
-                    sqla += "," + approve;
+                    StringBuffer sql=new StringBuffer();
+                    sql.append("select "+FIELD_SQL);
+                    sql.append(FROM_SQL);
+                    sql.append(" where m.id="+approve);
+                    Meeting meeting=(Meeting)dbt.query(sql.toString(), Meeting.class);
+                    String error=isRoomAvailable(DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm:ss") ,DateUtil.dateToString( meeting.getEndtime(), "yyyy-MM-dd HH:mm:ss"), meeting.getReserve_roomid(), meeting.getId());
+                    if(error.equals("")){
+                	A += "," + approve;
+                    }else{
+                	B += "," + approve;
+                    }
+                }if(!A.equals("")){
+                    flag = qr.update(conn, sqla+A+")");                    
+                }if(!B.equals("")){
+                    flag = qr.update(conn, sqlb+B+")");
                 }
-                sqla += ")";
-                flag = qr.update(conn, sqla);
             }
             if (disapproveIDs != null && disapproveIDs.length > 0) {
                 for (String disapprove : disapproveIDs) {
@@ -924,7 +940,7 @@ public class MeetingDao {
             }
             conn.commit();
             return flag;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             try {
                 conn.rollback();
             } catch (SQLException e1) {

@@ -48,19 +48,30 @@ using(['dialog','form','validatebox'],function(){
 		    buttons:[{
 				text:'确定',
 				handler:function(){
-					$("#rn").val($("#child option:selected").text());
-					$('#form1').form('submit',{
-						onSubmit: function(){
-							var isValid = $(this).form('validate');
-							if (isValid){
-								$('#dlg').dialog('close');	
-							}
-							return isValid;	
-						},
-						success:function(data){  
-							window.location.href = url;
-					    }  
-					});
+
+					var test=$("#msg").html();
+					if(test != ""){
+						if(test == "可用"){
+							$("#rn").val($("#child option:selected").text());
+							$('#form1').form('submit',{
+								onSubmit: function(){
+									var isValid = $(this).form('validate');
+									if (isValid){
+										$('#dlg').dialog('close');	
+									}
+									return isValid;	
+								},
+								success:function(data){  
+									window.location.href = url;
+							    }  
+							});
+						}else{
+							alert("该会议室不可用！请选用可用的会议室！");
+						}
+					}
+					
+					
+					
 				}
 			},{
 				text:'关闭',

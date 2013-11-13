@@ -208,7 +208,7 @@
 				$.getJSON(url, function(data) {
 					//使方法同步
 						data=eval(data);
-							if (data == "") {
+							if (data[0].error == "") {
 								is_commit = true;
 							}
 							else{
