@@ -123,7 +123,7 @@ public class AJAXServlet extends HttpServlet {
             String endTime = request.getParameter("endtime");
             String room_id = request.getParameter("room_id");
             String meetingId = request.getParameter("id");
-            String error=null;
+            String error="";
 	    try {
 		error = meetingDao.isRoomAvailable(startTime, endTime, room_id, meetingId);
 	    } catch (Exception e) {

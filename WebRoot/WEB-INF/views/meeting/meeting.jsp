@@ -205,7 +205,7 @@
 				var src_url="checkroomid&room_id="+roomid+ "&starttime=" + $("#st").val() + "&endtime=" + $("#et").val()+"&id="+src_id ;
 				var url="ajax?ctrl="+src_url;
 				$.ajaxSettings.async = false;//确保同步.此处不需要异步
-				$.getJSON(url, function(data) {
+				$.get(url, function(data,x,y) {
 					//使方法同步
 						data=eval(data);
 							if (data[0].error == "") {
@@ -213,7 +213,7 @@
 							}
 							else{
 								is_commit = false;
-									alert(data[0].error);
+								alert(data[0].error);
 							}
 							//else if (data == "2") {
 							//	is_commit = false;
