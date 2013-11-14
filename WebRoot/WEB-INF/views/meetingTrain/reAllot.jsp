@@ -49,7 +49,7 @@ using(['dialog','form','validatebox'],function(){
 				text:'确定',
 				handler:function(){
 
-					var test=$("#msg").html();
+					var test=$("#msg").find("font").html();
 					if(test != ""){
 						if(test == "可用"){
 							$("#rn").val($("#child option:selected").text());
