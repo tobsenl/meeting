@@ -48,12 +48,20 @@ public class MeetingPlanDao {
      * @return
      */
     public List<MeetingPlan> getMeetingPlan(List<PropertyFilter> pfList) {
+	try{
         String sql = "select " + FIELD_SQL + FROM_SQL;
         String condition = QueryUtil.toSqlString(pfList, true);
         return dbt.query(MeetingPlan.class, sql + condition);
+    }catch(Exception e){
+	    
+	}finally{
+	    dbt.closeConn();
+	    return null;
+	}
     }
 
     public Page<MeetingPlan> getMeetingPlan(Page<MeetingPlan> page, List<PropertyFilter> pfList) {
+	try{
         int size = page.getPageSize();
         int pageNo = page.getPageNo();
         int tempPageNo = 0;
@@ -74,6 +82,12 @@ public class MeetingPlanDao {
         }
         page.setResult(result);
         return page;
+	}catch(Exception e){
+	    
+	}finally{
+	    dbt.closeConn();
+	    return page;
+	}
     }
 
     /**
@@ -88,6 +102,7 @@ public class MeetingPlanDao {
      */
     public int meetingPlanAdd(MeetingPlan mp, String userid) {
         int flag = 0;
+        try{
         mp.setId("seq_meeting_plan_id.nextval");
         String sql = SQLStatementGetter.getInsertStatement(mp, "meeting_plan");
         QueryRunner qr = DbHelper.getIntrawebQueryRunner();
@@ -101,6 +116,12 @@ public class MeetingPlanDao {
             return -1;
         }
         return flag;
+    }catch(Exception e){
+	    
+	}finally{
+	    dbt.closeConn();
+	    return flag;
+	}
     }
 
     /**

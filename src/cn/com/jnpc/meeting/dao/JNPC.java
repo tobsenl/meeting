@@ -205,9 +205,16 @@ public class JNPC {
      * @ return
      */
     public List<Object> getLeaders() {
-        String sql = "";
-        DBTools dbt = new DBTools(JndiName.JNPC);
+	String sql = "";
+	DBTools dbt = new DBTools(JndiName.JNPC);
+	try{
         sql = "select orgname from jnpc_dep where class in (1,2)";
         return dbt.query(sql, "orgname");
+	}catch(Exception e){
+	    
+	}finally{
+	    dbt.closeConn();
+	    return null;
+	}
     }
 }

@@ -130,10 +130,17 @@ public class MeetingDao {
      * @return
      */
     public List<Meeting> getMeeting(List<PropertyFilter> pfList) {
+	DBTools dbt = new DBTools(JndiName.INTRAWEB);
+	try{
         String sql = "select " + FIELD_SQL + FROM_SQL;
         String condition = QueryUtil.toSqlString(pfList, true);
-        DBTools dbt = new DBTools(JndiName.INTRAWEB);
         return dbt.query(Meeting.class, sql + condition + " order by m.starttime");
+	}catch(Exception e){
+            
+        }finally{
+            dbt.closeConn();
+            return null;
+        }
     }
 
     /**
@@ -398,6 +405,7 @@ public class MeetingDao {
         String[] leaders = leader == null ? null : leader.split(",");
         String sql = "";
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
+        try{
         // 生成一条sql语句,用于查询是否有相同的记录,防止页面刷新时自动添加记录
         String sql2 = "select count(*) count from meeting where startTime=to_date('" + startTime
                 + "','yyyy-mm-dd hh24:mi:ss')";
@@ -421,6 +429,12 @@ public class MeetingDao {
             flag = -999;
         }
         return flag;
+        }catch(Exception e){
+            
+        }finally{
+            dbt.closeConn();
+            return flag;
+        }
     }
 
     /**
