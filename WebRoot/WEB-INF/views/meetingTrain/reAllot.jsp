@@ -66,7 +66,7 @@ using(['dialog','form','validatebox'],function(){
 							    }  
 							});
 						}else{
-							alert("该会议室不可用！请选用可用的会议室！");
+							alert("该教室不可用！请选用可用的教室！");
 						}
 					}
 					
@@ -107,7 +107,7 @@ using(['dialog','form','validatebox'],function(){
 	        validator: function(value,param){ 
 	            return "true" == $(param[0]).val();  
 	        },  
-	        message: '会议室不可用.'  
+	        message: '教室不可用.'  
 	    }  
 	});
 });
@@ -153,7 +153,7 @@ using(['dialog','form','validatebox'],function(){
 							</c:if> <c:if test="${mp.status =='2' }">
 								<font color="red">拒批</font>
 							</c:if> <c:if test="${mp.status =='3' }">
-								<font color="">已安排会议室</font>
+								<font color="">已安排</font>
 							</c:if> <c:if test="${mp.status =='4' }">
 								<font color="">退回</font>
 							</c:if></td>
@@ -169,27 +169,27 @@ using(['dialog','form','validatebox'],function(){
 				</table>
 			</div>
 	</div>
-	<div id="dlg" style="text-align: center;vertical-align: middle;margin: 0 auto;width: 400px;height: 215px;overflow: hidden;">
+	<div id="dlg" style="text-align: center;vertical-align: middle;margin: 0 auto;width: 400px;height: 245px;overflow: hidden;">
 		<form id="form1" action="MeetingServlet" method="post">
-			<dl class="dl-table">
-				<dt>会议名称：</dt>
-				<dd><label id="mn"></label></dd>
-				<dt>分配会议室：</dt>
-				<dd>
+			<dl class="dl-table" style="width: 100%;">
+				<dt style="width: 25%;">培训名称：</dt>
+				<dd style="width: 75%;"><label id="mn"></label></dd>
+				<dt style="width: 25%;">分配培训教室：</dt>
+				<dd style="width: 75%;">
 					<select id="roomId" name="roomId" class="easyui-validatebox" data-options="required:true">
-						<option value="">请选择会议室</option>
+						<option value="">请选择培训教室</option>
 						<c:forEach items="${mrs }" var="mr">
 							<option value="${mr.id }">${mr.building }${mr.room }</option>
 						</c:forEach>
 					</select>
 					&nbsp;&nbsp;<span id="msg"></span>
 				</dd>
-				<dt>容纳人数：</dt>
-				<dd><label id="capacity">&nbsp;</label></dd>
-				<dt>说明：</dt>
-				<dd><label id="remark">&nbsp;</label></dd>
-				<dt id="l_t" style="display: none;">提醒：</dt>
-				<dd id="l_c" style="display: none;">
+				<dt style="width: 25%;">容纳人数：</dt>
+				<dd style="width: 75%;"><label id="capacity">&nbsp;</label></dd>
+				<dt style="width: 25%;">说明：</dt>
+				<dd style="width: 75%;"><label id="remark">&nbsp;</label></dd>
+				<dt id="l_t" style="display: none;width: 25%;">提醒：</dt>
+				<dd id="l_c" style="display: none;width: 75%;">
 					<select id="" name="isemail">
 						<option value="true">是</option>
 						<option value="false" selected="selected">否</option>

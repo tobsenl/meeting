@@ -821,7 +821,8 @@ public class MeetingDao {
         	    if(o != null){
                 	    if(o.toString().equals(room_id)){
                 		Meeting meeting = (Meeting)dbt.query(sql3, Meeting.class);
-                		list_value1=DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm:ss")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm:ss")+"  "+meeting.getReserve_address()+" 已经存在 <<"+meeting.getContent()+">>的"+("4".equals(meeting.getType())?"培训":"会议")+"申请" ;
+                		//list_value1=DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm:ss")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm:ss")+"  "+meeting.getReserve_address()+" 已经存在 <<"+meeting.getContent()+">>的"+("4".equals(meeting.getType())?"培训":"会议")+"申请" ;
+                		list_value1="该"+("4".equals(meeting.getType())?"培训教室":"会议室")+"已被申请（名称："+meeting.getContent()+"，申请时间："+DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm")+"）";
                 	    }
         	    }
         	}
@@ -832,12 +833,43 @@ public class MeetingDao {
         	    if(o != null){
                 	    if(o.toString().equals(room_id)){
                 		Meeting meeting = (Meeting)dbt.query(sql3, Meeting.class);
-                		list_value1=DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm:ss")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm:ss")+"  "+meeting.getAddress1()+" 已经被"+("4".equals(meeting.getType())?"培训":"会议")+":<<"+meeting.getContent()+">> 占用！" ;
+                		//list_value1=DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm:ss")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm:ss")+"  "+meeting.getAddress1()+" 已经被"+("4".equals(meeting.getType())?"培训":"会议")+":<<"+meeting.getContent()+">> 占用！" ;
+                		list_value2="该"+("4".equals(meeting.getType())?"培训教室":"会议室")+"已被占用（名称："+meeting.getContent()+"，申请时间："+DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm")+"）";
                 	    }
         	    }
         	}
 	}
 	error+=list_value2;
+	return error+"";
+    }
+    public String RoomAvailable(String startTime, String endTime, String room_id,String meetingId) throws Exception {
+	//boolean flag = false;
+	DBTools dbt = new DBTools(JndiName.INTRAWEB);
+	String error="";
+	String list_value1="";
+	String list_value2="";
+	String sql3 = "select "+FIELD_SQL+FROM_SQL+" where " +
+		"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime" + " and  to_date('" + endTime+ "','yyyy-mm-dd hh24:mi:ss') >=m.startTime " +
+		//"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime "+ 
+		//"and m.endTime >= to_date('"+DateUtil.getCurrentDate("yyyy-MM-dd HH:mm")+"','yyyy-mm-dd hh24:mi:ss') "+
+		"and ( m.RESERVE_ROOMID='"+room_id+"' or m.roomid='"+room_id+"' )";
+	if (meetingId != null && !"".equals(meetingId)) {
+	    sql3 += " and m.id<>" + meetingId;
+	}
+	//System.out.println(sql3);
+	List<Object> list2=dbt.query(sql3, "ROOMID");
+	if(list2!=null && list2.size()>0){
+	    for (Object o : list2) {
+		if(o != null){
+		    if(o.toString().equals(room_id)){
+			Meeting meeting = (Meeting)dbt.query(sql3, Meeting.class);
+			//list_value1=DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm:ss")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm:ss")+"  "+meeting.getAddress1()+" 已经被"+("4".equals(meeting.getType())?"培训":"会议")+":<<"+meeting.getContent()+">> 占用！" ;
+			list_value1="该"+("4".equals(meeting.getType())?"培训教室":"会议室")+"已被占用（名称："+meeting.getContent()+"，申请时间："+DateUtil.dateToString(meeting.getStarttime(), "yyyy-MM-dd HH:mm")+"至"+DateUtil.dateToString(meeting.getEndtime(), "yyyy-MM-dd HH:mm")+"）";
+		    }
+		}
+	    }
+	}
+	error+=list_value1;
 	return error+"";
     }
 

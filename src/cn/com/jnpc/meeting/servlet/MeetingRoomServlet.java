@@ -201,13 +201,13 @@ public class MeetingRoomServlet extends BaseServlet {
         }
     }
 
-    public void roomDetail() {
+    public void roomDetail() throws Exception {
         String roomid = request.getParameter("roomID");
         MeetingRoom mr = meetingRoomDao.findById(roomid);
         String startTime = request.getParameter("starttime");
         String endTime = request.getParameter("endtime");
-        List<Meeting> meetings = meetingDao.getMeetingByRoomAndTime(roomid, startTime, endTime);
-        if (meetings != null && meetings.size() > 0) {
+        String str = meetingDao.RoomAvailable(startTime, endTime,roomid,null);
+        if (str != null && (!str.equals(""))) {
             mr.setIsFree("1");
         } else {
             mr.setIsFree("0");
