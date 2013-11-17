@@ -1,6 +1,0 @@
-id	number			
-title	varchar2(128)	y		
-type	number	y		1：固定称谓；2：外来单位；
-common1	varchar2(256)	y		
-common2	varchar2(256)	y		
-common3	varchar2(256)	y		

@@ -1,7 +1,0 @@
-id	number(10)			
-building	varchar2(40)	y		
-room	varchar2(20)	y		
-capacity	number(4)	y		
-remark	varchar2(200)	y		
-deleted	varchar2(1)	y		
-type	number	y	1	1:ª·“È “;2≈‡—µΩÃ “

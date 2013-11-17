@@ -1,6 +1,0 @@
-id	number(10)			
-roomname	varchar2(20)	y		
-capacity	number(4)	y		
-remark	varchar2(200)	y		
-parentid	number(10)	y		
-type	number(1)	y	1	1:会议室;2:培训中心教室

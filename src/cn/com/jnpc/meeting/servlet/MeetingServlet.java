@@ -338,6 +338,7 @@ public class MeetingServlet extends BaseServlet {
 			meetingDao.getHistoryMeeting(page, type).getResult());
 	    }
 	    request.setAttribute("title", title);
+	    request.setAttribute("xv", t);
 	    page.setForwordName("MeetingServlet?ctrl=listMeeting&type=" + type
 		    + "&title=" + t + "&pageNo=");
 	    request.setAttribute("tag", page.getTag());
@@ -503,9 +504,15 @@ public class MeetingServlet extends BaseServlet {
     public String toUpdate() {
 	request.setAttribute("ctrl", "update");
 	String id = request.getParameter("id");
+	String xv = request.getParameter("xv")!=null?request.getParameter("xv"):"";
 	Meeting meeting = meetingDao.getMeetingById(id);
 	request.setAttribute("meeting", meeting);
-	request.setAttribute("title", "修改会议");
+	request.setAttribute("xv", xv);
+	if(!xv.equals("2") && !xv.equals("4") && !xv.equals("6")){
+	    request.setAttribute("title", "修改会议");
+	}else{
+	    request.setAttribute("title", "会议信息");
+	}
 	getParameter("show");
 	getParameter("url");
 	// 得到公司领导

@@ -1,0 +1,51 @@
+-- Create sequence 
+create sequence SEQ_MEETING_COMMON_ID
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 110
+increment by 1
+cache 20;
+
+
+-- Create sequence 
+create sequence SEQ_MEETING_EXPLAIN_ID
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 90
+increment by 1
+cache 20;
+
+-- Create sequence 
+create sequence SEQ_MEETING_TRAINING_ID
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 1
+increment by 1
+cache 20
+cycle;
+
+-- Create sequence 
+create sequence SEQ_MEETING_ROOM_ID
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 25
+increment by 1
+cache 20
+cycle;
+
+-- Create sequence 
+create sequence SEQ_MEETING_PLAN_ID
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 48581
+increment by 1
+cache 20;
+
+-- Create sequence 
+create sequence SEQ_MEETING_MONEY_ID
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 261
+increment by 1
+cache 20;
+

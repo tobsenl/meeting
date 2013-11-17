@@ -526,11 +526,16 @@
 					</dd>
 					<dt></dt>
 					<dd style="text-indent: 100px;">
+					<c:if test="${xv != 2 and xv != 4 and xv != 6}">
 						<input id="sub" type="button" value="提交" onclick="check()">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重置">
 						<input type="hidden" name="show" value="${show }" /> <input type="hidden" name="ctrl"
 							value="${ctrl }"> <input type="hidden" id="id" name="id" value="${meeting.id }">
 						<input type="hidden" name="json" id="json">
+					</c:if>
+					<c:if test="${xv == 2 or xv == 4 or xv == 6}">
+						<input type="button" value="返回" onclick="javascript:history.go(-1);"/>
+					</c:if>
 						<c:choose>
 						<c:when test="${meeting.status != '1' && meeting.status != '3' }">
 							<input type="hidden" name="status" id="status" value="0">
