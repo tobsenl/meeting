@@ -25,6 +25,12 @@ using(['dialog','form','validatebox'],function(){
 					datatype:"json",
 					success : function(data) {
 						var d = $.parseJSON(data);
+						$("#capacity").html("");
+						$("#remark").html("");
+						$("#capacity").html("");
+						$("#remark").html("");
+						$("#isFree").val("");
+						
 						$("#capacity").html("&nbsp;");
 						$("#remark").html("&nbsp;");
 						$("#capacity").html(d.capacity);
@@ -93,8 +99,8 @@ using(['dialog','form','validatebox'],function(){
 				$("#l_t").show();
 				$('#l_c').show();
 			}
-			$("#starttime").val(val.substring(4,20));
-			$("#endtime").val(val.substring(20));
+			$("#starttime").val($("#stime").val());
+			$("#endtime").val($("#etime").val());
 			$('#dlg').dialog('open');
 		});
 		$("input[id^=bk_]").click(function(){
@@ -136,7 +142,12 @@ using(['dialog','form','validatebox'],function(){
 						<tr>
 							<td width="10%" align="center"><!-- ${mp.id } --><fmt:formatDate
 								value="${mp.starttime }" pattern="E" /><br /> <fmt:formatDate
-								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" /><br />
+								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" />
+								<input type="hidden" id="stime" value='<fmt:formatDate
+								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" />'/>
+								<input type="hidden" id="etime" value='<fmt:formatDate
+								value="${mp.endtime }" pattern="yyyy-MM-dd HH:mm" />'/>
+								<br />
 							<fmt:formatDate value="${mp.endtime }"
 								pattern="yyyy-MM-dd HH:mm" /></td>
 						<td width="10%" align="center">${mp.content }</td>
