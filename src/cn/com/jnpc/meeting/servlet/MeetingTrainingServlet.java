@@ -188,6 +188,7 @@ public class MeetingTrainingServlet extends BaseServlet {
         if (vec.contains("380601")) {
             String id = request.getParameter("id");
             Meeting meeting = meetingDao.getMeetingById(id);
+            String xv = request.getParameter("xv")!=null?request.getParameter("xv"):"";
             //getParameter("show");
             request.setAttribute("meeting", meeting);
             // 培训教室
@@ -197,7 +198,12 @@ public class MeetingTrainingServlet extends BaseServlet {
             request.setAttribute("orgs", jnpc.getAllORG());// 所有部门
             request.setAttribute("ctrl", "update");
             request.setAttribute("u_org", u_org);
-            request.setAttribute("title", "培训通知修改");// 页面标题
+            request.setAttribute("xv", xv);
+            if(xv.equals("0")){
+            	request.setAttribute("title", "培训通知信息");
+            }else{
+            	request.setAttribute("title", "培训通知修改");// 页面标题
+            }
             request.setAttribute("mes", meetingExplainDao.getAllShow());// 所有显示的有关说明
             return BASE_JSP + "meetingTrain/meetingTrain.jsp";
         } else {

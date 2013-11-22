@@ -1,3 +1,4 @@
+<%@page import="cn.com.jnpc.utils.DateUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include.jsp" %>
@@ -106,10 +107,14 @@
 							<fmt:formatDate value="${mp.committime }"
 								pattern="yyyy-MM-dd HH:mm" /></td>
 					<td width="5%" align="center">
-							<c:if test="${from =='m' }">
-								<a href="MeetingTrainingServlet?ctrl=toUpdate&show=all&id=${mp.id }">修改</a>
-							</c:if> 
+					<c:set var="nowDate" value="<%=System.currentTimeMillis()%>"></c:set> 
+						<c:if test="${mp.starttime.getTime() > nowDate }">
+							<a href="MeetingTrainingServlet?ctrl=toUpdate&show=all&xv=1&id=${mp.id }">修改</a>
 							<a href="javascript:confirmDelete('<%=basePath%>MeetingServlet?ctrl=del&id=${mp.id }')">删除</a>
+						</c:if>
+						<c:if test="${mp.starttime.getTime() <= nowDate }">
+							<a href="MeetingTrainingServlet?ctrl=toUpdate&show=all&xv=0&id=${mp.id }">查看</a>
+						</c:if>
 						</td> 
 					</tr>
 				</c:forEach>
