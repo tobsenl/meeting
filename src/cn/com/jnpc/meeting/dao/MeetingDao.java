@@ -929,11 +929,13 @@ public class MeetingDao {
         String sql = strBuff.toString();
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
         List<Meeting> list = dbt.query(Meeting.class, sql);
+        dbt.closeConn();
         DBTools dbt2 = new DBTools(JndiName.JNPC);
         for (Meeting m : list) {
             String s = "select t.name as name from VIEW_PA_EMP_EMPLOYEE t where t.id= " + m.getCommiterid();
             Object obj = dbt2.queryReturnOne(s, "name");
             m.setCommiterid(obj == null ? "" : obj.toString());
+            dbt2.closeConn();
         }
         return list;
     }

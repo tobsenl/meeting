@@ -551,7 +551,7 @@ public class MeetingServlet extends BaseServlet {
 	    // EmailSender es = new EmailSender();
 	    // es.send(m);
 	    // }
-	    if (!isEmpty(oldm.getAddress1())) {
+	    if (!isEmpty(oldm.getAddress1()) &&( oldm.getStatus().equals("1") || oldm.getStatus().equals("3"))) {
 		String warning = compareM(oldm, nw);// 比较修改部分.
 		if (!warning.equals("<br/><br/>")) {
 		    EmailSender es = new EmailSender();
