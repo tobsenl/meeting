@@ -78,14 +78,14 @@ public class MeetingTrainingServlet extends BaseServlet {
     }
 
     public String list() {
-        String starttime = request.getParameter("starttime");
-        String starttime2 = request.getParameter("starttime2");
-        String endtime = request.getParameter("endtime");
-        String endtime2 = request.getParameter("endtime2");
-        String org = request.getParameter("org");
+        String starttime = request.getParameter("starttime")==null?"":request.getParameter("starttime");
+        String starttime2 = request.getParameter("starttime2")==null?"":request.getParameter("starttime2");
+        String endtime = request.getParameter("endtime")==null?"":request.getParameter("endtime");
+        String endtime2 = request.getParameter("endtime2")==null?"":request.getParameter("endtime2");
+        String org = request.getParameter("org")==null?"":request.getParameter("org");
         String roomID = request.getParameter("roomID")==null?request.getParameter("_roomID"):request.getParameter("roomID");
-        String content = request.getParameter("content");
-        String pageNo = request.getParameter("pageNo");
+        String content = request.getParameter("content")==null?"":request.getParameter("content");
+        String pageNo = request.getParameter("pageNo")==null?"1":request.getParameter("pageNo");
         request.setAttribute("starttime", starttime);
         request.setAttribute("starttime2", starttime2);
         request.setAttribute("endtime", endtime);
@@ -115,7 +115,7 @@ public class MeetingTrainingServlet extends BaseServlet {
         } else {
             page.setPageNo(Integer.parseInt(pageNo));
         }
-        page.setForwordName("MeetingTrainServlet?ctrl=list&starttime=" + starttime + "&starttime2=" + starttime2
+        page.setForwordName("MeetingTrainingServlet?ctrl=list&starttime=" + starttime + "&starttime2=" + starttime2
                 + "&endtime=" + endtime + "&endtime2=" + endtime2 + "&org=" + org + "&roomID=" + roomID + "&content="
                 + content + "&pageNo=");
         request.setAttribute("meetings", meetingDao.getMeeting(page, pfList).getResult());
