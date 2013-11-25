@@ -465,6 +465,7 @@ public class MeetingDao {
         sql2 = sql2 + "and endTime=to_date('" + endTime + "','yyyy-mm-dd hh24:mi:ss') and content ='" + content
                 + "' and commiterid='" + commiterId + "'and type='" + type + "'";
         // 执得查询语句
+        try{
         long cut = dbt.getCount(sql2);
         if (!isPresiderAvailable(startTime, endTime, presider, m.getId())) {
             flag = -99;
@@ -481,6 +482,12 @@ public class MeetingDao {
             flag = -999;
         }
         return flag;
+        }catch(Exception e){
+        	
+        }finally{
+        	dbt.closeConn();
+        	return flag;
+        }
     }
 
     /*
@@ -492,10 +499,17 @@ public class MeetingDao {
      */
     public String getOrg(String userId) {
         DBTools dbt = new DBTools(JndiName.JNPC);
+        Object org=null;
         // 查询id等于用户id的部门名称
+        try{
         String sql = "select org from jnpc_user_simple where id='" + userId + "'";
-        Object org = dbt.queryReturnOne(sql, "org");
+        org = dbt.queryReturnOne(sql, "org");
         return org == null ? "" : org.toString();
+        }catch(Exception e){}
+        finally{
+        	dbt.closeConn();
+        	return org == null ? "" : org.toString();
+        }
     }
 
     /**
@@ -673,6 +687,7 @@ public class MeetingDao {
         String pageSql = SQLStatementGetter.getPageQueryStatement("select " + FIELD_SQL + FROM_SQL + cSql
                 + " order by starttime desc", (tempPageNo - 1) * size + 1, tempPageNo * size);
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
+        try{
         page.setTotalCount(dbt.getCount("select count(*) " + FROM_SQL + cSql));
         //System.out.println(pageSql);
         List<Meeting> list = dbt.query(Meeting.class, pageSql);
@@ -681,6 +696,11 @@ public class MeetingDao {
         }
         page.setResult(list);
         return page;
+        }catch(Exception e){}
+        finally{
+        	dbt.closeConn();
+        	return page;
+        }
     }
 
     /**
@@ -741,6 +761,8 @@ public class MeetingDao {
      */
     public boolean isPresiderAvailable(String startTime, String endTime, String presider, String meetingId) {
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
+        Long count = null;
+        try{
         String sql3 = "select count(*) count from meeting where to_date('" + startTime
                 + "','yyyy-mm-dd hh24:mi:ss') <endTime" + " and  to_date('" + endTime
                 + "','yyyy-mm-dd hh24:mi:ss')>=startTime and presider='" + presider + "'";
@@ -748,10 +770,18 @@ public class MeetingDao {
             sql3 += " and id <>" + meetingId;
         }// 是否为修改会议
          // String count = ora.getSnglRowSnglCol(sql3);
-        Long count = dbt.getCount(sql3);
+        count = dbt.getCount(sql3);
         if (count != 0l)
             return false;
         return true;
+        }catch(Exception e){
+        	
+        }finally{
+        	dbt.closeConn();
+        	if (count != 0l)
+                return false;
+            return true;
+        }
     }
 
     /**
@@ -767,6 +797,7 @@ public class MeetingDao {
      */
     public boolean isLeadersAvailable(String startTime, String endTime, String[] leaders, String meetingId) {
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
+        try{
         if (leaders == null || leaders.length <= 0) {
             return true;
         } else if (leaders.length == 1 && "".equals(leaders[0])) {
@@ -785,6 +816,11 @@ public class MeetingDao {
                 return false;
         }
         return true;
+        }catch(Exception e){
+        	return false;
+        }finally{
+        	dbt.closeConn();
+        }
     }
 
     /**
@@ -805,6 +841,7 @@ public class MeetingDao {
                 + "','yyyy-mm-dd hh24:mi:ss') <endTime" + " and  to_date('" + endTime
                 + "','yyyy-mm-dd hh24:mi:ss')>=startTime and leader like'%" + leader + "%'";
         // System.out.println(sql3);
+        try{
         if (meetingId != null && !"".equals(meetingId)) {
             sql3 += " and id<>" + meetingId;
         }
@@ -812,6 +849,11 @@ public class MeetingDao {
         if (count != 0)
             return flag;
         return true;
+        }catch(Exception e){
+        	return false;
+        }finally{
+        	dbt.closeConn();
+        }
     }
     public String isRoomAvailable(String startTime, String endTime, String room_id,String meetingId) throws Exception {
 	//boolean flag = false;
@@ -828,7 +870,7 @@ public class MeetingDao {
 	    sql3 += " and m.id<>" + meetingId;
 	}
 	//System.out.println(sql3);
-	
+	try{
 	List<Object> list2=dbt.query(sql3, "ROOMID");
 	String list_value2="";
 	if(list2!=null && list2.size()>0){
@@ -860,6 +902,11 @@ public class MeetingDao {
 		error+=list_value1;
 	}	
 	return error+"";
+	}catch(Exception e){
+		return "操作出错!";
+	}finally{
+		dbt.closeConn();
+	}
     }
     public String RoomAvailable(String startTime, String endTime, String room_id,String meetingId) throws Exception {
 	//boolean flag = false;
@@ -876,6 +923,7 @@ public class MeetingDao {
 	    sql3 += " and m.id<>" + meetingId;
 	}
 	//System.out.println(sql3);
+	try{
 	List<Object> list2=dbt.query(sql3, "ROOMID");
 	if(list2!=null && list2.size()>0){
 	    for (Object o : list2) {
@@ -890,6 +938,11 @@ public class MeetingDao {
 	}
 	error+=list_value1;
 	return error+"";
+	}catch(Exception e){
+		return "操作出错!";
+	}finally{
+		dbt.closeConn();
+	}
     }
 
     /**
@@ -902,9 +955,18 @@ public class MeetingDao {
      * @return
      */
     public int delete(String id) {
+    	DBTools dbt=null;
+    	try{
         String sql = "delete meeting where id=" + id;
-        DBTools dbt = new DBTools(JndiName.INTRAWEB);
+        dbt = new DBTools(JndiName.INTRAWEB);
         return dbt.update(sql);
+    	}catch(Exception e){
+    		return 0;
+    	}
+    	finally{
+    		dbt.closeConn();
+    	}
+    	
     }
 
     /**
@@ -983,6 +1045,7 @@ public class MeetingDao {
                 }if(!B.equals("")){
                     flag = qr.update(conn, sqlb+B+")");
                 }
+                dbt.closeConn();
             }
             if (disapproveIDs != null && disapproveIDs.length > 0) {
                 for (String disapprove : disapproveIDs) {
@@ -1082,6 +1145,7 @@ public class MeetingDao {
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
         List<Object[]> list = dbt.query(sql);
         List<Object[]> listp = dbt.query(sqlp);
+        dbt.closeConn();
         List<Object[]> orgs;
         Map<String, List<String>> map = new LinkedHashMap<String, List<String>>();
         JNPC jnpc = new JNPC();
@@ -1134,6 +1198,7 @@ public class MeetingDao {
                 + "','yyyy-mm-hh') group by m.commitdepart";
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
         List<Object[]> obj = dbt.query(sql);
+        dbt.closeConn();
         Map<String, String> map = new HashMap<String, String>();
         for (Object[] o : obj) {
             map.put(o[0] == null ? "" : o[0].toString(), o[1] == null ? "" : o[1].toString());
@@ -1189,6 +1254,7 @@ public class MeetingDao {
                 + DateUtil.dateToString(nextDate, "yyyy-MM-dd") + "','yyyy-mm-dd') group by m.commitdepart";
         List<Object[]> nextCount = dbt.query(sql);//下月召开次数
         List<Counter> rtnList = new ArrayList<Counter>();
+        dbt.closeConn();
         for (Object[] tobj : totalCount) {
             String cDepart = tobj[0] == null ? "" : tobj[0].toString();
             Counter counter = new Counter();
