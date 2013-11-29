@@ -16,7 +16,7 @@ public class DbHelper {
     }
     
     public static QueryRunner getIntrawebQueryRunner() {
-        return getQueryRunner("intrawebnew");
+        return getQueryRunner("intraweb");
     }
     
     public static QueryRunner getQueryRunner(String dsName) {

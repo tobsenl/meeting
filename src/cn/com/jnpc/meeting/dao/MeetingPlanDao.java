@@ -255,7 +255,7 @@ public class MeetingPlanDao {
         Connection conn = null;
         try {
             int flag = 0;
-            conn = DbHelper.getConnection("intrawebnew");
+            conn = DbHelper.getConnection("intraweb");
             conn.setAutoCommit(false);
             QueryRunner qr = new QueryRunner();
             String sql1 = "select * from meeting_plan where id=" + id;

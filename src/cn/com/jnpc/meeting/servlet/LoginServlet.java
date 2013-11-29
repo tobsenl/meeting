@@ -55,15 +55,15 @@ public class LoginServlet extends HttpServlet {
 
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Right right = new Right();
-        String userid = request.getParameter("userid");
-        String passwd = request.getParameter("passwd");
-        HttpSession session = request.getSession();
+        HttpSession session= request.getSession();
+        String userid = (String)session.getAttribute("userid");
+        String passwd = (String)session.getAttribute("passwd");
+        if( userid == null || passwd == null || userid.equals("") || passwd.equals("")){
+           userid = request.getParameter("userid");
+           passwd = request.getParameter("passwd");
+           passwd = right.computeDigest(passwd);//如果从request中获取pwd 则加密
+        }
         String error = "";
-//        String fromWhere = request.getParameter("return");
-//        if (fromWhere != null && fromWhere.equals("1")) {
-            // 密码加密
-            passwd = right.computeDigest(passwd);
-//        }
         String flagEncrypt = "";
         if (userid == null || passwd == null || userid.equals("") || passwd.equals("")) {
              response.sendRedirect

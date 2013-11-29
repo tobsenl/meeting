@@ -628,8 +628,8 @@ public class Oracle {
     Connection connection = null;
     try {
       InitialContext initContext = new InitialContext();
-      String strDataSourceName = "jdbc/intrawebnew";
-      DataSource dsOracle = (DataSource)initContext.lookup("java:comp/env/jdbc/intrawebnew");
+      String strDataSourceName = "jdbc/intraweb";
+      DataSource dsOracle = (DataSource)initContext.lookup("java:comp/env/jdbc/intraweb");
       connection = dsOracle.getConnection();
     } catch(Exception e) {
       Debug.print_log(e);

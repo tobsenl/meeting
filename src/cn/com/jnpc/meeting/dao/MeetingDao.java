@@ -1020,7 +1020,7 @@ public class MeetingDao {
                 + userid + "' where id in(-1";
         String sqlb = "update meeting m set status=1,approverid='"+ userid + "' where id in(-1";
         String sqld = "update meeting set status=2,approverid='" + userid + "' where id in(-1";
-        Connection conn = DbHelper.getConnection("intrawebnew");
+        Connection conn = DbHelper.getConnection("intraweb");
         try {
             int flag = 0;
             conn.setAutoCommit(false);
