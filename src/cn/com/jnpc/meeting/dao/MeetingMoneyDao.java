@@ -121,10 +121,10 @@ public class MeetingMoneyDao {
     }
 
     public Map<String, String> getMeetingMoneyByOrgAndYear(String year) {
+    	String sql = "select * from meeting_money where year=" + year;
+    	Map<String, String> rtnMap = new HashMap<String, String>();
 	try{
-        String sql = "select * from meeting_money where year=" + year;
         List<MeetingMoney> mmList = dbt.query(MeetingMoney.class, sql);
-        Map<String, String> rtnMap = new HashMap<String, String>();
         for (MeetingMoney mm : mmList) {
             rtnMap.put(mm.getOrg(), mm.getMoney());
         }
@@ -133,7 +133,7 @@ public class MeetingMoneyDao {
 	    
 	}finally{
 	    dbt.closeConn();
-	    return null;
+	    return rtnMap;
 	}
     }
 }

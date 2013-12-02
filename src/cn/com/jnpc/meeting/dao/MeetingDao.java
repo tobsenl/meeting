@@ -131,15 +131,17 @@ public class MeetingDao {
      */
     public List<Meeting> getMeeting(List<PropertyFilter> pfList) {
 	DBTools dbt = new DBTools(JndiName.INTRAWEB);
+	List<Meeting> list=null;
 	try{
         String sql = "select " + FIELD_SQL + FROM_SQL;
         String condition = QueryUtil.toSqlString(pfList, true);
-        return dbt.query(Meeting.class, sql + condition + " order by m.starttime");
+        list=dbt.query(Meeting.class, sql + condition + " order by m.starttime");
+        return list;
 	}catch(Exception e){
             
         }finally{
             dbt.closeConn();
-            return null;
+            return list;
         }
     }
 

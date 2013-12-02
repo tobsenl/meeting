@@ -394,11 +394,13 @@ public class MeetingServlet extends BaseServlet {
     public String toAdd() {
 	if (vec.contains("380101")) {
 	    // 所有的领导
-	    request.setAttribute("leaderList", jnpc.getLeaders());
+	    //request.setAttribute("leaderList", jnpc.getLeaders());
 	    // 所有的会议室建筑
 	    // request.setAttribute("mrs", meetingRoom2Dao.getParentRoom());
 	    // 所有的培训教室
 	    // request.setAttribute("trs", meetingRoom2Dao.getTrainingRoom());
+		// 所有的领导
+		request.setAttribute("leaderList", jnpc.getLeaders());
 	    // 所有的会议室
 	    request.setAttribute("mrs", meetingRoomDao.getMeetingRoom());
 	    // 所有部门

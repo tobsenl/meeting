@@ -29,14 +29,17 @@ public class JNPC {
     public List<Employee> getEmployeeNamesAndOrgName(String str) {
         String sql = "select t.name , t.org from VIEW_PAY_EMPLOYEE t where F_TRANS_PINYIN_CAPITAL(t.name) like '%?%' or t.name like '%?%' and t.precostatus ='在职'";
         QueryRunner qr = DbHelper.getJNPCQueryRunner();
+        List<Employee> list =null;
         try {
-            List<Employee> list = (List<Employee>) qr.query(sql.replaceAll("\\?", str), new BeanListHandler<Employee>(
+            list = (List<Employee>) qr.query(sql.replaceAll("\\?", str), new BeanListHandler<Employee>(
                     Employee.class));
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+        	return list;
         }
-        return null;
+        
     }
 
     /**
@@ -48,13 +51,15 @@ public class JNPC {
     public List<Object> getEmployeeNames(String str) {
         String sql = "select t.name from VIEW_PAY_EMPLOYEE t where lower(F_TRANS_PINYIN_CAPITAL(t.name)) like '%'||lower('?')||'%' or t.name like '%?%' and t.precostatus ='在职'";
         QueryRunner qr = DbHelper.getJNPCQueryRunner();
+        List<Object> list=null;
         try {
-            List<Object> list = qr.query(sql.replaceAll("\\?", str), new ColumnListHandler<Object>("name"));
+            list = qr.query(sql.replaceAll("\\?", str), new ColumnListHandler<Object>("name"));
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+        	return list;
         }
-        return null;
     }
 
     /**
@@ -66,13 +71,15 @@ public class JNPC {
     public List<Object> getORGName(String str) {
         String sql = "select t.ORGNAME from JNPC_DEP_ALL t where t.CLASS=3 and (lower(F_TRANS_PINYIN_CAPITAL(t.ORGNAME)) like '%'||lower('?')||'%' or t.ORGNAME like '%?%' or lower(t.org) like '%'|| lower('?')||'%') order by t.SORT";
         QueryRunner qr = DbHelper.getJNPCQueryRunner();
+        List<Object> list =null;
         try {
-            List<Object> list = qr.query(sql.replaceAll("\\?", str), new ColumnListHandler<Object>("orgname"));
+            list = qr.query(sql.replaceAll("\\?", str), new ColumnListHandler<Object>("orgname"));
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+        	return list;
         }
-        return null;
     }
 
     /**
@@ -84,13 +91,15 @@ public class JNPC {
     public List<Object[]> getAllORG() {
         String sql = "select t.org,t.ORGNAME,t.sort from JNPC_DEP_ALL t where t.CLASS=3 order by t.SORT";
         QueryRunner qr = DbHelper.getJNPCQueryRunner();
+        List<Object[]> list =null;
         try {
-            List<Object[]> list = qr.query(sql, new ArrayListHandler());
+            list = qr.query(sql, new ArrayListHandler());
             return list;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+        	 return list;
         }
-        return null;
     }
 
     /**
@@ -207,14 +216,16 @@ public class JNPC {
     public List<Object> getLeaders() {
 	String sql = "";
 	DBTools dbt = new DBTools(JndiName.JNPC);
+	List<Object> obj=null;
 	try{
         sql = "select orgname from jnpc_dep where class in (1,2)";
+        obj=dbt.query(sql, "orgname");
         return dbt.query(sql, "orgname");
 	}catch(Exception e){
 	    
 	}finally{
 	    dbt.closeConn();
-	    return null;
+	    return obj;
 	}
     }
 }

@@ -48,15 +48,17 @@ public class MeetingPlanDao {
      * @return
      */
     public List<MeetingPlan> getMeetingPlan(List<PropertyFilter> pfList) {
+    	String sql = "select " + FIELD_SQL + FROM_SQL;
+    	List<MeetingPlan> listplan=null;
 	try{
-        String sql = "select " + FIELD_SQL + FROM_SQL;
         String condition = QueryUtil.toSqlString(pfList, true);
-        return dbt.query(MeetingPlan.class, sql + condition);
+        listplan=dbt.query(MeetingPlan.class, sql + condition);
+        return listplan; 
     }catch(Exception e){
 	    
 	}finally{
 	    dbt.closeConn();
-	    return null;
+	    return listplan;
 	}
     }
 
