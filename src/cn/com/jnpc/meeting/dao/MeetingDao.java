@@ -717,7 +717,7 @@ public class MeetingDao {
         }
         String cSql = QueryUtil.toSqlString(pfList, true);// 条件语句
         String pageSql = "select " + FIELD_SQL + FROM_SQL + cSql
-                + " and m.STATUS in(1,3) order by starttime desc";
+                + " and m.STATUS in(1,3) order by starttime asc";
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
         try{
         page.setTotalCount(dbt.getCount("select count(*) " + FROM_SQL + cSql));
