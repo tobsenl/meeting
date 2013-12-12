@@ -550,7 +550,7 @@ public class MeetingDao {
         List<PropertyFilter> pfList = new ArrayList<PropertyFilter>();
         pfList.add(tpf);
         pfList.add(epf);
-        return this.getMeeting(page, pfList);
+        return this.getMeetingNoPage(page, pfList);
         // int size = page.getPageSize();
         // int pageNo = page.getPageNo();
         // int tempPageNo = 0;
@@ -704,7 +704,36 @@ public class MeetingDao {
         	return page;
         }
     }
-
+    
+    public Page<Meeting> getMeetingNoPage(Page<Meeting> page, List<PropertyFilter> pfList) {
+        JNPC jnpc = new JNPC();
+        int size = page.getPageSize();
+        int pageNo = page.getPageNo();
+        int tempPageNo = 0;
+        if (pageNo < 1) {
+            tempPageNo = 1;
+        } else {
+            tempPageNo = pageNo;
+        }
+        String cSql = QueryUtil.toSqlString(pfList, true);// 条件语句
+        String pageSql = "select " + FIELD_SQL + FROM_SQL + cSql
+                + " and m.STATUS in(1,3) order by starttime desc";
+        DBTools dbt = new DBTools(JndiName.INTRAWEB);
+        try{
+        page.setTotalCount(dbt.getCount("select count(*) " + FROM_SQL + cSql));
+        //System.out.println(pageSql);
+        List<Meeting> list = dbt.query(Meeting.class, pageSql);
+        for (Meeting mp : list) {
+            mp.setCommiterid(jnpc.getName(mp.getCommiterid()));
+        }
+        page.setResult(list);
+        return page;
+        }catch(Exception e){}
+        finally{
+        	dbt.closeConn();
+        	return page;
+        }
+    }
     /**
      * 得到会议已经结束的历史会议信息.
      * 

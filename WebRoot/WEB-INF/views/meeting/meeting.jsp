@@ -135,6 +135,26 @@
 				return false;
 			}
 		});
+		if($("#org")){
+			if('${meeting.org}' != ""){
+				var temp=$("#org").find("option:contains('${meeting.org}')");
+				//alert(temp);
+				//console.log(temp);
+				//console.log(temp[0]);
+				//console.log($(temp[0]).attr("checked"));
+				if(temp){
+					$(temp[0]).attr("selected","selected");
+					$("[name='org']").val('${meeting.org}');
+				}else{
+					temp=$("#org").find("option[value='${meeting.org}']");
+					if(temp){
+						$(temp[0]).attr("selected","selected");
+						$("[name='org']").val('${meeting.org}');
+					}
+				}
+			}
+			$("#org").attr('disabled','disabled');
+		};
 	});
 
 	function check() {
@@ -442,11 +462,25 @@
 						<em>*</em> 组织处室：
 					</dt>
 					<dd>
-						<select id="org" name="org" class="easyui-combobox" style="width: 260px;">
+					
+						<select id="org" name="org" class="easyui-combobox" style="width: 260px;" >
 							<option value="">请选择组织处室</option>
 							<c:forEach items="${orgs }" var="org">
-								<option value="${org[0] }"
-									<c:if test="${org[0]==meeting.org || org[0] == u_org }">selected="selected"</c:if>>${org[1] }</option>
+							<c:choose>
+									<c:when test="${fn:trim(meeting['org']) != ''}">
+										<option value="${org[1] }" >${org[1] }</option>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${org[0] != u_org }">
+												<option value="${org[1] }" >${org[1] }</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${org[1] }" selected="selected">${org[1] }</option>
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+							</c:choose>
 							</c:forEach>
 						</select>
 					</dd>

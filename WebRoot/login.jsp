@@ -92,6 +92,7 @@
 			<input type="password" name="passwd" style="font-size: 12" size="30"> <input
 				type="hidden" name="url" value=""></input>
 		</div>
+		<input type="hidden" name="return" value="1">
 		<div id="Layer2"
 			style="position: absolute; left: 45%; top: 386px; width: 159px; height: 38px; z-index: 2">
 			<div align="center">

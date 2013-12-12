@@ -61,7 +61,14 @@ public class LoginServlet extends HttpServlet {
         if( userid == null || passwd == null || userid.equals("") || passwd.equals("")){
            userid = request.getParameter("userid");
            passwd = request.getParameter("passwd");
-           passwd = right.computeDigest(passwd);//如果从request中获取pwd 则加密
+           String fromWhere = request.getParameter("return");
+           if(fromWhere != null && fromWhere.equals("1")){
+        	    //密码加密
+	       		if(passwd != null || !passwd.equals("")){
+	         	   passwd = right.computeDigest(passwd);//如果从request中获取pwd 则加密
+	            }
+       		}
+           
         }
         String error = "";
         String flagEncrypt = "";
