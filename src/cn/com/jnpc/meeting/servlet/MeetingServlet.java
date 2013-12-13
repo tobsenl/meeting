@@ -510,7 +510,7 @@ public class MeetingServlet extends BaseServlet {
 	Meeting meeting = meetingDao.getMeetingById(id);
 	request.setAttribute("meeting", meeting);
 	request.setAttribute("xv", xv);
-	if(!xv.equals("2") && !xv.equals("4") && !xv.equals("6")){
+	if(!xv.equals("2") && !xv.equals("6")){
 	    request.setAttribute("title", "修改会议");
 	}else{
 	    request.setAttribute("title", "会议信息");

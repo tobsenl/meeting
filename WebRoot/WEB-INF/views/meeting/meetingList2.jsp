@@ -62,11 +62,11 @@
 								value="${mp.committime }" pattern="yyyy-MM-dd HH:mm" /></td>
 						<td width="3%" align="center">
 									<a href="MeetingServlet?ctrl=toUpdate&show=my&id=${mp.id }&xv=${xv}">
-						<c:if test="${xv == 2 || xv == 4 || xv == 6}">
+						<c:if test="${xv == 2 || xv == 6}">
 									查看									
 									</a>
 						</c:if>
-						<c:if test="${xv != 2 and xv != 4 and xv != 6}">
+						<c:if test="${xv != 2 and xv != 6}">
 									修改									
 									</a> 
 									<a href="javascript:confirmDelete('MeetingServlet?ctrl=del&id=${mp.id }')">删除</a>
