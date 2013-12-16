@@ -752,7 +752,11 @@ public class MeetingDao {
         pfList.add(dpf);
         pfList.add(tpf);
         pfList.add(epf);
-        return this.getMeeting(page, pfList);
+        if("4".equals(type)){
+        	return this.getMeetingNoPage(page, pfList);
+        }else{
+        	return this.getMeeting(page, pfList);
+        }
         // int size = page.getPageSize();
         // int pageNo = page.getPageNo();
         // int tempPageNo = 0;
@@ -827,7 +831,8 @@ public class MeetingDao {
      * @return 返回是否冲突
      */
     public boolean isLeadersAvailable(String startTime, String endTime, String[] leaders, String meetingId) {
-        DBTools dbt = new DBTools(JndiName.INTRAWEB);
+        /*
+    	DBTools dbt = new DBTools(JndiName.INTRAWEB);
         try{
         if (leaders == null || leaders.length <= 0) {
             return true;
@@ -852,6 +857,9 @@ public class MeetingDao {
         }finally{
         	dbt.closeConn();
         }
+        */
+    	return true;
+    	
     }
 
     /**
@@ -866,6 +874,7 @@ public class MeetingDao {
      * @return 返回是否冲突
      */
     public boolean isLeaderAvailable(String startTime, String endTime, String leader, String meetingId) {
+    	/*
         boolean flag = false;
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
         String sql3 = "select count(*) count from meeting where to_date('" + startTime
@@ -885,6 +894,8 @@ public class MeetingDao {
         }finally{
         	dbt.closeConn();
         }
+        */
+    	return true;
     }
     public String isRoomAvailable(String startTime, String endTime, String room_id,String meetingId) throws Exception {
 	//boolean flag = false;
