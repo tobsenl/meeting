@@ -242,7 +242,6 @@ using(['form','validatebox'],function(){
 				}
 			}
 		}
-		$("#org").attr('disabled','disabled');
 	};
 });
 function setV(va){
