@@ -216,15 +216,15 @@ public class MeetingServlet extends BaseServlet {
     public String list() {
 	if (vec.contains("380101")) {
 	    String from = request.getParameter("from");
-	    String starttime = request.getParameter("_starttime");
-	    String starttime2 = request.getParameter("_starttime2");
-	    String endtime = request.getParameter("_endtime");
-	    String endtime2 = request.getParameter("_endtime2");
-	    String org = request.getParameter("_org");
-	    String buildingid = request.getParameter("_buildingid");
-	    String roomID = request.getParameter("_roomID");
-	    String roomName = request.getParameter("_roomName");
-	    String content = request.getParameter("_content");
+	    String starttime = request.getParameter("_starttime")!=null?request.getParameter("_starttime"):request.getParameter("starttime");
+	    String starttime2 = request.getParameter("_starttime2")!=null?request.getParameter("_starttime2"):request.getParameter("starttime2");
+	    String endtime = request.getParameter("_endtime")!=null?request.getParameter("_endtime"):request.getParameter("endtime");
+	    String endtime2 = request.getParameter("_endtime2")!=null?request.getParameter("_endtime2"):request.getParameter("endtime2");
+	    String org = request.getParameter("_org")!=null?request.getParameter("_org"):request.getParameter("org");
+	    String buildingid = request.getParameter("_buildingid")!=null?request.getParameter("_buildingid"):request.getParameter("buildingid");
+	    String roomID = request.getParameter("_roomID")!=null?request.getParameter("_roomID"):request.getParameter("roomID");
+	    String roomName = request.getParameter("_roomName")!=null?request.getParameter("_roomName"):request.getParameter("roomName");
+	    String content = request.getParameter("_content")!=null?request.getParameter("_content"):request.getParameter("content");
 	    String pageNo = request.getParameter("pageNo");
 	    request.setAttribute("from", from);
 	    request.setAttribute("starttime", starttime);

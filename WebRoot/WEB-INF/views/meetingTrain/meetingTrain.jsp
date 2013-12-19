@@ -263,13 +263,13 @@ function setV(va){
 						<input class="Wdate easyui-validatebox" id="st" type="text"
 							style="width: 200px" name="starttime"
 							data-options="prompt:'开始时间',required:true"
-							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m',maxDate:'#F{$dp.$D(\'et\',{m:-30})}'})"
+							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
 							value="<fmt:formatDate value="${meeting.starttime }" pattern="yyyy-MM-dd HH:mm"/>" />
 						&nbsp;&nbsp; <font style="font-weight: bold;">至</font>&nbsp;&nbsp;
 						<input class="Wdate easyui-validatebox" id="et" type="text"
 							style="width: 200px" name="endtime"
 							data-options="prompt:'结束时间',required:true"
-							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'st\')||\'%y-%M-%d %H:%m\'}'})"
+							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'st\')}'})"
 							value="<fmt:formatDate value="${meeting.endtime }" pattern="yyyy-MM-dd HH:mm"/>" />
 					</dd>
 					<dt><em>*</em> 教员名称：</dt>

@@ -128,8 +128,8 @@ public class MeetingRoomServlet extends BaseServlet {
 
     public String listClassRoom() {
         if (vec.contains("380502")) {
-            String building = request.getParameter("_building");
-            String room = request.getParameter("_room");
+            String building = request.getParameter("_building")!=null?request.getParameter("_building"):request.getParameter("building");
+            String room = request.getParameter("_room")!=null?request.getParameter("_building"):request.getParameter("room");
             building = building == null ? "" : building;
             room = room == null ? "" : room;
             request.setAttribute("building", building);
@@ -163,8 +163,8 @@ public class MeetingRoomServlet extends BaseServlet {
 
     public String list() {
         if (vec.contains("380501")) {
-            String building = request.getParameter("_building");
-            String room = request.getParameter("_room");
+            String building = request.getParameter("_building")!=null?request.getParameter("_building"):request.getParameter("building");
+            String room = request.getParameter("_room")!=null?request.getParameter("_building"):request.getParameter("room");
             building = building == null ? "" : building;
             room = room == null ? "" : room;
             building = building == "null" ? "" : building;
