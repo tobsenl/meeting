@@ -86,6 +86,14 @@ public class MeetingTrainingServlet extends BaseServlet {
         String roomID = request.getParameter("roomID")==null?"":request.getParameter("roomID");
         String content = request.getParameter("content")==null?"":request.getParameter("content");
         String pageNo = request.getParameter("pageNo")==null?"1":request.getParameter("pageNo");
+        starttime=(starttime == null || starttime == "null" )?"":starttime;
+        starttime2=(starttime2 == null || starttime2 == "null" )?"":starttime2;
+        endtime=(endtime == null || endtime == "null" )?"":endtime;
+        endtime2=(endtime2 == null || endtime2 == "null" )?"":endtime2;
+        org=(org == null || org == "null" )?"":org;
+        roomID=(roomID == null || roomID == "null" )?"":roomID;
+        content=(content == null || content == "null" )?"":content;
+        pageNo=(pageNo == null || pageNo == "null" )?"":pageNo;
         request.setAttribute("starttime", starttime);
         request.setAttribute("starttime2", starttime2);
         request.setAttribute("endtime", endtime);

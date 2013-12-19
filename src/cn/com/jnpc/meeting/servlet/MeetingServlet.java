@@ -226,6 +226,17 @@ public class MeetingServlet extends BaseServlet {
 	    String roomName = request.getParameter("_roomName")!=null?request.getParameter("_roomName"):request.getParameter("roomName");
 	    String content = request.getParameter("_content")!=null?request.getParameter("_content"):request.getParameter("content");
 	    String pageNo = request.getParameter("pageNo");
+	    starttime=(starttime == null || starttime == "null" )?"":starttime;
+        starttime2=(starttime2 == null || starttime2 == "null" )?"":starttime2;
+        endtime=(endtime == null || endtime == "null" )?"":endtime;
+        endtime2=(endtime2 == null || endtime2 == "null" )?"":endtime2;
+        org=(org == null || org == "null" )?"":org;
+        roomID=(roomID == null || roomID == "null" )?"":roomID;
+        content=(content == null || content == "null" )?"":content;
+        pageNo=(pageNo == null || pageNo == "null" )?"":pageNo;
+        roomName=(roomName == null || roomName == "null" )?"":roomName;
+        buildingid=(buildingid == null || buildingid == "null" )?"":buildingid;
+        from=(from == null || from == "null" )?"":from;
 	    request.setAttribute("from", from);
 	    request.setAttribute("starttime", starttime);
 	    request.setAttribute("starttime2", starttime2);
