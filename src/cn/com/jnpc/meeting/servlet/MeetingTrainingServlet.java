@@ -136,12 +136,6 @@ public class MeetingTrainingServlet extends BaseServlet {
     }
 
     public String listByDepart() {
-        String pageNo = request.getParameter("pageNo");
-        if (pageNo == null || "".equals(pageNo)) {
-            page.setPageNo(1);
-        } else {
-            page.setPageNo(Integer.parseInt(pageNo));
-        }
         page.setForwordName("MeetingTrainingServlet?ctrl=listByDepart&pageNo=");
         request.setAttribute("meetings", meetingDao.getMeetingTrainByUserid(page, userid).getResult());
         request.setAttribute("tag",  page.getTag());

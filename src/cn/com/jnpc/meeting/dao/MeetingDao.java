@@ -550,7 +550,7 @@ public class MeetingDao {
         List<PropertyFilter> pfList = new ArrayList<PropertyFilter>();
         pfList.add(tpf);
         pfList.add(epf);
-        return this.getMeetingNoPage(page, pfList);
+        return this.getMeetingNoPage(page, pfList,"and m.STATUS in(1,3)");
         // int size = page.getPageSize();
         // int pageNo = page.getPageNo();
         // int tempPageNo = 0;
@@ -638,7 +638,7 @@ public class MeetingDao {
         pfList.add(dpf);
         pfList.add(tpf);
         pfList.add(epf);
-        return this.getMeeting(page, pfList);
+        return this.getMeetingNoPage(page, pfList,"");
         // int size = page.getPageSize();
         // int pageNo = page.getPageNo();
         // int tempPageNo = 0;
@@ -705,10 +705,10 @@ public class MeetingDao {
         }
     }
     
-    public Page<Meeting> getMeetingNoPage(Page<Meeting> page, List<PropertyFilter> pfList) {
+    public Page<Meeting> getMeetingNoPage(Page<Meeting> page, List<PropertyFilter> pfList,String search) {
         JNPC jnpc = new JNPC();
         int size = page.getPageSize();
-        int pageNo = page.getPageNo();
+        int pageNo = page.getPageNo()== 0?1:page.getPageNo();
         int tempPageNo = 0;
         if (pageNo < 1) {
             tempPageNo = 1;
@@ -717,7 +717,7 @@ public class MeetingDao {
         }
         String cSql = QueryUtil.toSqlString(pfList, true);// 条件语句
         String pageSql = "select " + FIELD_SQL + FROM_SQL + cSql
-                + " and m.STATUS in(1,3) order by starttime asc";
+                + search+" order by starttime asc";
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
         try{
         page.setTotalCount(dbt.getCount("select count(*) " + FROM_SQL + cSql));
@@ -753,7 +753,7 @@ public class MeetingDao {
         pfList.add(tpf);
         pfList.add(epf);
         if("4".equals(type)){
-        	return this.getMeetingNoPage(page, pfList);
+        	return this.getMeetingNoPage(page, pfList,"and m.STATUS in(1,3) ");
         }else{
         	return this.getMeeting(page, pfList);
         }
