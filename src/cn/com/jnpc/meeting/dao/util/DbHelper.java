@@ -15,6 +15,10 @@ public class DbHelper {
         return getQueryRunner("jnpc");
     }
     
+    public static QueryRunner getTEMPQueryRunner() {
+        return getQueryRunner("jnpctemp");
+    }
+    
     public static QueryRunner getIntrawebQueryRunner() {
         return getQueryRunner("intraweb");
     }

@@ -415,6 +415,50 @@ public class MeetingDao {
                 + "' and commiterid='" + commiterId + "'and type='" + type + "'";
         // 执得查询语句
         long cut = dbt.getCount(sql2);
+        if (cut == 0l) {
+            sql = SQLStatementGetter.getInsertStatement(m, "meeting");
+            // flag = sg.update(sql);
+            flag = dbt.update(sql);
+        } else {
+            flag = -999;
+        }
+        return flag;
+        }catch(Exception e){
+            
+        }finally{
+            dbt.closeConn();
+            return flag;
+        }
+    }
+    
+    public int meetingTrainAdd(Meeting m, String userid) {
+    	int flag = 0;
+        // 得到申请人所在的部门
+        String commitDept = getOrg(userid);
+        // 得到系统时间
+        m.setCommittime(DateUtil.getTimestamp(null));
+        m.setCommiterid(userid);
+        m.setId("seq_meeting_id.nextval");
+        m.setCommitdepart(commitDept);
+        m.setStatus("0");
+        String startTime = DateUtil.dateToString(m.getStarttime(), "yyyy-MM-dd HH:mm:ss");
+        String endTime = DateUtil.dateToString(m.getEndtime(), "yyyy-MM-dd HH:mm:ss");
+        String content = m.getContent();
+        String commiterId = m.getCommiterid();
+        String type = m.getType();
+        String presider = m.getPresider();
+        String leader = m.getLeader();
+        String[] leaders = leader == null ? null : leader.split(",");
+        String sql = "";
+        DBTools dbt = new DBTools(JndiName.INTRAWEB);
+        try{
+        // 生成一条sql语句,用于查询是否有相同的记录,防止页面刷新时自动添加记录
+        String sql2 = "select count(*) count from meeting where startTime=to_date('" + startTime
+                + "','yyyy-mm-dd hh24:mi:ss')";
+        sql2 = sql2 + "and endTime=to_date('" + endTime + "','yyyy-mm-dd hh24:mi:ss') and content ='" + content
+                + "' and commiterid='" + commiterId + "'and type='" + type + "'";
+        // 执得查询语句
+        long cut = dbt.getCount(sql2);
         if (!isPresiderAvailable(startTime, endTime, presider, "")) {
             flag = -99;
             return flag;
@@ -469,6 +513,41 @@ public class MeetingDao {
         // 执得查询语句
         try{
         long cut = dbt.getCount(sql2);
+        if (cut == 0l) {
+            sql = SQLStatementGetter.getUpdateStatement(m, "meeting", "id");
+            flag = dbt.update(sql);
+        } else {
+            flag = -999;
+        }
+        return flag;
+        }catch(Exception e){
+        	
+        }finally{
+        	dbt.closeConn();
+        	return flag;
+        }
+    }
+    public int meetingTrainUpdate(Meeting m) {
+    	int flag = 0;
+        // 得到申请人所在的部门
+        String startTime = DateUtil.dateToString(m.getStarttime(), "yyyy-MM-dd HH:mm:ss");
+        String endTime = DateUtil.dateToString(m.getEndtime(), "yyyy-MM-dd HH:mm:ss");
+        String content = m.getContent();
+        String commiterId = m.getCommiterid();
+        String type = m.getType();
+        String presider = m.getPresider();
+        String leader = m.getLeader();
+        String[] leaders = leader == null ? null : leader.split(",");
+        String sql = "";
+        DBTools dbt = new DBTools(JndiName.INTRAWEB);
+        // 生成一条sql语句,用于查询是否有相同的记录,防止页面刷新时自动添加记录
+        String sql2 = "select count(*) count from meeting where startTime=to_date('" + startTime
+                + "','yyyy-mm-dd hh24:mi:ss')";
+        sql2 = sql2 + "and endTime=to_date('" + endTime + "','yyyy-mm-dd hh24:mi:ss') and content ='" + content
+                + "' and commiterid='" + commiterId + "'and type='" + type + "'";
+        // 执得查询语句
+        try{
+        long cut = dbt.getCount(sql2);
         if (!isPresiderAvailable(startTime, endTime, presider, m.getId())) {
             flag = -99;
             return flag;
@@ -500,7 +579,7 @@ public class MeetingDao {
      * @ return
      */
     public String getOrg(String userId) {
-        DBTools dbt = new DBTools(JndiName.JNPC);
+        DBTools dbt = new DBTools(JndiName.TEMP);
         Object org=null;
         // 查询id等于用户id的部门名称
         try{
@@ -831,7 +910,6 @@ public class MeetingDao {
      * @return 返回是否冲突
      */
     public boolean isLeadersAvailable(String startTime, String endTime, String[] leaders, String meetingId) {
-        /*
     	DBTools dbt = new DBTools(JndiName.INTRAWEB);
         try{
         if (leaders == null || leaders.length <= 0) {
@@ -857,9 +935,6 @@ public class MeetingDao {
         }finally{
         	dbt.closeConn();
         }
-        */
-    	return true;
-    	
     }
 
     /**
@@ -1034,7 +1109,7 @@ public class MeetingDao {
         DBTools dbt = new DBTools(JndiName.INTRAWEB);
         List<Meeting> list = dbt.query(Meeting.class, sql);
         dbt.closeConn();
-        DBTools dbt2 = new DBTools(JndiName.JNPC);
+        DBTools dbt2 = new DBTools(JndiName.TEMP);
         for (Meeting m : list) {
             String s = "select t.name as name from VIEW_PA_EMP_EMPLOYEE t where t.id= " + m.getCommiterid();
             Object obj = dbt2.queryReturnOne(s, "name");

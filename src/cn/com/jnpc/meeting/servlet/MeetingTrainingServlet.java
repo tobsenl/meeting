@@ -40,7 +40,7 @@ public class MeetingTrainingServlet extends BaseServlet {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
         Meeting m = gson.fromJson(json, Meeting.class);
         m.setCommiterid(userid);
-        flag = meetingDao.meetingAdd(m, userid);
+        flag = meetingDao.meetingTrainAdd(m, userid);
         // 添加记录并返回是否添加成功
         if (flag != -1 && flag != -999 && flag != -99 && flag != -98) { // 添加成功
             return listByDepart();
@@ -228,7 +228,7 @@ public class MeetingTrainingServlet extends BaseServlet {
         String json = request.getParameter("json");
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
         Meeting m = gson.fromJson(json, Meeting.class);
-        flag = meetingDao.meetingUpdate(m);
+        flag = meetingDao.meetingTrainUpdate(m);
         if (flag != -1 && flag != -999 && flag != -99 && flag != -98) {
             if ("my".equals(show)) {
                 return listByDepart();

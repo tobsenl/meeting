@@ -215,7 +215,7 @@ public class JNPC {
      */
     public List<Object> getLeaders() {
 	String sql = "";
-	DBTools dbt = new DBTools(JndiName.JNPC);
+	DBTools dbt = new DBTools(JndiName.TEMP);
 	List<Object> obj=null;
 	try{
         sql = "select orgname from jnpc_dep where class in (1,2)";
