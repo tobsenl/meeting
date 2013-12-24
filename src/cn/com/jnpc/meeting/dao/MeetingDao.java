@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Vector;
 
 import javax.swing.text.StyledEditorKit.ItalicAction;
 
@@ -29,6 +30,7 @@ import cn.com.jnpc.meeting.dao.util.DbHelper;
 import cn.com.jnpc.meeting.dao.util.JndiName;
 import cn.com.jnpc.meeting.dao.util.SQLStatementGetter;
 import cn.com.jnpc.utils.DateUtil;
+import cn.com.jnpc.utils.MeetingDateUntils;
 import cn.com.jnpc.utils.Page;
 import cn.com.jnpc.utils.PropertyFilter;
 import cn.com.jnpc.utils.QueryUtil;
@@ -782,6 +784,64 @@ public class MeetingDao {
         	dbt.closeConn();
         	return page;
         }
+    }
+    public Page<Meeting> getShowMeeting(Page<Meeting> page, List<PropertyFilter> pfList,String from) {
+    	JNPC jnpc = new JNPC();
+    	int size = page.getPageSize();
+    	int pageNo = page.getPageNo();
+    	int tempPageNo = 0;
+    	if (pageNo < 1) {
+    		tempPageNo = 1;
+    	} else {
+    		tempPageNo = pageNo;
+    	}
+    	String cSql = QueryUtil.toSqlString(pfList, true);// 条件语句
+    	
+    	String whereClause = "";
+        if (from.equals("mt")) {
+            whereClause = " and m.type = 4";
+        } else {
+            whereClause = " and m.type <> 4 ";
+		}
+
+        String sql = "";
+        // 设置字段名数组
+        StringBuffer strBuff = new StringBuffer(); //用于保存查询语句
+        //设置查询语句,查询该类目下的所有记录
+        // strBuff.append("select * from view_meeting where status='3'");
+        strBuff.append("select m.id,mr.building || mr.room as address1,m.starttime,m.endtime,");
+        strBuff.append("m.content,m.leader,m.depart || ',' || m.fdepart  as depart,m.org  || (case when m.contact is not null then ' 联系人：'|| m.contact else '' end)");
+        strBuff.append("|| (case when m.contactphone is not null then ' 电话：' || m.contactphone else ''end) || ");
+        strBuff.append("(case when m.flow=1 then m.remark else '' end) as detail ,");
+        strBuff.append("m.status,m.type,m.presider,m.grade,m.category,m.COMMITTIME  ");
+        strBuff.append("from meeting m left join meetingroom mr on m.roomid = mr.id left join meetingroom mr2 on m.reserve_roomid = mr2.id "+cSql);
+        strBuff.append(" and starttime < sysdate and endtime < sysdate ");
+        strBuff.append(whereClause);
+        strBuff.append(" order by starttime,endtime ");
+
+        sql = strBuff.toString(); //生成sql语句        
+    	
+    	String pageSql = SQLStatementGetter.getPageQueryStatement(sql, (tempPageNo - 1) * size + 1, tempPageNo * size);
+    	DBTools dbt = new DBTools(JndiName.INTRAWEB);
+    	try{
+    		page.setTotalCount(dbt.getCount("select count(*) " + FROM_SQL + cSql + " and status=3 and endtime> sysdate " + whereClause));
+    		//System.out.println(pageSql);
+    		List<Meeting> list = dbt.query(Meeting.class, pageSql);
+    		for (Meeting mp : list) {
+    			mp.setCommiterid(jnpc.getName(mp.getCommiterid()));
+    		}
+    		MeetingDateUntils meetdate=new MeetingDateUntils();
+    		List arrylist=new ArrayList();
+    		Vector vector=meetdate.getDate(list);
+    		List[] newlist=meetdate.analyzeMeeting(list, vector);
+    		arrylist.add(newlist);
+    		page.setResult(arrylist);
+    		return page;
+    	}catch(Exception e){}
+    	finally{
+    		dbt.closeConn();
+    		return page;
+    	}
     }
     
     public Page<Meeting> getMeetingNoPage(Page<Meeting> page, List<PropertyFilter> pfList,String search) {
