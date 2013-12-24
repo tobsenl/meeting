@@ -493,7 +493,7 @@ public class MeetingServlet extends BaseServlet {
     	request.setAttribute("orgs", jnpc.getAllORG());// 所有部门
     	request.setAttribute("mrs", meetingRoomDao.getMeetingRoom());
     	request.setAttribute("ctrl","getQuery");
-    	request.setAttribute("action", basePath+"/MeetingServlet?ctrl=querylist");
+    	request.setAttribute("action", basePath+"MeetingServlet?ctrl=querylist");
     	request.setAttribute("ctrlname", "历史培训申请查询");
     	request.setAttribute("from", "mt");
     	
@@ -560,7 +560,7 @@ public class MeetingServlet extends BaseServlet {
     	pfList.add(rpf);
     	pfList.add(cpf);
     	pfList.add(stu);
-    	
+    	page.setPageSize(100);
     	if (pageNo == null || "".equals(pageNo)) {
     		page.setPageNo(1);
     	    } else {

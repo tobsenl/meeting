@@ -25,6 +25,7 @@ $(document).ready(function(){
 </head>
 
 <body>
+<center>
 	<table width="61%" border="1" cellspacing="0" bordercolordark="#FFFFFF"
 		bordercolorlight="#006699" rules=all&nbsp;frame=above&nbsp;
 		bordercolor="#006699">
@@ -90,5 +91,6 @@ $(document).ready(function(){
 			</td>
 		</tr>
 	</table>
+</center>
 </body>
 </html>
