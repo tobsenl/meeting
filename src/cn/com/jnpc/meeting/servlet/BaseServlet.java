@@ -38,9 +38,21 @@ public class BaseServlet extends HttpServlet {
         this.request = request;
         this.response = response;
         session = request.getSession();
-        userid = (String) session.getAttribute("userid");
-        u_org = (String) session.getAttribute("u_org");
-        vec = (Vector<String>) session.getAttribute("vec");
+        String relurl=request.getRequestURL().toString()+"?"+request.getQueryString();
+        String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+ request.getContextPath() + "/";
+        int vale=relurl.lastIndexOf(basePath+"MeetingServlet?ctrl=toQuery")==-1?relurl.lastIndexOf(basePath+"MeetingServlet?ctrl=getQuery"):relurl.lastIndexOf(basePath+"MeetingServlet?ctrl=toQuery");
+        if(vale == -1){
+        	int va=relurl.lastIndexOf(basePath+"MeetingServlet?ctrl=querylist");
+        	if(va == -1){
+        		userid = (String) session.getAttribute("userid");
+        		u_org = (String) session.getAttribute("u_org");
+        		vec = (Vector<String>) session.getAttribute("vec");
+        	}else{
+        		vec=new Vector<String>();
+        	}
+        }else{
+        	vec=new Vector<String>();
+        }
         if (vec == null) {
             error = "系统session超时，请重新登录！";
             toErrorPage(error);
