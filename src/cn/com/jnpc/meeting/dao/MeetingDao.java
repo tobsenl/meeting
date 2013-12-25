@@ -414,7 +414,7 @@ public class MeetingDao {
         String sql2 = "select count(*) count from meeting where startTime=to_date('" + startTime
                 + "','yyyy-mm-dd hh24:mi:ss')";
         sql2 = sql2 + "and endTime=to_date('" + endTime + "','yyyy-mm-dd hh24:mi:ss') and content ='" + content
-                + "' and commiterid='" + commiterId + "'and type='" + type + "'";
+                + "' and commiterid='" + commiterId + "'and type='" + type + "' and depart='"+m.getDepart()+"'  and fdepart='"+m.getFdepart()+"'";
         // 执得查询语句
         long cut = dbt.getCount(sql2);
         if (cut == 0l) {
@@ -458,7 +458,7 @@ public class MeetingDao {
         String sql2 = "select count(*) count from meeting where startTime=to_date('" + startTime
                 + "','yyyy-mm-dd hh24:mi:ss')";
         sql2 = sql2 + "and endTime=to_date('" + endTime + "','yyyy-mm-dd hh24:mi:ss') and content ='" + content
-                + "' and commiterid='" + commiterId + "'and type='" + type + "'";
+                + "' and commiterid='" + commiterId + "'and type='" + type + "' and depart='"+m.getDepart()+"'";
         // 执得查询语句
         long cut = dbt.getCount(sql2);
         if (!isPresiderAvailable(startTime, endTime, presider, "")) {
@@ -511,7 +511,7 @@ public class MeetingDao {
         String sql2 = "select count(*) count from meeting where startTime=to_date('" + startTime
                 + "','yyyy-mm-dd hh24:mi:ss')";
         sql2 = sql2 + "and endTime=to_date('" + endTime + "','yyyy-mm-dd hh24:mi:ss') and content ='" + content
-                + "' and commiterid='" + commiterId + "'and type='" + type + "'";
+                + "' and commiterid='" + commiterId + "'and type='" + type + "' and depart='"+m.getDepart()+"'  and fdepart='"+m.getFdepart()+"'";
         // 执得查询语句
         try{
         long cut = dbt.getCount(sql2);
@@ -546,7 +546,7 @@ public class MeetingDao {
         String sql2 = "select count(*) count from meeting where startTime=to_date('" + startTime
                 + "','yyyy-mm-dd hh24:mi:ss')";
         sql2 = sql2 + "and endTime=to_date('" + endTime + "','yyyy-mm-dd hh24:mi:ss') and content ='" + content
-                + "' and commiterid='" + commiterId + "'and type='" + type + "'";
+                + "' and commiterid='" + commiterId + "'and type='" + type + "' and depart='"+m.getDepart()+"'";
         // 执得查询语句
         try{
         long cut = dbt.getCount(sql2);
