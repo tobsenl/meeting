@@ -29,9 +29,17 @@
     <servlet-name>MeetingServlet</servlet-name>
     <url-pattern>/MeetingServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>detailServlet</servlet-name>
+    <url-pattern>/detailServlet</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>Logout</servlet-name>
     <servlet-class>cn.com.jnpc.meeting.servlet.Logout</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>detailServlet</servlet-name>
+    <servlet-class>cn.com.jnpc.meeting.servlet.detailServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Logout</servlet-name>

@@ -11,8 +11,11 @@
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
+<link rel="stylesheet" type="text/css" href="<%=path%>/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/js/easyui/themes/icon.css">
 <script src="<%=basePath%>script/My97DatePicker/WdatePicker.js"></script>
 <script src="<%=basePath%>script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="<%=path%>/js/easyui/jquery.easyui.min.js"></script>
 </head>
 
 <body style="y-overflow: scroll;">
@@ -62,7 +65,32 @@
 								<td width="10%" align="center"><br />
 									<%=(meet.getReserve_address()==null?"":meet.getReserve_address()) %>
 								</td>
-								<td width="20%" align="center"><%=(meet.getContent()==null?"":meet.getContent()) %></td>
+								<td width="20%" align="center">
+								<c:if test="${from == 'mt' }">
+								<a href="javascript:void(0);" class="easyui-tooltip"  data-options="  
+					            content: $('<div></div>'),
+					            showEvent: 'click',
+					            position: 'top',
+					            onShow: function(){  
+					                $(this).tooltip('arrow').css('left', 20);  
+					                $(this).tooltip('tip').css('left', $(this).offset().left);  
+					            },  
+					            onUpdate: function(cc){
+					                cc.panel({  
+					                    width: 500,  
+					                    height: 'auto',  
+					                    border: false,  
+					                    href: '<%=path%>/detailServlet?id=<%=meet.getId()%>'
+					                });  
+					            }  
+					        ">
+								<%=(meet.getContent()==null?"":meet.getContent()) %>
+								</a>
+								</c:if>
+								<c:if test="${from != 'mt' }">
+								<%=(meet.getContent()==null?"":meet.getContent()) %>
+								</c:if>
+								</td>
 								<td width="8%" align="center"><%=(meet.getPresider()==null?"":meet.getPresider()) %></td>
 								<td width="17%" align="center"><%=(meet.getAddress1()==null?"":meet.getAddress1()) %></td>
 								<td width="9%" align="center"><%=(meet.getDetail()==null?"":meet.getDetail()) %></td>

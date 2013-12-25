@@ -541,6 +541,7 @@ public class MeetingServlet extends BaseServlet {
     	PropertyFilter stu = new PropertyFilter("m.status:EQ_I", "3");
     	List<PropertyFilter> pfList = new ArrayList<PropertyFilter>();
     	    
+    	request.setAttribute("from", from);
     	if ("mt".equals(from)) {// 培训通知
     	    PropertyFilter t = new PropertyFilter("m.type:EQ_I", "4");
     	    request.setAttribute("day", "日期");

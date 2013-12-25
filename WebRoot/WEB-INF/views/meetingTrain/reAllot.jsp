@@ -10,6 +10,7 @@
 <link Href="<%=path%>/style/ul.css" Rel="stylesheet" Type="text/css">
 <script type="text/javascript" src="<%=path%>/script/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="<%=path%>/script/easyui/easyloader.js"></script>
+<script src="<%=basePath%>script/common.js"></script>
 <script type="text/javascript">
 easyloader.locale = "zh_CN"; 
 var url = window.location.href;
@@ -172,8 +173,13 @@ using(['dialog','form','validatebox'],function(){
 							<fmt:formatDate value="${mp.committime }"
 								pattern="yyyy-MM-dd HH:mm" /></td>
 							<TD  align="center">
-								<input class="btn" type="button" id="at_${mp.id }_${mp.roomid}" value="${btn }">
-								<input class="btn" type="button" id="bk_${mp.id }" value="退回" >
+								<a href="javascript:;" id="at_${mp.id }_${mp.roomid}">${btn }</a>
+								<br/>
+								<a href="MeetingTrainingServlet?ctrl=toUpdate&show=all&xv=1&id=${mp.id }">修改</a>
+								<br/>
+								<a href="javascript:confirmDelete('<%=basePath%>MeetingServlet?ctrl=del&id=${mp.id }')">删除</a>
+								<br/>
+								<a href="javascript:;" id="bk_${mp.id }">退回</a>
 							</TD>
 						</tr>
 					</c:forEach>
