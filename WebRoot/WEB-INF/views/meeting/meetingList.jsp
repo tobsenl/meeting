@@ -1,4 +1,5 @@
-﻿<%@page contentType="text/html; charset=UTF-8"%>
+﻿<%@page import="java.text.SimpleDateFormat"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../include.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,6 +10,16 @@
 <script src="<%=basePath%>script/jquery-1.9.1.min.js"></script>
 <script src="<%=basePath%>script/common.js"></script>
 <meta Http-equiv="content-type" Content="text/html; Charset=UTF-8">
+<script src="<%=basePath%>script/jquery.form.js" type="text/javascript"></script>
+<!-- dialog -->
+<script src="<%=basePath%>script/ui/jquery.ui.core.js" type="text/javascript"></script>
+<script src="<%=basePath%>script/ui/jquery.ui.widget.js" type="text/javascript"></script>
+<script src="<%=basePath%>script/ui/jquery.ui.mouse.js" type="text/javascript"></script>
+<script src="<%=basePath%>script/ui/jquery.ui.button.js" type="text/javascript"></script>
+<script src="<%=basePath%>script/ui/jquery.ui.draggable.js" type="text/javascript"></script>
+<script src="<%=basePath%>script/ui/jquery.ui.position.js" type="text/javascript"></script>
+<script src="<%=basePath%>script/ui/jquery.ui.resizable.js" type="text/javascript"></script>
+<script src="<%=basePath%>script/ui/jquery.ui.dialog.js" type="text/javascript"></script>
 </head>
 <script type="text/javascript">
 	function clearForm(obj){
@@ -18,6 +29,189 @@
 	function update(url){
 		//url2 = window.location.href;
 		window.location.href = url/* +"&url="+url2.substring(url2.indexOf('/meeting')).replace(/\&/g,"%26") */;
+	}
+	function uppage(){
+		var page=Number($("#page").val())+1;
+		if((page-1) =="${tolpage}"){
+			$("#dd").hide();
+			return false;
+		}else{
+			$("#page").val(page);
+			return page;
+		}
+	}
+	function xingqi(obj){
+		var time=obj.split(" ");
+		time=time[0].split("-");
+		var weekDay=["星期天","星期一","星期二","星期三","星期四","星期五","星期六","星期七"];
+		var year=time[0],month=time[1],day=time[2];
+		var dt=new Date(year,month,day);
+		return weekDay[dt.getDay()];
+	}
+	function time(obj){
+		var time=obj.split(" ");
+		var month=time[0];
+		var days=time[1];
+		var day=days.split(",");
+		if(month== "Jan"){
+			var newtime=time[2]+"-"+01+"-"+day[0]+" "+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "Feb"){
+			var newtime=time[2]+"-"+02+"-"+day[0]+" "+" "+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "Mar"){
+			var newtime=time[2]+"-"+03+"-"+day[0]+" "+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "apr"){
+			var newtime=time[2]+"-"+04+"-"+day[0]+" "+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "May"){
+			var newtime=time[2]+"-"+05+"-"+day[0]+" "+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "June"){
+			var newtime=time[2]+"-"+06+"-"+day[0]+" "+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "July"){
+			var newtime=time[2]+"-"+07+"-"+day[0]+" "+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "Aug"){
+			var newtime=time[2]+"-"+08+"-"+day[0]+" "+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "Sept"){
+			var newtime=time[2]+"-"+09+"-"+day[0]+" "+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "Oct"){
+			var newtime=time[2]+"-"+10+"-"+day[0]+e+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "Nov"){
+			var newtime=time[2]+"-"+11+"-"+day[0]+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}else if(month== "Dec"){
+			var newtime=time[2]+"-"+12+"-"+day[0]+time[3];
+			var hours=time[3];
+			var hour=hours.split(":");
+			newtime=time[2]+"-"+11+"-"+day[0]+" "+hour[0]+":"+hour[1];
+			return newtime;
+		}
+			return null;
+	}
+	function on(){
+		var forword="${forword}";
+		forword=forword.replace("ctrl=list","ctrl=addtable");
+		var pageNo=uppage();
+		$.ajax({
+			url: forword+pageNo,
+			dataType: "json",
+			success: function(info_){
+				var maxlength_=info_.length;
+				for(var i=0;i<maxlength_;i++){
+					var mc=info_[i];
+					var atable="";
+					//alert(maxlength_);
+					atable=atable+"<tr>";
+					atable=atable+"<td width='10%' align='center'>";
+			    	atable=atable+xingqi(time(mc.starttime));
+			    	atable=atable+"<br/>"+time(mc.starttime);
+			    	atable=atable+"<br/>"+time(mc.endtime);
+			    	atable=atable+"</td>";
+			    	atable=atable+"<td width='18%' align='center'>";//会议名称
+			    	atable=atable+mc.content;
+			    	atable=atable+"</td>";
+			    	atable=atable+"<td width='10%' align='center'>";//主持人
+			    	if(mc.presider !=undefined){
+			    		atable=atable+mc.presider;
+			    	}
+			    	atable=atable+"</td>";
+			    	atable=atable+"<td width='10%' align='center'>";//公司领导
+			    	if(mc.leader !=undefined){
+			    		atable=atable+"<p align='center'>"+mc.leader+"</p>";
+			    	}
+			    	atable=atable+"</td>";
+			    	atable=atable+"<td width='10%' align='center'>";//参加人员
+			    	if(mc.depart !=undefined){
+			    		atable=atable+mc.depart;
+			    	}
+			    	if(mc.fdepart!=undefined){
+			    		atable=atable+"<br />"+mc.fdepart;
+			    	}
+			    	atable=atable+"</td>";
+			    	atable=atable+"<td width='10%' align='center'>";//有关说明
+			    	if(mc.remark!=undefined){
+			    		atable=atable+mc.remark;
+			    	}
+			    	atable=atable+"</td>";
+			    	atable=atable+"<td width='10%' align='center'>";//地点
+			    	if(mc.type ==3){
+			    		if(mc.address ==undefined){
+				    		atable=atable+"";
+				    	}else{
+			    		atable=atable+mc.address;
+			    		}
+			    	}else if(mc.type !=3){
+			    		if(mc.address1 ==undefined){
+				    		atable=atable+"";
+				    	}else{
+			    		atable=atable+mc.address1;
+			    		}
+			    	}
+			    	atable=atable+"</td>";
+			    	atable=atable+"<td width='10%' align='center'>";//状态
+			    	if(mc.status =='0'){
+			    		atable=atable+"未处理";
+			    	}else if(mc.status =='1'){
+			    		atable=atable+"已审批";
+			    	}else if(mc.status =='2'){
+			    		atable=atable+"拒批";
+			    	}else if(mc.status =='3'){
+			    		atable=atable+"已安排会议室";
+			    	}else if(mc.status =='4'){
+			    		atable=atable+"退回";
+			    	}
+			    	atable=atable+"</td>";
+			    	atable=atable+"<td width='12%' align='center'>";//申请部门
+			    	atable=atable+mc.commitdepart+"<br /> "+time(mc.committime);
+			    	atable=atable+"</td>";
+			    	atable=atable+"</tr>";
+					if(i<=maxlength_-1){
+						var length=$("#dtable tr").length-2;
+						$("#dtable tr:eq("+length+")").after(atable);
+					}
+				}
+			},
+			});
 	}
 </script>
 <body>
@@ -59,7 +253,7 @@
 			<br />
 		</div>
 		<div style="height: auto; text-align: center; margin: 0 auto;">
-			<table class="dtable" align="center" cellpadding="1" cellspacing="1">
+			<table class="dtable" id="dtable" align="center" cellpadding="1" cellspacing="1">
 				<tr>
 					<th width="10%" align="center">日期</th>
 					<th width="18%" align="center">会议名称</th>
@@ -114,8 +308,9 @@
 							<a href="javascript:confirmDelete('MeetingServlet?ctrl=del&id=${mp.id }')">删除</a></td> --%>
 					</tr>
 				</c:forEach>
-				<tr>
-					<td align="right" height="20px" colspan="11">${tag }</td>
+				<tr id="dd">
+					<input type="hidden" value="${pageNo }" id="page"/>
+					<td colspan="10"><div id="add"  onclick="on()">点击显示更多</div></td>
 				</tr>
 			</table>
 		</div>

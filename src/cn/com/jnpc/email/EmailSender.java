@@ -45,11 +45,11 @@ public class EmailSender {
             sb.append ("</td></tr>");
             sb.append ("</table>");
             sb.append ("<p>您申请的会议被退回！如有疑问请联系");
-            sb.append (EmailConfigReader.getContact ());
+            sb.append (EmailConfigReader.getContact1 ());
             sb.append ("&nbsp;电话:");
-            sb.append (EmailConfigReader.getPhone ());
+            sb.append (EmailConfigReader.getPhone1 ());
             sb.append ("&nbsp;电子邮件:");
-            sb.append("<a href='mailto:" + EmailConfigReader.getEmail() + "'>" + EmailConfigReader.getEmail() + "</a>");
+            sb.append("<a href='mailto:" + EmailConfigReader.getEmail1() + "'>" + EmailConfigReader.getEmail1() + "</a>");
             sb.append (".</p></div>");
             email.setHtmlMsg (sb.toString ());
             email.send ();

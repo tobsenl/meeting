@@ -1,7 +1,10 @@
 package cn.com.jnpc.meeting.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.ObjectInputStream.GetField;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -215,7 +218,7 @@ public class MeetingServlet extends BaseServlet {
      */
     public String list() {
 	if (vec.contains("380101")) {
-	    String from = request.getParameter("from");
+		String from = request.getParameter("from");
 	    String starttime = request.getParameter("_starttime")!=null?request.getParameter("_starttime"):request.getParameter("starttime");
 	    String starttime2 = request.getParameter("_starttime2")!=null?request.getParameter("_starttime2"):request.getParameter("starttime2");
 	    String endtime = request.getParameter("_endtime")!=null?request.getParameter("_endtime"):request.getParameter("endtime");
@@ -275,6 +278,7 @@ public class MeetingServlet extends BaseServlet {
 	    pfList.add(rpf);
 	    pfList.add(cpf);
 	    // pfList.add(t);
+	    page.setPageSize(100);
 	    if (pageNo == null || "".equals(pageNo)) {
 		page.setPageNo(1);
 	    } else {
@@ -289,6 +293,9 @@ public class MeetingServlet extends BaseServlet {
 		    .getMeeting(page, pfList).getResult());
 	    request.setAttribute("tag", page.getTag());
 	    request.setAttribute("orgs", jnpc.getAllORG());// 所有部门
+	    request.setAttribute("pageNo", page.getPageNo());
+	    request.setAttribute("tolpage", page.getTotalPages());
+	    request.setAttribute("forword", page.getForwordName());
 	    return meetingList();
 	} else {
 	    error = "对不起，您没有此项操作的权限！";
@@ -466,6 +473,7 @@ public class MeetingServlet extends BaseServlet {
 	    return toErrorPage(error);
 	}
     }
+
     
     public String toQuery(){
     	 String path = request.getContextPath();
@@ -576,7 +584,6 @@ public class MeetingServlet extends BaseServlet {
     	
     	return BASE_JSP + "meeting/meetingQrylist.jsp";
     }
-
     /**
      * 去查找会议室使用情况。
      * 
@@ -824,7 +831,65 @@ public class MeetingServlet extends BaseServlet {
 	request.setAttribute("mr", meetingRoom);
 	return BASE_JSP + "meetingRoom/roomDetail.jsp";
     }
+    
+    public void addtable(){
+	    String from = request.getParameter("from");
+	    String starttime = request.getParameter("_starttime");
+	    String starttime2 = request.getParameter("_starttime2");
+	    String endtime = request.getParameter("_endtime");
+	    String endtime2 = request.getParameter("_endtime2");
+	    String org = request.getParameter("_org");
+	    String buildingid = request.getParameter("_buildingid");
+	    String roomID = request.getParameter("_roomID");
+	    String roomName = request.getParameter("_roomName");
+	    String content = request.getParameter("_content");
+	    String pageNo = request.getParameter("pageNo");
+	    PropertyFilter st = new PropertyFilter("m.starttime:GE_D",
+		    starttime);
+	    PropertyFilter st2 = new PropertyFilter("m.starttime:LE_D",
+		    starttime2);
+	    PropertyFilter et = new PropertyFilter("m.endtime:GE_D", endtime);
+	    PropertyFilter et2 = new PropertyFilter("m.endtime:LE_D", endtime2);
+	    PropertyFilter orgpf = new PropertyFilter("m.commitdepart:EQ_S",
+		    org);
+	    PropertyFilter rpf = new PropertyFilter("m.roomid:EQ_I", roomID);
+	    PropertyFilter cpf = new PropertyFilter("m.content:LIKE_S", content);
+	    List<PropertyFilter> pfList = new ArrayList<PropertyFilter>();
 
+	    if ("mt".equals(from)) {// 培训通知
+		PropertyFilter t = new PropertyFilter("m.type:EQ_I", "4");
+		pfList.add(t);
+	    }
+	    pfList.add(st);
+	    pfList.add(st2);
+	    pfList.add(et);
+	    pfList.add(et2);
+	    pfList.add(orgpf);
+	    pfList.add(rpf);
+	    pfList.add(cpf);
+	    page.setPageSize(100);
+	    if (pageNo == null || "".equals(pageNo)) {
+		page.setPageNo(1);
+	    } else {
+	    	if(pageNo.equals("false")){
+	    		return ;
+	    	}
+		page.setPageNo(Integer.parseInt(pageNo));
+	    }
+	    List<Meeting> list=meetingDao.getMeeting(page, pfList).getResult();
+	    PrintWriter out;
+		try {
+			out = response.getWriter();
+			 Gson gson = new Gson();
+			    String json = gson.toJson(list);
+		        out.println(json);
+		        out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
+    }
     // /**
     // * 没有发送提醒的会议
     // *

@@ -112,7 +112,7 @@ using(['form','validatebox'],function(){
 				return false;
 			}
 		}); 
-			$("#sub").click(function(){
+			$("#sub").click(function(){	
 				var remark = "";
 				remark += $("#remark").val();
 				$("input[id^=me_c_]:checked").each(function() {
@@ -137,7 +137,6 @@ using(['form','validatebox'],function(){
 				$("#remark").val(remark);
 				var is_commit=true;
 				var roomid =$("#reserve_roomid").val();
-				if (roomid != "" && roomid != null && roomid != undefined){
 					var src_id= $("#id").val() == null ? "" : $("#id").val() ;
 					var src_url="checkroomid&room_id="+roomid+ "&starttime=" + $("#st").val() + "&endtime=" + $("#et").val()+"&id="+src_id ;
 					var url="ajax?ctrl="+src_url;
@@ -162,7 +161,6 @@ using(['form','validatebox'],function(){
 				       		}  
 						});
 					}
-				}
 				
 				//$("#sub").attr("disabled", true);
 				//$("#form1").attr('action','<%=path%>/MeetingTrainingServlet?json='+form2json("form"));
@@ -242,6 +240,7 @@ using(['form','validatebox'],function(){
 				}
 			}
 		}
+		$("#org").attr('disabled','disabled');
 	};
 });
 function setV(va){
@@ -262,13 +261,13 @@ function setV(va){
 						<input class="Wdate easyui-validatebox" id="st" type="text"
 							style="width: 200px" name="starttime"
 							data-options="prompt:'开始时间',required:true"
-							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m',maxDate:'#F{$dp.$D(\'et\',{m:-30})}'})"
 							value="<fmt:formatDate value="${meeting.starttime }" pattern="yyyy-MM-dd HH:mm"/>" />
 						&nbsp;&nbsp; <font style="font-weight: bold;">至</font>&nbsp;&nbsp;
 						<input class="Wdate easyui-validatebox" id="et" type="text"
 							style="width: 200px" name="endtime"
 							data-options="prompt:'结束时间',required:true"
-							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'st\')}'})"
+							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'st\')||\'%y-%M-%d %H:%m\'}'})"
 							value="<fmt:formatDate value="${meeting.endtime }" pattern="yyyy-MM-dd HH:mm"/>" />
 					</dd>
 					<dt><em>*</em> 教员名称：</dt>
@@ -321,7 +320,7 @@ function setV(va){
 							size="35" type="text"
 							value="${empty meeting.contactphone ? '':meeting.contactphone}" />
 					</dd>
-					<dt><em>*</em> 会议室/教室：</dt>
+					<dt> 会议室/教室：</dt>
 					<dd>
 						<div id="_radio">
 							<input type="radio" name="flow" value="1"
