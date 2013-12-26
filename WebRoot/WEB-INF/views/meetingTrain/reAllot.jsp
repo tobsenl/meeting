@@ -87,7 +87,7 @@ using(['dialog','form','validatebox'],function(){
 				}
 			}]  
 		}); 
-		$("input[id^=at_]").click(function(){
+		$("a[id^=at_]").click(function(){
 			var id = $(this).attr('id');
 			$("#meetingID").val(id.substring(3,id.lastIndexOf('_')));
 			$("#roomId").val(id.substring(id.lastIndexOf('_')+1));
@@ -104,7 +104,7 @@ using(['dialog','form','validatebox'],function(){
 			$("#endtime").val($("#etime").val());
 			$('#dlg').dialog('open');
 		});
-		$("input[id^=bk_]").click(function(){
+		$("a[id^=bk_]").click(function(){
 			var url = 'MeetingTrainingServlet?ctrl=goBack&id='+$(this).attr('id').substr(3);
 			window.location = url;
 		});

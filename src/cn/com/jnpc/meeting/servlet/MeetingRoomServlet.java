@@ -165,6 +165,7 @@ public class MeetingRoomServlet extends BaseServlet {
         if (vec.contains("380501")) {
             String building = request.getParameter("_building")!=null?request.getParameter("_building"):request.getParameter("building");
             String room = request.getParameter("_room")!=null?request.getParameter("_building"):request.getParameter("room");
+            String from=request.getParameter("from");
             building = building == null ? "" : building;
             room = room == null ? "" : room;
             building = building == "null" ? "" : building;
@@ -179,17 +180,27 @@ public class MeetingRoomServlet extends BaseServlet {
             }
             PropertyFilter bpf = new PropertyFilter("building:LIKE_S", building);
             PropertyFilter rpf = new PropertyFilter("room:LIKE_S", room);
-            PropertyFilter tpf = new PropertyFilter("type:EQ_I", "1");
+            PropertyFilter tpf =null;
+            if(from!=null && from!="" && from.equals("cr")){
+            	 page.setForwordName("MeetingRoomServlet?ctrl=list&from=cr&building=" + building + "&room=" + room
+                        + "&pageNo=");
+            	 request.setAttribute("from", "cr");
+            	 request.setAttribute("title", "培训教室管理");
+                 request.setAttribute("value", "培训教室");
+                 tpf = new PropertyFilter("type:EQ_I", "2");
+            }else{
+	            page.setForwordName("MeetingRoomServlet?ctrl=list&from=mr&building=" + building + "&room=" + room
+	                    + "&pageNo=");
+	            request.setAttribute("title", "会议室管理");
+	            request.setAttribute("value", "会议室地址");
+	            tpf = new PropertyFilter("type:EQ_I", "1");
+            }
             List<PropertyFilter> pfList = new ArrayList<PropertyFilter>();
             pfList.add(bpf);
             pfList.add(rpf);
             pfList.add(tpf);
-            page.setForwordName("MeetingRoomServlet?ctrl=list&from=mr&building=" + building + "&room=" + room
-                    + "&pageNo=");
             request.setAttribute("mrs", meetingRoomDao.getMeetingRoom(page, pfList).getResult());
             request.setAttribute("tag", page.getTag());
-            request.setAttribute("title", "会议室管理");
-            request.setAttribute("value", "会议室地址");
             return BASE_JSP + "meetingRoom/meetingRoomList.jsp";
         } else {
             if(vec.contains("380502")){

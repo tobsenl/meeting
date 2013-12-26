@@ -19,7 +19,7 @@
 					id="room" name="_room" type="text" value="${room }" size="35"> &nbsp;&nbsp; <input
 					style="COLOR: #44606B; background-color: #FFFFFF" type="submit" value="搜索">
 				&nbsp;&nbsp; <input style="COLOR: #44606B; background-color: #FFFFFF" type="button" value="清空"
-					onclick="clearForm(this.form)"> <input type="hidden" name="ctrl" value="list" />
+					onclick="clearForm(this.form)"> <input type="hidden" name="ctrl" value="list" /><input type="hidden" name="from" value="${from }" />
 			</form>
 		</div>
 		<div>
