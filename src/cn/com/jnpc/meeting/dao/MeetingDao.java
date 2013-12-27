@@ -1048,7 +1048,7 @@ public class MeetingDao {
 			"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime" + " and  to_date('" + endTime+ "','yyyy-mm-dd hh24:mi:ss') >=m.startTime " +
 			//"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime "+ 
 			//"and m.endTime >= to_date('"+DateUtil.getCurrentDate("yyyy-MM-dd HH:mm")+"','yyyy-mm-dd hh24:mi:ss') "+
-		"and ( m.RESERVE_ROOMID='"+room_id+"' or m.roomid='"+room_id+"' )";
+		"and (( m.RESERVE_ROOMID='"+room_id+"' and m.status in (0,1)) or ( m.status=3 and m.roomid='"+room_id+"' ))";
 	if (meetingId != null && !"".equals(meetingId)) {
 	    sql3 += " and m.id<>" + meetingId;
 	}
@@ -1101,7 +1101,7 @@ public class MeetingDao {
 		"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime" + " and  to_date('" + endTime+ "','yyyy-mm-dd hh24:mi:ss') >=m.startTime " +
 		//"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime "+ 
 		//"and m.endTime >= to_date('"+DateUtil.getCurrentDate("yyyy-MM-dd HH:mm")+"','yyyy-mm-dd hh24:mi:ss') "+
-		"and ( m.RESERVE_ROOMID='"+room_id+"' or m.roomid='"+room_id+"' )";
+		"and (( m.RESERVE_ROOMID='"+room_id+"' and m.status in (0,1)) or ( m.status=3 and m.roomid='"+room_id+"' ))";
 	if (meetingId != null && !"".equals(meetingId)) {
 	    sql3 += " and m.id<>" + meetingId;
 	}
