@@ -698,7 +698,7 @@ public class MeetingServlet extends BaseServlet {
 				.create();
 		Meeting m = gson.fromJson(json, Meeting.class);
 		Meeting oldm = meetingDao.getMeetAllById(m.getId());// 获取之前未修改所有信息..关联查出
-		flag = meetingDao.meetingUpdate(m);// 更新
+		flag = meetingDao.meetingUpdate(m,oldm);// 更新
 		if (flag != -1 && flag != -999 && flag != -99 && flag != -98) {
 			Meeting nw = meetingDao.getMeetAllById(m.getId());// 获取修改后所有信息
 			// return "redirect:" + url;
