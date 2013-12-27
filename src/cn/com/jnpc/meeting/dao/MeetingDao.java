@@ -516,6 +516,12 @@ public class MeetingDao {
         try{
         long cut = dbt.getCount(sql2);
         if (cut == 0l) {
+        	String Rroomid=m.getReserve_roomid()==null?"":m.getReserve_roomid();
+        	String Nroomid=m.getRoomid()==null?"":m.getRoomid();
+	        	if(!Rroomid.equals(Nroomid)){ //修改时.判断重新提交的申请房间跟分配房间是否相同.如果不相同则重置已分配.并且变为待审核.
+	        		m.setRoomid("");//重新修改的.如果已经分配会议室则清除会议室.让其再行提交会议室.
+	        		m.setStatus("0");//重新提交 需要再次重新审批.        		
+	        	}
             sql = SQLStatementGetter.getUpdateStatement(m, "meeting", "id");
             flag = dbt.update(sql);
         } else {
