@@ -12,7 +12,7 @@ import org.apache.commons.dbutils.QueryRunner;
 public class DbHelper {
     
     public static QueryRunner getJNPCQueryRunner() {
-        return getQueryRunner("jnpc");
+        return getQueryRunner("jnpctemp");//login
     }
     
     public static QueryRunner getTEMPQueryRunner() {

@@ -228,7 +228,8 @@ public class MeetingTrainingServlet extends BaseServlet {
         String json = request.getParameter("json");
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
         Meeting m = gson.fromJson(json, Meeting.class);
-        flag = meetingDao.meetingTrainUpdate(m);
+        Meeting oldm = meetingDao.getMeetAllById(m.getId());
+        flag = meetingDao.meetingTrainUpdate(m,oldm);
         if (flag != -1 && flag != -999 && flag != -99 && flag != -98) {
             if ("my".equals(show)) {
                 return listByDepart();
@@ -252,7 +253,7 @@ public class MeetingTrainingServlet extends BaseServlet {
             // 获取所有的建筑
             // List<MeetingRoom2> mrs = meetingRoom2Dao.getParentRoom();
             request.setAttribute("mrs", meetingRoomDao.getMeetingRoom2());
-            request.setAttribute("meetings", meetingDao.getMeetingByStatus("3", "2"));
+            request.setAttribute("meetings", meetingDao.getMeetingByStatus("3','1", "2"));
             return BASE_JSP + "meetingTrain/reAllot.jsp";
         } else {
             error = "对不起，您没有重新分配培训教室的权限！";

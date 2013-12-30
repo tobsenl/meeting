@@ -538,7 +538,7 @@ public class MeetingDao {
         	return flag;
         }
     }
-    public int meetingTrainUpdate(Meeting m) {
+    public int meetingTrainUpdate(Meeting m,Meeting oldm) {
     	int flag = 0;
         // 得到申请人所在的部门
         String startTime = DateUtil.dateToString(m.getStarttime(), "yyyy-MM-dd HH:mm:ss");
@@ -566,6 +566,9 @@ public class MeetingDao {
         if (!isLeadersAvailable(startTime, endTime, leaders, m.getId())) {
             flag = -98;
             return flag;
+        }
+        if("0".equals(oldm.getStatus()) || "2".equals(oldm.getStatus()) || "4".equals(oldm.getStatus())){
+        	m.setRoomid("");
         }
         if (cut == 0l) {
             sql = SQLStatementGetter.getUpdateStatement(m, "meeting", "id");
@@ -1051,7 +1054,7 @@ public class MeetingDao {
 			"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime" + " and  to_date('" + endTime+ "','yyyy-mm-dd hh24:mi:ss') >=m.startTime " +
 			//"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime "+ 
 			//"and m.endTime >= to_date('"+DateUtil.getCurrentDate("yyyy-MM-dd HH:mm")+"','yyyy-mm-dd hh24:mi:ss') "+
-		"and (( m.RESERVE_ROOMID='"+room_id+"' and m.status in (0,1)) or ( m.status=3 and m.roomid='"+room_id+"' ))";
+		"and (( m.RESERVE_ROOMID='"+room_id+"' and m.status in ('0','1')) or ( m.status='3' and m.roomid='"+room_id+"' ))";
 	if (meetingId != null && !"".equals(meetingId)) {
 	    sql3 += " and m.id<>" + meetingId;
 	}
@@ -1104,7 +1107,7 @@ public class MeetingDao {
 		"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime" + " and  to_date('" + endTime+ "','yyyy-mm-dd hh24:mi:ss') >=m.startTime " +
 		//"to_date('" + startTime+ "','yyyy-mm-dd hh24:mi:ss') <=m.endTime "+ 
 		//"and m.endTime >= to_date('"+DateUtil.getCurrentDate("yyyy-MM-dd HH:mm")+"','yyyy-mm-dd hh24:mi:ss') "+
-		"and (( m.RESERVE_ROOMID='"+room_id+"' and m.status in (0,1)) or ( m.status=3 and m.roomid='"+room_id+"' ))";
+		"and (( m.RESERVE_ROOMID='"+room_id+"' and m.status in ('0','1')) or ( m.status='3' and m.roomid='"+room_id+"' ))";
 	if (meetingId != null && !"".equals(meetingId)) {
 	    sql3 += " and m.id<>" + meetingId;
 	}
@@ -1168,9 +1171,9 @@ public class MeetingDao {
      */
     public List<Meeting> getMeetingByStatus(String status, String flow) {
         StringBuilder strBuff = new StringBuilder();
-        strBuff.append("select " + FIELD_SQL + FROM_SQL + " where m.status='");
-        strBuff.append(status);
-        strBuff.append("' and m.flow='");
+        strBuff.append("select " + FIELD_SQL + FROM_SQL + " where m.status in('");
+        strBuff.append(status+"') ");
+        strBuff.append(" and m.flow='");
         strBuff.append(flow);
         strBuff.append("' and m.endtime> sysdate");
         strBuff.append(" order by starttime");
