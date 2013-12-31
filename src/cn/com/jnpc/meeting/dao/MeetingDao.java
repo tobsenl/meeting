@@ -822,12 +822,12 @@ public class MeetingDao {
         //设置查询语句,查询该类目下的所有记录
         // strBuff.append("select * from view_meeting where status='3'");
         strBuff.append("select m.id,mr.building || mr.room as address1,m.starttime,m.endtime,");
-        strBuff.append("m.content,m.leader,m.depart || ',' || m.fdepart  as depart,m.org  || (case when m.contact is not null then ' 联系人：'|| m.contact else '' end)");
+        strBuff.append("m.content,m.leader,m.depart || ' ' || m.fdepart  as depart,m.org  || (case when m.contact is not null then ' 联系人：'|| m.contact else '' end)");
         strBuff.append("|| (case when m.contactphone is not null then ' 电话：' || m.contactphone else ''end) || ");
         strBuff.append("(case when m.flow=1 then m.remark else '' end) as detail ,");
         strBuff.append("m.status,m.type,m.presider,m.grade,m.category,m.COMMITTIME  ");
         strBuff.append("from meeting m left join meetingroom mr on m.roomid = mr.id left join meetingroom mr2 on m.reserve_roomid = mr2.id "+cSql);
-        strBuff.append(" and starttime < sysdate and endtime < sysdate ");
+        strBuff.append(" and endtime < sysdate ");
         strBuff.append(whereClause);
         strBuff.append(" order by starttime,endtime ");
 

@@ -201,7 +201,7 @@ public class MeetingDateUntils {
     	    	String leaders = (meeting.get(m).getLeader()==null? " ":(meeting.get(m).getLeader()+"<br>"));
     	    	String depart = (meeting.get(m).getDepart()==null? " ":meeting.get(m).getDepart());
     	    	//place = building+room;     //会议地点    	    	
-    	    	conferee = leaders+','+depart; //参加部门、人员	
+    	    	conferee = leaders+' '+depart; //参加部门、人员	
     			    			
     			long endIntTime = Long.parseLong(endYear+endHour+endMin);
     			

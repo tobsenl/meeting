@@ -515,7 +515,7 @@ public class MeetingServlet extends BaseServlet {
 		String basePath = request.getScheme() + "://" + request.getServerName()
 				+ ":" + request.getServerPort() + path + "/";
 		request.setAttribute("orgs", jnpc.getAllORG());// 所有部门
-		request.setAttribute("mrs", meetingRoomDao.getMeetingRoom());
+		request.setAttribute("mrs", meetingRoomDao.getMeetingRoom2());
 		request.setAttribute("ctrl", "getQuery");
 		request.setAttribute("action", basePath
 				+ "MeetingServlet?ctrl=querylist");
@@ -602,13 +602,13 @@ public class MeetingServlet extends BaseServlet {
 		} else {
 			page.setPageNo(Integer.parseInt(pageNo));
 		}
-		page.setForwordName("MeetingServlet?ctrl=list&starttime=" + starttime
+		page.setForwordName("MeetingServlet?ctrl=querylist&starttime=" + starttime
 				+ "&starttime2=" + starttime2 + "&endtime=" + endtime
 				+ "&endtime2=" + endtime2 + "&org=" + org + "&roomID=" + roomID
 				+ "&content=" + content + "&from=" + from + "&pageNo=");
 		request.setAttribute("meetings",
 				meetingDao.getShowMeeting(page, pfList, from).getResult());
-
+		request.setAttribute("tag", page.getTag());
 		return BASE_JSP + "meeting/meetingQrylist.jsp";
 	}
 

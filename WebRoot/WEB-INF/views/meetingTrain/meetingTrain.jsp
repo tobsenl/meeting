@@ -335,7 +335,7 @@ function setV(va){
 								<option value="">请选择会议室</option>
 								<c:forEach items="${mrs }" var="mr">
 									<option value="${mr.id }"
-										<c:if test="${mr.id == meeting.roomid || mr.id == meeting.reserve_roomid}">selected="selected"</c:if>>${mr.building
+										<c:if test="${mr.id == meeting.reserve_roomid }">selected="selected"</c:if>>${mr.building
 										}${mr.room }</option>
 								</c:forEach>
 							</select> <!-- <a href="javascript:void(0);" id="zz">点击显示详细</a> -->
@@ -346,7 +346,7 @@ function setV(va){
 								<option value="">请选择培训教室</option>
 								<c:forEach items="${mrs2 }" var="mr">
 									<option value="${mr.id }"
-										<c:if test="${mr.id == meeting.roomid || mr.id == meeting.reserve_roomid }">selected="selected"</c:if>>${mr.building
+										<c:if test="${ mr.id == meeting.reserve_roomid }">selected="selected"</c:if>>${mr.building
 										}${mr.room }</option>
 								</c:forEach>
 							</select> <a href="javascript:void(0);" id="tt">点击显示详细</a>
