@@ -69,9 +69,9 @@ $(document).ready(function(){
 						<td align="center">${meetingtime }</td>
 						<td>
 						<label for="starttime">开始日期:</label>
-						<input class="Wdate" id="st" type="text" name="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'st2\')}'})" value="${starttime }" /> 
+						<input class="Wdate" id="st" type="text" name="_starttime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'st2\')}'})" value="${starttime }" /> 
 						<label for="starttime2">&nbsp;&nbsp;至:&nbsp;&nbsp;</label>
-						<input class="Wdate" id="st2" type="text" name="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'st\')}'})" value="${starttime2 }" /> 
+						<input class="Wdate" id="st2" type="text" name="_starttime2" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'st\')}'})" value="${starttime2 }" /> 
 						&nbsp;&nbsp;&nbsp;&nbsp; 
 						<br/>
 						<labelfor="endtime">结束日期:</label> 

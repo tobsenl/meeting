@@ -203,7 +203,7 @@ public class MeetingServlet extends BaseServlet {
 		if (flag) {
 			String email = jnpc.getEmailByUserID(m.getCommiterid());
 			EmailSender es = new EmailSender();
-			es.send(email, m);
+			es.send(email, m,"5");
 			return toAllot();
 		} else {
 			return toErrorPage("");
