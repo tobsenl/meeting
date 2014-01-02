@@ -63,7 +63,7 @@
 								}
 									%>
 								<td width="10%" align="center"><br />
-									<%=(meet.getReserve_address()==null?"":meet.getReserve_address()) %>
+									<%=(meet.getReserve_address()==null?"&nbsp;":meet.getReserve_address()) %>
 								</td>
 								<td width="20%" align="center">
 								<c:if test="${from == 'mt' }">
@@ -84,17 +84,17 @@
 					                });  
 					            }  
 					        ">
-								<%=(meet.getContent()==null?"":meet.getContent()) %>
+								<%=(meet.getContent()==null?"&nbsp;":meet.getContent()) %>
 								</a>
 								</c:if>
 								<c:if test="${from != 'mt' }">
-								<%=(meet.getContent()==null?"":meet.getContent()) %>
+								<%=(meet.getContent()==null?"&nbsp;":meet.getContent()) %>
 								</c:if>
 								</td>
-								<td width="8%" align="center"><%=(meet.getPresider()==null?"":meet.getPresider()) %></td>
-								<td width="17%" align="center"><%=(meet.getAddress1()==null?"":meet.getAddress1()) %></td>
-								<td width="9%" align="center"><%=(meet.getDetail()==null?"":meet.getDetail()) %></td>
-								<td width="29%" align="center"><%=(meet.getDepart()==null?"":meet.getDepart())%></td>
+								<td width="8%" align="center"><%=(meet.getPresider()==null?"&nbsp;":meet.getPresider()) %></td>
+								<td width="17%" align="center"><%=(meet.getAddress1()==null?"&nbsp;":meet.getAddress1()) %></td>
+								<td width="9%" align="center"><%=(meet.getDetail()==null?"&nbsp;":meet.getDetail()) %></td>
+								<td width="29%" align="center"><%=(meet.getDepart()==null?"&nbsp;":meet.getDepart())%></td>
 								</tr>
 								<%
 							}
