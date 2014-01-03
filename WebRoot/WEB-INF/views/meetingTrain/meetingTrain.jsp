@@ -137,8 +137,9 @@ using(['form','validatebox'],function(){
 				$("#remark").val(remark);
 				var is_commit=true;
 				var roomid =$("#reserve_roomid").val();
+				var realroom =$("#real_room").val();
 					var src_id= $("#id").val() == null ? "" : $("#id").val() ;
-					var src_url="checkroomid&room_id="+roomid+ "&starttime=" + $("#st").val() + "&endtime=" + $("#et").val()+"&id="+src_id ;
+					var src_url="checkroomid&room_id="+roomid+ "&starttime=" + $("#st").val() + "&endtime=" + $("#et").val()+"&id="+src_id+"&realroom="+realroom ;
 					var url="ajax?ctrl="+src_url;
 					$.ajaxSettings.async = false;//确保同步.此处不需要异步
 					$.get(url, function(data,x,b) {
@@ -351,6 +352,7 @@ function setV(va){
 								</c:forEach>
 							</select> <a href="javascript:void(0);" id="tt">点击显示详细</a>
 						</div>
+						<input type="hidden" id="real_room" name="real_room" value="${meeting.roomid }"/>
 					</dd>
 					<dt><em>*</em> 参加单位/人员：</dt>
 					<dd>

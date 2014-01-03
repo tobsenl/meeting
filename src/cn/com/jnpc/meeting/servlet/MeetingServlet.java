@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import org.apache.commons.mail.HtmlEmail;
+
 import cn.com.jnpc.email.EmailSender;
 import cn.com.jnpc.email.OutLook;
 import cn.com.jnpc.meeting.bean.Meeting;
@@ -716,7 +718,11 @@ public class MeetingServlet extends BaseServlet {
 				String warning = compareM(oldm, nw);// 比较修改部分.
 				if (!warning.equals("<br/><br/>")) {
 					EmailSender es = new EmailSender();
-					es.send(nw, warning);
+					HtmlEmail email = new HtmlEmail();
+					if((oldm.getStatus().equals("1") || oldm.getStatus().equals("3")) && nw.getStatus() .equals( "0" )){
+						email.setSubject("会议地址变更请重新进行审批!");
+					}
+					es.send(nw, warning,email);
 				}
 			}
 			if ("my".endsWith(show)) {
@@ -786,12 +792,16 @@ public class MeetingServlet extends BaseServlet {
 			}
 			if (oldendTime != null && newendTime != null
 					&& !oldendTime.equals(newendTime)) {
-				bf.append("会议结束时间由原 " + oldendTime + " 变更为 <font color=red >"
-						+ newendTime + "</font> <br/>");
+					bf.append("会议结束时间由原 " + oldendTime + " 变更为 <font color=red >"
+							+ newendTime + "</font> <br/>");
 			}
 			if (!oldaddress.equals(newaddress)) {
-				bf.append("会议地址由原 " + oldaddress + " 变更为 <font color=red >"
+				if((old.getStatus().equals("1") || old.getStatus().equals("3")) && nw.getStatus().equals("0") ){
+					bf.append("<font color=red >会议地址变更请重新进行审批!</font> <br/>");
+				}else{
+					bf.append("会议地址由原 " + oldaddress + " 变更为 <font color=red >"
 						+ newaddress + "</font> <br/>");
+				}
 			}
 			if (!olddepart.equals(newdepart)) {
 				bf.append("参加会议部门/人员由原 " + olddepart + " 变更为 <font color=red >"

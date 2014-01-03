@@ -1044,7 +1044,7 @@ public class MeetingDao {
         */
     	return true;
     }
-    public String isRoomAvailable(String startTime, String endTime, String room_id,String meetingId) throws Exception {
+    public String isRoomAvailable(String startTime, String endTime, String room_id,String meetingId ) throws Exception {
 	//boolean flag = false;
 	DBTools dbt = new DBTools(JndiName.INTRAWEB);
 	String error="";

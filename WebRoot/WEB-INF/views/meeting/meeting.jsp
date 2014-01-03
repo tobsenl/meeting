@@ -219,9 +219,10 @@
 			}
 			var is_commit=true;
 			var roomid =$("#reserve_roomid").combobox('getValue');
-			if (roomid != "" && roomid != null && roomid != undefined){
+			var realroom =$("#real_room").val();
+			if ((roomid != "" && roomid != null && roomid != undefined) || (realroom != "" && realroom != null && realroom != undefined)){
 				var src_id= $("#id").val() == null ? "" : $("#id").val() ;
-				var src_url="checkroomid&room_id="+roomid+ "&starttime=" + $("#st").val() + "&endtime=" + $("#et").val()+"&id="+src_id ;
+				var src_url="checkroomid&room_id="+roomid+ "&starttime=" + $("#st").val() + "&endtime=" + $("#et").val()+"&id="+src_id+"&realroom="+realroom ;
 				var url="ajax?ctrl="+src_url;
 				$.ajaxSettings.async = false;//确保同步.此处不需要异步
 				$.get(url, function(data,x,y) {
@@ -510,6 +511,7 @@
 								</c:choose>
 							</c:forEach>
 						</select>
+						<input type="hidden" id="real_room" name="real_room" value="${meeting.roomid }"/>
 					</dd>
 					<dt id="addr_t" style="display: none;">会议地点：</dt>
 					<dd id="addr" style="display: none;">
