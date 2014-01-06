@@ -52,8 +52,8 @@
 				<dl class="dl-table">
 					<dt>地点：</dt>
 					<dd>
-						<input type="hidden"  name="building" value="培训中心">
-						培训中心
+						<input type="text"  name="building" value="${mr.building}">
+						
 					</dd>
 					<dt>房间号：</dt>
 					<dd>

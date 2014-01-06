@@ -229,6 +229,7 @@ public class MeetingTrainingServlet extends BaseServlet {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
         Meeting m = gson.fromJson(json, Meeting.class);
         Meeting oldm = meetingDao.getMeetAllById(m.getId());
+        //m.setStatus(oldm.getStatus());
         flag = meetingDao.meetingTrainUpdate(m,oldm);
         if (flag != -1 && flag != -999 && flag != -99 && flag != -98) {
             if ("my".equals(show)) {

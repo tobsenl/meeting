@@ -131,7 +131,10 @@ public class AJAXServlet extends HttpServlet {
 			String realroom = request.getParameter("realroom") == null ? ""
 					: request.getParameter("realroom");
 			String error = "";
-			Meeting meeting = meetingDao.getMeetAllById(meetingId);
+			Meeting meeting =null;
+			if(meetingId!=null && !meetingId.equals("")){
+			meeting = meetingDao.getMeetAllById(meetingId);
+			}
 			try {
 				if (room_id != null && !room_id.equals("")) {
 					error = meetingDao.isRoomAvailable(startTime, endTime,room_id, meetingId);
@@ -140,11 +143,15 @@ public class AJAXServlet extends HttpServlet {
 					if (realroom != null && !realroom.equals("")) {
 						error = meetingDao.isRoomAvailable(startTime, endTime,realroom, meetingId);
 					}
-					if (error != null || !error.equals("")) {
-						error = (meeting.getType().equals("4") ? "进行培训的教室:":"会议召开的会议室:")+ meeting.getAddress1()+" "+ error;
+					if (error != null && !error.equals("")) {
+						if(meeting!=null){
+							error = (meeting.getType().equals("4") ? "进行培训的教室:":"会议召开的会议室:")+ meeting.getAddress1()+" "+ error;
+						}
 					}
 				} else {
-					error = "你申请的"+ (meeting.getType().equals("4") ? "培训教室:": "会议室:") + meeting.getAddress()+" "+ error;
+					if(meeting!=null){
+						error = "你申请的"+ (meeting.getType().equals("4") ? "培训教室:": "会议室:")+ error;
+					}
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

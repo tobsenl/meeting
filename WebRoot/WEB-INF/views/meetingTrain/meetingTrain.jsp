@@ -394,6 +394,14 @@ function setV(va){
 					</dd>
 					<dt></dt>
 					<dd style="text-indent: 100px;">
+					<c:choose>
+						<c:when test="${meeting.status != '1' && meeting.status != '3' }">
+							<input type="hidden" name="status" id="status" value="0">
+						</c:when>
+						<c:otherwise>
+							<input type="hidden" name="status" id="status" value="${meeting.status}">
+						</c:otherwise>
+						</c:choose>
 					<c:if test="${xv != 0 }">
 						<c:if test="${xv != 1 }">
 							<c:choose>
@@ -406,8 +414,7 @@ function setV(va){
 							value="4"> <input type="hidden" name="reserve_roomid"
 							id="reserve_roomid" value="${meeting.reserve_roomid}"> <input type="hidden" name="url"
 							value="${url }"> <input type="hidden" name="show"
-							value="${show }"> <input type="hidden" name="status"
-							value="0">
+							value="${show }"> 
 							</c:when>
 							<c:otherwise>
 							<input id="sub" type="button" value="返回" onclick="javascript :history.back(-1);">
@@ -423,8 +430,7 @@ function setV(va){
 							value="4"> <input type="hidden" name="reserve_roomid"
 							id="reserve_roomid" value="${meeting.reserve_roomid}"> <input type="hidden" name="url"
 							value="${url }"> <input type="hidden" name="show"
-							value="${show }"> <input type="hidden" name="status"
-							value="0">
+							value="${show }">
 						</c:if>
 					</c:if>
 					<c:if test="${xv == 0 }">

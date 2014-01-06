@@ -51,13 +51,15 @@
 				<dl class="dl-table">
 					<dt>地点：</dt>
 					<dd>
-					<select class="easyui-combobox"  name="building" style="width: 250px;">
+					<!--
+						<select class="easyui-combobox"  name="building" style="width: 250px;">
 							<option value="">请选择地点</option>
 							<c:forEach items="${bds }" var="bd">
 								<option value="${bd }" <c:if test="${mr.building == bd }"> selected="selected"</c:if> >${bd }</option>
 							</c:forEach>
 						</select>
-						
+					-->
+						<input type="text" name="building" size="27" value="${mr.building}">
 					</dd>
 					<dt>房间号：</dt>
 					<dd>

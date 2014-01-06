@@ -184,12 +184,20 @@ public class MeetingServlet extends BaseServlet {
 	public void del() {
 		int flag;
 		String id = request.getParameter("id");
+		Meeting oldm = meetingDao.getMeetAllById(id);
+		if (oldm.getStatus().equals("1") || oldm.getStatus().equals("3")) {
+			EmailSender es = new EmailSender();
+			HtmlEmail email = new HtmlEmail();
+			email.setSubject("会议删除通知!");
+			es.send(oldm,email);
+		}
 		flag = meetingDao.delete(id);
 		if (flag != -1) {
 			writeObjToPage(0);
 		} else {
 			writeObjToPage(1);
 		}
+
 	}
 
 	/**
@@ -712,15 +720,14 @@ public class MeetingServlet extends BaseServlet {
 			// EmailSender es = new EmailSender();
 			// es.send(m);
 			// }
-			if (!isEmpty(oldm.getAddress1())
-					&& (oldm.getStatus().equals("1") || oldm.getStatus()
-							.equals("3"))) {
+			if (oldm.getStatus().equals("1") || oldm.getStatus()
+							.equals("3")) {
 				String warning = compareM(oldm, nw);// 比较修改部分.
 				if (!warning.equals("<br/><br/>")) {
 					EmailSender es = new EmailSender();
 					HtmlEmail email = new HtmlEmail();
 					if((oldm.getStatus().equals("1") || oldm.getStatus().equals("3")) && nw.getStatus() .equals( "0" )){
-						email.setSubject("会议地址变更请重新进行审批!");
+						email.setSubject("会议内容变更请重新进行审批!");
 					}
 					es.send(nw, warning,email);
 				}

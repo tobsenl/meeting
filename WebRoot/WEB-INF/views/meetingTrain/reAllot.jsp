@@ -18,6 +18,7 @@ using(['dialog','form','validatebox'],function(){
 	$(function(){
 		$("#roomId").change(function() {
 			if($(this).val() != ''){
+			
 				var url = "<%=path%>/MeetingRoomServlet?ctrl=roomDetail&roomID="+$(this).val()+
 				"&starttime="+$("#starttime").val()+"&endtime="+$("#endtime").val();
 				$.ajax({
@@ -89,7 +90,8 @@ using(['dialog','form','validatebox'],function(){
 		}); 
 		$("a[id^=at_]").click(function(){
 			var id = $(this).attr('id');
-			$("#meetingID").val(id.substring(3,id.lastIndexOf('_')));
+			var mID=id.substring(3,id.lastIndexOf('_'));
+			$("#meetingID").val(mID);
 			$("#roomId").val(id.substring(id.lastIndexOf('_')+1));
 			var childs = $(this).parent().parent().children("td");
 			$("#mn").html(childs.eq(1).html());
@@ -100,8 +102,8 @@ using(['dialog','form','validatebox'],function(){
 				$("#l_t").show();
 				$('#l_c').show();
 			}
-			$("#starttime").val($("#stime").val());
-			$("#endtime").val($("#etime").val());
+			$("#starttime").val($("#stime_"+mID).val());
+			$("#endtime").val($("#etime_"+mID).val());
 			$('#dlg').dialog('open');
 		});
 		$("a[id^=bk_]").click(function(){
@@ -136,17 +138,17 @@ using(['dialog','form','validatebox'],function(){
 					<th width="10%" align="center">预定教室</th>
 					<th width="10%" align="center">分配教室</th>
 					<th width="10%" align="center">状态</th>
-					<th width="15%" align="center">申请部门<br />日期</th>
-					<th width="5%" align="center">操作</th>
+					<th width="10%" align="center">申请部门<br />日期</th>
+					<th width="10%" align="center">操作</th>
 					</tr>
 					<c:forEach items="${meetings }" var="mp">
 						<tr>
 							<td width="10%" align="center"><!-- ${mp.id } --><fmt:formatDate
 								value="${mp.starttime }" pattern="E" /><br /> <fmt:formatDate
 								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" />
-								<input type="hidden" id="stime" value='<fmt:formatDate
+								<input type="hidden" id="stime_${mp.id}" value='<fmt:formatDate
 								value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" />'/>
-								<input type="hidden" id="etime" value='<fmt:formatDate
+								<input type="hidden" id="etime_${mp.id}" value='<fmt:formatDate
 								value="${mp.endtime }" pattern="yyyy-MM-dd HH:mm" />'/>
 								<br />
 							<fmt:formatDate value="${mp.endtime }"
@@ -169,7 +171,7 @@ using(['dialog','form','validatebox'],function(){
 							</c:if> <c:if test="${mp.status =='4' }">
 								<font color="">退回</font>
 							</c:if></td>
-						<td width="15%" align="center">${mp.commitdepart }<br />
+						<td width="10%" align="center">${mp.commitdepart }<br />
 							<fmt:formatDate value="${mp.committime }"
 								pattern="yyyy-MM-dd HH:mm" /></td>
 							<TD  align="center">
