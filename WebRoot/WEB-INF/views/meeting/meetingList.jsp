@@ -142,53 +142,63 @@
 					var atable="";
 					//alert(maxlength_);
 					atable=atable+"<tr>";
-					atable=atable+"<td width='10%' align='center'>";
+					atable=atable+"<td align='center'>";
 			    	atable=atable+xingqi(time(mc.starttime));
 			    	atable=atable+"<br/>"+time(mc.starttime);
 			    	atable=atable+"<br/>"+time(mc.endtime);
 			    	atable=atable+"</td>";
-			    	atable=atable+"<td width='18%' align='center'>";//会议名称
+			    	atable=atable+"<td align='center'>";//会议名称
 			    	atable=atable+mc.content;
 			    	atable=atable+"</td>";
-			    	atable=atable+"<td width='10%' align='center'>";//主持人
+			    	atable=atable+"<td align='center'>";//主持人
 			    	if(mc.presider !=undefined){
 			    		atable=atable+mc.presider;
+			    	}else{
+			    		atable=atable+"&nbsp;";			    		
 			    	}
 			    	atable=atable+"</td>";
-			    	atable=atable+"<td width='10%' align='center'>";//公司领导
+			    	atable=atable+"<td align='center'>";//公司领导
 			    	if(mc.leader !=undefined){
 			    		atable=atable+"<p align='center'>"+mc.leader+"</p>";
+			    	}else{
+			    		atable=atable+"&nbsp;";			    		
 			    	}
 			    	atable=atable+"</td>";
-			    	atable=atable+"<td width='10%' align='center'>";//参加人员
+			    	atable=atable+"<td align='center'>";//参加人员
 			    	if(mc.depart !=undefined){
 			    		atable=atable+mc.depart;
+			    	}else{
+			    		atable=atable+"&nbsp;";			    		
 			    	}
 			    	if(mc.fdepart!=undefined){
 			    		atable=atable+"<br />"+mc.fdepart;
+			    	}else{
+			    		atable=atable+"&nbsp;";			    		
 			    	}
 			    	atable=atable+"</td>";
-			    	atable=atable+"<td width='10%' align='center'>";//有关说明
+			    	atable=atable+"<td  align='center'>";//有关说明
 			    	if(mc.remark!=undefined){
 			    		atable=atable+mc.remark;
+			    	}else{
+			    		atable=atable+"&nbsp;";			    		
 			    	}
 			    	atable=atable+"</td>";
-			    	atable=atable+"<td width='10%' align='center'>";//地点
+			    	atable=atable+"<td align='center'>";//地点
 			    	if(mc.type ==3){
 			    		if(mc.address ==undefined){
-				    		atable=atable+"";
+				    		atable=atable+"&nbsp;";
 				    	}else{
 			    		atable=atable+mc.address;
 			    		}
 			    	}else if(mc.type !=3){
 			    		if(mc.address1 ==undefined){
-				    		atable=atable+"";
+				    		atable=atable+"&nbsp;";
 				    	}else{
 			    		atable=atable+mc.address1;
 			    		}
 			    	}
 			    	atable=atable+"</td>";
-			    	atable=atable+"<td width='10%' align='center'>";//状态
+			    	atable=atable+"<td align='center'>";//状态
 			    	if(mc.status =='0'){
 			    		atable=atable+"未处理";
 			    	}else if(mc.status =='1'){
@@ -201,7 +211,12 @@
 			    		atable=atable+"退回";
 			    	}
 			    	atable=atable+"</td>";
-			    	atable=atable+"<td width='12%' align='center'>";//申请部门
+			    	atable=atable+"<td align='center'>";
+			    	atable=atable+(mc.contact==undefined?"&nbsp;":mc.contact);
+			    	atable=atable+"</td><td align='center'>";
+			    	atable=atable+(mc.contactphone==undefined?"&nbsp;":mc.contactphone);
+			    	atable=atable+"</td>";
+			    	atable=atable+"<td align='center'>";//申请部门
 			    	atable=atable+mc.commitdepart+"<br /> "+time(mc.committime);
 			    	atable=atable+"</td>";
 			    	atable=atable+"</tr>";
@@ -255,9 +270,9 @@
 		<div style="height: auto; text-align: center; margin: 0 auto;">
 			<table class="dtable" id="dtable" align="center" cellpadding="1" cellspacing="1">
 				<tr>
-					<th width="10%" align="center">日期</th>
-					<th width="18%" align="center">会议名称</th>
-					<th width="10%" align="center">主持人</th>
+					<th width="9%" align="center">日期</th>
+					<th width="10%" align="center">会议名称</th>
+					<th width="8%" align="center">主持人</th>
 					<th width="10%" align="center">
 						<p align="center">公司领导</p>
 					</th>
@@ -265,42 +280,47 @@
 					<th width="10%" align="center">有关说明</th>
 					<!-- <th width="10%" align="center">预定会议室</th> -->
 					<th width="10%" align="center">地点</th>
-					<th width="10%" align="center">状态</th>
-					<th width="12%" align="center">申请部门<br />日期
+					<th width="5%" align="center">状态</th>
+					<th width="8%" align="center">联系人</th>
+					<th width="8%" align="center">电话</th>					
+					<th width="8%" align="center">申请部门<br />日期
 					</th>
 				</tr>
 				<c:forEach items="${meetings }" var="mp">
 					<tr>
-						<td width="10%" align="center"><fmt:formatDate value="${mp.starttime }" pattern="E" /><br />
+						<td  align="center"><fmt:formatDate value="${mp.starttime }" pattern="E" /><br />
 							<fmt:formatDate value="${mp.starttime }" pattern="yyyy-MM-dd HH:mm" /><br /> <fmt:formatDate
 								value="${mp.endtime }" pattern="yyyy-MM-dd HH:mm" /></td>
-						<td width="18%" align="center">${mp.content }</td>
-						<td width="10%" align="center">${mp.presider }</td>
-						<td width="10%" align="center">
+						<td align="center">${mp.content }</td>
+						<td  align="center">${mp.presider }</td>
+						<td  align="center">
 							<p align="center">${mp.leader }</p>
 						</td>
-						<td width="10%" align="center">${mp.depart }<br />${mp.fdepart
+						<td align="center">${mp.depart }<br />${mp.fdepart
 							}
 						</td>
-						<td width="10%" align="center">${mp.remark }</td>
+						<td align="center">${mp.remark }</td>
 						<%-- <td width="10%" align="center"><c:if
 								test="${empty mp.schedule_roomid  }">
 							</c:if> <c:if test="${!empty mp.schedule_roomid  }">${mp.building2 }${mp.room2 }(${mp.capacity2 }人)</c:if>
 						</td> --%>
-						<td width="10%" align="center"><c:if test="${mp.type =='3' }">${mp.address }</c:if> <c:if
+						<td align="center"><c:if test="${mp.type =='3' }">${mp.address }</c:if> <c:if
 								test="${mp.type !='3' }">${mp.address1 }</c:if></td>
-						<td width="10%" align="center"><c:if test="${mp.status =='0' }">
+						<td align="center"><c:if test="${mp.status =='0' }">
 								<font color="">未处理</font>
 							</c:if> <c:if test="${mp.status =='1' }">
 								<font color="green">已审批</font>
 							</c:if> <c:if test="${mp.status =='2' }">
 								<font color="red">拒批</font>
 							</c:if> <c:if test="${mp.status =='3' }">
-								<font color="">已安排会议室</font>
+								<font color="">已安排</font>
 							</c:if> <c:if test="${mp.status =='4' }">
 								<font color="">退回</font>
 							</c:if></td>
-						<td width="12%" align="center">${mp.commitdepart }<br /> <fmt:formatDate
+							
+						<td align="center">${mp.contact }<br /> </td>
+						<td align="center">${mp.contactphone }<br /> </td>
+						<td align="center">${mp.commitdepart }<br /> <fmt:formatDate
 								value="${mp.committime }" pattern="yyyy-MM-dd HH:mm" /></td>
 						<%-- <td width="3%" align="center"><a
 							<c:if test="${from =='mt' }">href="javascript:update('MeetingTrainingServlet?ctrl=toUpdate&show=all&id=${mp.id }')"</c:if>
@@ -310,7 +330,7 @@
 				</c:forEach>
 				<tr id="dd">
 					<input type="hidden" value="${pageNo }" id="page"/>
-					<td colspan="10"><div id="add"  onclick="on()">点击显示更多</div></td>
+					<td colspan="12"><div id="add"  onclick="on()">点击显示更多</div></td>
 				</tr>
 			</table>
 		</div>
