@@ -1149,7 +1149,7 @@ public class MeetingDao {
     public int delete(String id) {
     	DBTools dbt=null;
     	try{
-        String sql = "delete meeting where id=" + id;
+        String sql = "update meeting set status=-1 where id=" + id;
         dbt = new DBTools(JndiName.INTRAWEB);
         return dbt.update(sql);
     	}catch(Exception e){

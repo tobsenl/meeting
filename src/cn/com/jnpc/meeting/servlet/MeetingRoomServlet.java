@@ -27,11 +27,18 @@ public class MeetingRoomServlet extends BaseServlet {
     public String del() {
         int flag;
         String id = request.getParameter("id");
-        flag = meetingRoomDao.delete(id);
+        if(id!=null && !id.equals("")){
+        MeetingRoom room=meetingRoomDao.findById(id);
+        room.setDeleted("1");//1删除 0未删除
+        flag = meetingRoomDao.update(room);
         if (flag != -1) {
             return list();
         } else {
             return toErrorPage(error);
+        }
+        }else{
+        	error="操作错误!无对应数据!";
+        	return toErrorPage(error);
         }
     }
 
@@ -180,6 +187,7 @@ public class MeetingRoomServlet extends BaseServlet {
             }
             PropertyFilter bpf = new PropertyFilter("building:LIKE_S", building);
             PropertyFilter rpf = new PropertyFilter("room:LIKE_S", room);
+            //PropertyFilter def = new PropertyFilter("DELETED:EQ_S", "0");//有效的
             PropertyFilter tpf =null;
             if(from!=null && from!="" && from.equals("cr")){
             	 page.setForwordName("MeetingRoomServlet?ctrl=list&from=cr&building=" + building + "&room=" + room

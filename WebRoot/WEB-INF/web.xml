@@ -38,6 +38,14 @@
     <url-pattern>/detailServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>QueryOld</servlet-name>
+    <servlet-class>cn.com.jnpc.meeting.servlet.QueryOld</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QueryOld</servlet-name>
+    <url-pattern>/QueryOld</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Logout</servlet-name>
     <servlet-class>cn.com.jnpc.meeting.servlet.Logout</servlet-class>
   </servlet>

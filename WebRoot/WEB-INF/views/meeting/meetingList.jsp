@@ -259,7 +259,7 @@
 				<label for="endtime2">&nbsp;&nbsp;至:&nbsp;&nbsp;</label> <input class="Wdate" id="et2"
 					type="text" name="_endtime2"
 					onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'et\')}'})" value="${endtime2 }" />
-				<select id="type" name="_type" >
+				&nbsp;&nbsp;<select id="type" name="_type" >
 					<option value="">请选择记录类型</option>
 					<option value="1">例会</option>
 					<option value="2">内部会议</option>
