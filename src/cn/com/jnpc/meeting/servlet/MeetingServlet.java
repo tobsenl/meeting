@@ -252,6 +252,8 @@ public class MeetingServlet extends BaseServlet {
 					.getParameter("roomName");
 			String content = request.getParameter("_content") != null ? request
 					.getParameter("_content") : request.getParameter("content");
+			String type = request.getParameter("_type") != null ? request
+							.getParameter("_type") : request.getParameter("type");
 			String pageNo = request.getParameter("pageNo");
 			starttime = (starttime == null || starttime == "null") ? ""
 					: starttime;
@@ -264,6 +266,7 @@ public class MeetingServlet extends BaseServlet {
 			content = (content == null || content == "null") ? "" : content;
 			pageNo = (pageNo == null || pageNo == "null") ? "" : pageNo;
 			roomName = (roomName == null || roomName == "null") ? "" : roomName;
+			type = (type == null || type == "null") ? "" : type;
 			buildingid = (buildingid == null || buildingid == "null") ? ""
 					: buildingid;
 			from = (from == null || from == "null") ? "" : from;
@@ -276,6 +279,7 @@ public class MeetingServlet extends BaseServlet {
 			request.setAttribute("buildingid", buildingid);
 			request.setAttribute("roomID", roomID);
 			request.setAttribute("roomName", roomName);
+			request.setAttribute("type", type);
 			request.setAttribute("content", content);
 			PropertyFilter st = new PropertyFilter("m.starttime:GE_D",
 					starttime);
@@ -287,6 +291,7 @@ public class MeetingServlet extends BaseServlet {
 					org);
 			PropertyFilter rpf = new PropertyFilter("m.roomid:EQ_I", roomID);
 			PropertyFilter cpf = new PropertyFilter("m.content:LIKE_S", content);
+			PropertyFilter tpf = new PropertyFilter("m.type:EQ_S", type);
 			List<PropertyFilter> pfList = new ArrayList<PropertyFilter>();
 			// PropertyFilter t = null;
 			// if ("m".equals(from)) {// 会议
@@ -303,6 +308,7 @@ public class MeetingServlet extends BaseServlet {
 			pfList.add(et2);
 			pfList.add(orgpf);
 			pfList.add(rpf);
+			pfList.add(tpf);
 			pfList.add(cpf);
 			// pfList.add(t);
 			page.setPageSize(100);
@@ -314,7 +320,7 @@ public class MeetingServlet extends BaseServlet {
 			page.setForwordName("MeetingServlet?ctrl=list&starttime="
 					+ starttime + "&starttime2=" + starttime2 + "&endtime="
 					+ endtime + "&endtime2=" + endtime2 + "&org=" + org
-					+ "&roomID=" + roomID + "&content=" + content + "&from="
+					+ "&roomID=" + roomID + "&content=" + content + "&type=" + type +"&from="
 					+ from + "&pageNo=");
 			request.setAttribute("meetings", meetingDao
 					.getMeeting(page, pfList).getResult());

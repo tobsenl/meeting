@@ -259,7 +259,13 @@
 				<label for="endtime2">&nbsp;&nbsp;至:&nbsp;&nbsp;</label> <input class="Wdate" id="et2"
 					type="text" name="_endtime2"
 					onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'et\')}'})" value="${endtime2 }" />
-				&nbsp;&nbsp; <input style="COLOR: #44606B; background-color: #FFFFFF" type="submit" value="搜索">&nbsp;&nbsp;
+				<select id="type" name="_type" >
+					<option value="">请选择记录类型</option>
+					<option value="1">例会</option>
+					<option value="2">内部会议</option>
+					<option value="3">外部会议</option>
+					<option value="4">培训</option>
+				</select>&nbsp;&nbsp; <input style="COLOR: #44606B; background-color: #FFFFFF" type="submit" value="搜索">&nbsp;&nbsp;
 				<input style="COLOR: #44606B; background-color: #FFFFFF" type="button" value="清空"
 					onclick="clearForm(this.form)"> 
 					<input type="hidden" name="ctrl" value="list" /> 
